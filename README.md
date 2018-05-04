@@ -2,9 +2,9 @@
 
 Repository for workshop content
 
-## Display
+## Presentations
 
-To present Jupyter notebooks as reveal.js slideshows, install [RISE](https://github.com/damianavila/RISE)
+To present Jupyter notebooks as instant reveal.js slideshows, install [RISE](https://github.com/damianavila/RISE)
 
 ```
 conda install -c damianavila82 rise
