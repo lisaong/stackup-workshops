@@ -4,6 +4,8 @@ FROM resin/rpi-raspbian:stretch
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
+        git \
+        libjpeg8-dev \
         libzmq3-dev \
         pkg-config \
         python \
@@ -12,8 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         python-scipy \
         rsync \
         unzip \
-        zlib \
-        git
+        zlib1g-dev
 
 RUN  apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -37,7 +38,7 @@ COPY jupyter_notebook_config.py /root/.jupyter/
 #   https://github.com/ipython/ipython/issues/7062
 # We just add a little wrapper script.
 COPY run_jupyter.sh /
-RUN CHMOD 777 /run_jupyter.sh
+RUN chmod 777 /run_jupyter.sh
 
 # TensorBoard
 EXPOSE 6006
