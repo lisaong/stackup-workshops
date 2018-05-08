@@ -1,17 +1,19 @@
 ## Docker install on Raspberry Pi3
 
-https://gist.github.com/tyrell/2963c6b121f79096ee0008f5a47cf347
+Reference: https://github.com/romilly/rpi-docker-tensorflow
 
 ```
-sudo apt-get install -y apt-transport-https
-wget -q https://packagecloud.io/gpg.key -O - | sudo apt-key add -
-echo 'deb https://packagecloud.io/Hypriot/Schatzkiste/debian/ wheezy main' | sudo tee /etc/apt/sources.list.d/hypriot.list
-sudo apt-get update
-
-sudo apt-get install -y docker-hypriot
-sudo systemctl enable docker
-
+curl -sSL get.docker.com | sh
 sudo usermod -aG docker pi
 ```
 
-Logout and login `pi` user to refresh session.
+log out, then log back in again for the change to take effect
+
+```
+sudo systemctl start docker
+```
+
+Build the image
+```
+docker build -t='lisaong/rpi-docker-tensorflow:tf_v1.8.0' .
+```
