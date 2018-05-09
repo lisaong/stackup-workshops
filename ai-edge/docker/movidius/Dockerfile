@@ -5,7 +5,7 @@ FROM resin/rpi-raspbian:stretch
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
-    libusb-1.0-0-dev libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler libatlas-base-dev git automake byacc lsb-release cmake libgflags-dev libgoogle-glog-dev liblmdb-dev swig3.0 graphviz libxslt-dev libxml2-dev gfortran 
+    libusb-1.0-0-dev libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler libatlas-base-dev git automake byacc lsb-release cmake libgflags-dev libgoogle-glog-dev liblmdb-dev swig3.0 graphviz libxslt-dev libxml2-dev gfortran udev usbutil
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-dev python-pip python3-pip python3-setuptools python3-markdown python3-pillow python3-yaml python3-pygraphviz python3-h5py python3-nose python3-lxml python3-matplotlib python3-numpy python3-protobuf python3-dateutil python3-skimage python3-scipy python3-six python3-networkx python3-tk
@@ -15,14 +15,17 @@ RUN  apt-get clean && \
 
 RUN pip3 --no-cache-dir install \
         ipykernel \
-        pillow \
         jupyter && \
-    python -m ipykernel.kernelspec
+    python3 -m ipykernel.kernelspec
 
-RUN git clone https://github.com/movidius/ncsdk && \
-    cd ncsdk/api/src && \
-    make && \
+RUN mkdir -p /etc/udev/rules.d
+
+RUN git clone https://github.com/movidius/ncsdk
+WORKDIR /ncsdk/api/src
+RUN make && \
     make install
+
+RUN git clone https://github.com/movidius/ncappzoo
 
 COPY jupyter_notebook_config.py /root/.jupyter/
 
