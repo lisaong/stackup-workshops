@@ -29,6 +29,7 @@ RUN git clone https://github.com/movidius/ncappzoo
 
 # Pre-converted Movidius graphs
 COPY graphs/caffe/SSD_MobileNet/ /ncappzoo/caffe/SSD_MobileNet/
+COPY test_movidius.py /root/
 
 # Jupyter
 COPY jupyter_notebook_config.py /root/.jupyter/
