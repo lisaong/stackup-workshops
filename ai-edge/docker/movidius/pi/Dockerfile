@@ -27,6 +27,10 @@ RUN make && \
 WORKDIR /
 RUN git clone https://github.com/movidius/ncappzoo
 
+# Pre-converted Movidius graphs
+COPY graphs/caffe/SSD_MobileNet/ /ncappzoo/caffe/SSD_MobileNet/
+
+# Jupyter
 COPY jupyter_notebook_config.py /root/.jupyter/
 
 # Jupyter has issues with being run directly:
