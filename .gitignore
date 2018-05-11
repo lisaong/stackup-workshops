@@ -1,11 +1,8 @@
 __pycache__/
-*.bc
-*.ell
-*.weights
 .ipynb_checkpoints/
 *.tgz
-*.bc
 .nbgrader.log
 
-model.cfg
-categories.txt
+models/
+graphs/
+!copy_graphs.sh
