@@ -15,6 +15,7 @@ RUN apt-get update \
       zlib1g-dev \
       libopenblas-dev \
       doxygen \
+      unzip \
     && apt-get clean all
 
 # LLVM
