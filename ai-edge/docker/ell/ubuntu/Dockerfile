@@ -46,6 +46,3 @@ RUN git clone https://github.com/Microsoft/ELL.git \
     && cmake .. \
     && make \
     && make _ELL_python
-
-ADD import_tiny_yolo.sh /
-RUN chmod +x /import_tiny_yolo.sh
