@@ -18,6 +18,11 @@ RUN apt-get update \
       ca-certificates \
       libopenblas-dev
 
+# OpenCV
+RUN apt-get update \
+    && apt-get install -y \
+      libfreetype6-dev
+
 RUN apt-get clean all && \
     rm -rf /var/lib/apt/lists/*
 
@@ -57,7 +62,9 @@ ENV TINI_VERSION v0.16.1
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-armhf /usr/bin/tini
 RUN chmod +x /usr/bin/tini
 
+# ELL models
+COPY models/tiny-yolo/ /tiny-yolo
+
 WORKDIR "/notebooks"
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
-#CMD [ "/bin/bash" ]
 CMD ["/run_jupyter.sh", "--allow-root"]
