@@ -7,7 +7,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
         libjpeg8-dev \
         libzmq3-dev \
-        pkg-config \
+        pkg-config
+
+RUN apt-get install -y --no-install-recommends \
         python \
         python-dev \
         python-numpy \
@@ -32,6 +34,7 @@ RUN pip --no-cache-dir install \
 RUN curl -L -O https://github.com/lhelontra/tensorflow-on-arm/releases/download/v1.8.0/tensorflow-1.8.0-cp27-none-linux_armv7l.whl && \
     pip install tensorflow-1.8.0-cp27-none-linux_armv7l.whl
 
+# Jupyter
 COPY jupyter_notebook_config.py /root/.jupyter/
 
 # Jupyter has issues with being run directly:
@@ -44,6 +47,10 @@ RUN chmod 777 /run_jupyter.sh
 EXPOSE 6006
 # IPython
 EXPOSE 8888
+
+# TensorFlow models
+WORKDIR "/"
+RUN git clone https://github.com/tensorflow/models.git
 
 WORKDIR "/notebooks"
 
