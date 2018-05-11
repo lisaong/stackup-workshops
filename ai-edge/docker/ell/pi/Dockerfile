@@ -34,7 +34,12 @@ RUN /bin/bash -c "source activate py3x" \
 # Jupyter
 RUN /bin/bash -c "source activate py3x" \
     && pip install --upgrade pip \
-    && pip install jupyter --ignore-installed
+    && pip install --no-cache-dir --ignore-installed \
+          ipykernel \
+          jupyter \
+    && python -m ipykernel.kernelspec
+
+COPY jupyter_notebook_config.py /root/.jupyter/
 
 # Jupyter has issues with being run directly:
 #   https://github.com/ipython/ipython/issues/7062
