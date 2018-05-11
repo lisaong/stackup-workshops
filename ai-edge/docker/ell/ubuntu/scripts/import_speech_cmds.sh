@@ -6,8 +6,8 @@
 # docker image to use: lisaong/debian-miniconda3-ell:2.3.3
 
 # Featurizer and Classifier models
-mkdir -p /models/audio
-pushd /models/audio
+mkdir -p /models/speech_cmds
+pushd /models/speech_cmds
 curl --location -o featurizer_16k.ell.zip https://github.com/Microsoft/ELL-models/raw/master/models/speech_commands_v0.01/Cinnamon/f_16000_512_160_mel_40_40_log.zip
 curl --location -o classifier_16k.ell.zip https://github.com/Microsoft/ELL-models/raw/master/models/speech_commands_v0.01/Cinnamon/gru_f_16000_512_160_mel_40_40_log.zip
 curl --location -o categories.txt https://github.com/Microsoft/ELL-models/raw/master/models/speech_commands_v0.01/categories.txt
