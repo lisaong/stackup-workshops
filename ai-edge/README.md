@@ -1,7 +1,9 @@
 ## AI on the Edge
 
 ### Slides
-To render the Jupyter notebook in presentation view, follow the instructions in the [root README.md](../README.md) to conda install RISE.
+Browse the slides [here](ai-on-the-edge.ipynb)
+
+For a better viewing experience, you can render the Jupyter notebook in slide presentation view, follow the instructions in the [root README.md](../README.md) to install RISE.
 
 ### Demos
 |Demo|Hardware|Software / Docker images|
