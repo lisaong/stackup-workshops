@@ -71,6 +71,7 @@ ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-armhf
 RUN chmod +x /usr/bin/tini
 
 # ELL models
+ADD https://raw.githubusercontent.com/Microsoft/ELL/master/docs/tutorials/shared/tutorial_helpers.py /
 COPY models/tiny-yolo/ /tiny-yolo
 
 WORKDIR "/notebooks"
