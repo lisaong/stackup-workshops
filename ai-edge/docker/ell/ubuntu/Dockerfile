@@ -32,7 +32,9 @@ RUN curl -O --location http://prdownloads.sourceforge.net/swig/swig-3.0.12.tar.g
     && make install
 
 # OpenCV
-# Install conda build and deployment tools.
+RUN apt-get update \
+    && apt-get install -y \
+       libgl1-mesa-glx
 RUN export PATH="/opt/conda/bin:${PATH}" \
     && conda install --yes --quiet -c conda-forge opencv
 
@@ -45,4 +47,5 @@ RUN git clone https://github.com/Microsoft/ELL.git \
     && make \
     && make _ELL_python
 
-
+ADD import_tiny_yolo.sh /
+RUN chmod +x /import_tiny_yolo.sh
