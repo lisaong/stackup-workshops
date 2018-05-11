@@ -14,4 +14,4 @@
 # limitations under the License.
 # ==============================================================================
 
-source activate py3x && /opt/conda/bin/jupyter notebook "$@"
+source activate root && /opt/conda/bin/jupyter notebook "$@"

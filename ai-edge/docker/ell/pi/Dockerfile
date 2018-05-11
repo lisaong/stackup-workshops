@@ -21,7 +21,14 @@ RUN apt-get update \
 # OpenCV
 RUN apt-get update \
     && apt-get install -y \
-      libfreetype6-dev
+      libavcodec-dev \
+      libavformat-dev \
+      libdc1394-22 \
+      libfreetype6-dev \
+      libgtk-3-0 \
+      libharfbuzz-dev \
+      libjasper-dev \
+      libswscale-dev
 
 RUN apt-get clean all && \
     rm -rf /var/lib/apt/lists/*
@@ -33,8 +40,7 @@ RUN wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-arm
     && conda create -n py3x python=3
 
 # OpenCV
-RUN /bin/bash -c "source activate py3x" \
-    && conda install -c microsoft-ell/label/stretch opencv
+RUN conda install -c microsoft-ell/label/stretch opencv
 
 # Jupyter
 RUN /bin/bash -c "source activate py3x" \
