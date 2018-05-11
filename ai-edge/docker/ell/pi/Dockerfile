@@ -72,7 +72,13 @@ RUN chmod +x /usr/bin/tini
 
 # ELL models
 ADD https://raw.githubusercontent.com/Microsoft/ELL/master/docs/tutorials/shared/tutorial_helpers.py /
+
 COPY models/tiny-yolo/ /tiny-yolo
+WORKDIR /tiny-yolo/pi3
+RUN mkdir -p build \
+    && cd build \
+    && cmake -DCMAKE_BUILD_TYPE=Release .. \
+    && make
 
 WORKDIR "/notebooks"
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
