@@ -1,8 +1,8 @@
 # Stackup Workshops
 
-Repository for workshop content
+Repository for workshop content for the StackUp Saturday talks series.
 
-## Presentations
+## Rendering Presentations
 
 To present Jupyter notebooks as instant reveal.js slideshows, install [RISE](https://github.com/damianavila/RISE)
 
@@ -18,3 +18,6 @@ From the jupyter notebook:
 * Shift-f, Toggle fragment
 
 [Usage](https://github.com/damianavila/RISE/blob/master/doc/usage.md)
+
+## Workshops
+- [AI on the edge](ai-edge/README.md)
