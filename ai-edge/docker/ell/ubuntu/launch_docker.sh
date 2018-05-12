@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-sudo docker run -it \
-  -v ~/stackup-workshops/ai-edge:/notebooks/myNotebooks \
-  -p 18888:8888 \
+docker run -it \
+  -v `pwd`/scripts:/scripts \
   lisaong/debian-miniconda3-ell:2.3.3 bash

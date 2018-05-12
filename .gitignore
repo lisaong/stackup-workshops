@@ -1,5 +1,8 @@
 __pycache__/
 .ipynb_checkpoints/
 *.tgz
-*.bc
 .nbgrader.log
+
+models/
+graphs/
+!copy_graphs.sh
