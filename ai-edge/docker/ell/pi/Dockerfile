@@ -36,8 +36,7 @@ RUN apt-get clean all && \
 # Miniconda
 RUN wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-armv7l.sh -O ~/miniconda.sh \
     && bash ~/miniconda.sh -b -p /opt/conda \
-    && rm ~/miniconda.sh \
-    && conda create -n py3x python=3
+    && rm ~/miniconda.sh
 
 # OpenCV
 RUN conda install -c microsoft-ell/label/stretch opencv
@@ -45,7 +44,7 @@ RUN echo /opt/vc/lib > /etc/ld.so.conf.d/pi_vc_core.conf \
     && ldconfig
 
 # Jupyter
-RUN /bin/bash -c "source activate py3x" \
+RUN /bin/bash -c "source activate root" \
     && pip install --upgrade pip \
     && pip install --no-cache-dir --ignore-installed \
           ipykernel \
