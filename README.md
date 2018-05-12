@@ -2,6 +2,8 @@
 
 Repository for workshop content for the StackUp Saturday talks series.
 
+[![Build Status](https://travis-ci.org/lisaong/stackup-workshops.svg?branch=master)](https://travis-ci.org/lisaong/stackup-workshops)
+
 ## Rendering Presentations
 
 To present Jupyter notebooks as instant reveal.js slideshows:
