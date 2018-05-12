@@ -73,8 +73,17 @@ RUN chmod +x /usr/bin/tini
 # ELL models
 ADD https://raw.githubusercontent.com/Microsoft/ELL/master/docs/tutorials/shared/tutorial_helpers.py /
 
-COPY models/tiny-yolo/ /tiny-yolo
-WORKDIR /tiny-yolo/pi3
+# Tiny Yolo (too memory intensive on a Pi3)
+# COPY models/tiny-yolo/ /tiny-yolo
+# WORKDIR /tiny-yolo/pi3
+# RUN mkdir -p build \
+#    && cd build \
+#    && cmake -DCMAKE_BUILD_TYPE=Release .. \
+#    && make
+
+# Speech Commands
+COPY models/speech_cmds/ /speech_cmds
+WORKDIR /speech_cmds/pi3
 RUN mkdir -p build \
     && cd build \
     && cmake -DCMAKE_BUILD_TYPE=Release .. \
