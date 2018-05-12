@@ -10,7 +10,7 @@ install:
   - docker build -t lisaong/pi-miniconda3-ell:2.3.3 ai-edge/docker/ell/pi
   - docker run -d -v $TRAVIS_BUILD_DIR/stackup-workshops/ai-edge:/notebooks/myNotebooks -p:28888:8888 lisaong/pi3-miniconda3-ell:2.3.3 -name ell-pi-test
 
-  script:
+script:
   # ELL, ubuntu
   - docker run -d -v $TRAVIS_BUILD_DIR/stackup-workshops/ai-edge/docker/ell/ubuntu/scripts:/scripts lisaong/debian-miniconda3-ell:2.3.3 bash /scripts/import_speech_cmds.sh
   # ELL, pi
