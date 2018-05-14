@@ -80,13 +80,21 @@ ADD https://raw.githubusercontent.com/Microsoft/ELL/master/docs/tutorials/shared
 #    && cmake -DCMAKE_BUILD_TYPE=Release .. \
 #    && make
 
-# Speech Commands
-COPY models/speech_cmds/ /speech_cmds
-WORKDIR /speech_cmds/pi3
+# Object Classifier
+COPY models/object-classifier /object-classifier
+WORKDIR /object-classifier/pi3
 RUN mkdir -p build \
     && cd build \
     && cmake -DCMAKE_BUILD_TYPE=Release .. \
     && make
+
+# Speech Commands
+# COPY models/speech-cmds/ /speech-cmds
+# WORKDIR /speech-cmds/pi3
+# RUN mkdir -p build \
+#    && cd build \
+#    && cmake -DCMAKE_BUILD_TYPE=Release .. \
+#    && make
 
 WORKDIR "/notebooks"
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
