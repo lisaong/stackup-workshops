@@ -49,6 +49,7 @@ RUN /bin/bash -c "source activate root" \
     && pip install --no-cache-dir --ignore-installed \
           ipykernel \
           jupyter \
+          matplotlib \
     && python -m ipykernel.kernelspec
 
 COPY jupyter_notebook_config.py /root/.jupyter/
