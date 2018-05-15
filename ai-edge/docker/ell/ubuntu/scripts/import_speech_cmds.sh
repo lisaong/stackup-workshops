@@ -17,6 +17,10 @@ unzip classifier_16k.ell.zip
 mv f_16000_512_160_mel_40_40_log.ell featurizer_16k.ell
 mv gru_f_16000_512_160_mel_40_40_log.ell classifier_16k.ell
 
+# TEMP: replace with local versions of the model until ELL-models is updated
+cp /tmp/models/speech-cmds/f_16000_512_160_mel_40_40_log.ell featurizer_16k.ell
+cp /tmp/models/speech-cmds/gru_f_16000_512_160_mel_40_40_log.ell classifier_16k.ell
+
 python /ELL/tools/wrap/wrap.py featurizer_16k.ell --target pi3 --outdir featurizer_16k --module_name mfcc
 python /ELL/tools/wrap/wrap.py classifier_16k.ell --target pi3 --outdir classifier_16k --module_name model
 popd
