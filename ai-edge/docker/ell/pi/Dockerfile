@@ -90,12 +90,18 @@ RUN mkdir -p build \
     && make
 
 # Speech Commands
-# COPY models/speech-cmds/ /speech-cmds
-# WORKDIR /speech-cmds/pi3
-# RUN mkdir -p build \
-#    && cd build \
-#    && cmake -DCMAKE_BUILD_TYPE=Release .. \
-#    && make
+COPY models/speech-cmds/ /speech-cmds
+WORKDIR /speech-cmds/classifier_16k
+RUN mkdir -p build \
+    && cd build \
+    && cmake -DCMAKE_BUILD_TYPE=Release .. \
+    && make
+WORKDIR /speech-cmds/featurizer_16k
+RUN mkdir -p build \
+    && cd build \
+    && cmake -DCMAKE_BUILD_TYPE=Release .. \
+    && make
+
 
 WORKDIR "/notebooks"
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
