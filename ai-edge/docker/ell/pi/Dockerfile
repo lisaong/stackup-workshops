@@ -30,6 +30,12 @@ RUN apt-get update \
       libjasper-dev \
       libswscale-dev
 
+# Pyaudio
+RUN apt-get update \
+    && apt-get install -y \
+      portaudio19-dev \
+      python-pyaudio
+
 RUN apt-get clean all && \
     rm -rf /var/lib/apt/lists/*
 
@@ -50,6 +56,7 @@ RUN /bin/bash -c "source activate root" \
           ipykernel \
           jupyter \
           matplotlib \
+          pyaudio \
     && python -m ipykernel.kernelspec
 
 COPY jupyter_notebook_config.py /root/.jupyter/
@@ -90,6 +97,8 @@ RUN mkdir -p build \
     && make
 
 # Speech Commands
+WORKDIR /
+RUN git clone https://github.com/Microsoft/ELL.git
 COPY models/speech-cmds/ /speech-cmds
 WORKDIR /speech-cmds/classifier_16k
 RUN mkdir -p build \
@@ -101,7 +110,6 @@ RUN mkdir -p build \
     && cd build \
     && cmake -DCMAKE_BUILD_TYPE=Release .. \
     && make
-
 
 WORKDIR "/notebooks"
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
