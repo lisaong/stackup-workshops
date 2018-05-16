@@ -29,6 +29,9 @@ RUN curl -L -O https://github.com/lhelontra/tensorflow-on-arm/releases/download/
             tensorflow-1.8.0-cp35-none-linux_armv7l.whl
 
 # Keras
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        libatlas-base-dev
 RUN pip3 --no-cache-dir install \
     keras
 
