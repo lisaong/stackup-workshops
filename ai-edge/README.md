@@ -9,9 +9,10 @@ For a better viewing experience, you can render the Jupyter notebook in slide pr
 |Demo|Hardware|Software / Docker images|
 |--|--|--|
 |CoreML|OSX machine|XCode 9.3.1|
-|TensorFlow|Raspberry Pi 3 Model B|Docker image: lisaong/rpi-docker-tensorflow:tf1.8.0|
-|Movidius|Raspberry Pi 3 Model B, Movidius Neural Compute Stick|Docker image: lisaong/rpi-movidius:2.04|
-|Embedded Learning Library|Raspberry Pi 3 Model B|Docker image: lisaong/pi3-miniconda3-ell:2.3.3|
+|Embedded Learning Library (Python 3)|Raspberry Pi 3 Model B|Docker image: lisaong/pi3-miniconda3-ell:2.3.3|
+|Keras with TensorFlow backend (Python 3)|Raspberry Pi 3 Model B|Docker image: lisaong/rpi-keras:1.0|
+|Movidius (Python 3)|Raspberry Pi 3 Model B, Movidius Neural Compute Stick|Docker image: lisaong/rpi-movidius:2.04|
+|TensorFlow (Python 3)|Raspberry Pi 3 Model B|Docker image: lisaong/rpi-docker-tensorflow:tf1.8.0|
 
 #### Raspberry Pi 3 Setup
 
