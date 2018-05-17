@@ -57,6 +57,8 @@ RUN /bin/bash -c "source activate root" \
           jupyter \
           matplotlib \
           pyaudio \
+          scipy \
+          python-speech-features \
     && python -m ipykernel.kernelspec
 
 COPY jupyter_notebook_config.py /root/.jupyter/
