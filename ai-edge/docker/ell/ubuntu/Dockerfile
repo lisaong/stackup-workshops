@@ -39,6 +39,12 @@ RUN apt-get update \
 RUN export PATH="/opt/conda/bin:${PATH}" \
     && conda install --yes --quiet -c conda-forge opencv
 
+# CNTK
+RUN /bin/bash -c "source activate base" \
+    && pip install --upgrade pip \
+    && pip install --no-cache-dir --ignore-installed \
+          cntk
+
 # ELL
 RUN git clone https://github.com/Microsoft/ELL.git \
     && cd ELL \
