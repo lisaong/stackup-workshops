@@ -26,3 +26,4 @@ From the Jupyter notebook:
 
 ## Workshops
 - [AI on the edge](ai-edge/README.md)
+- [PyTorch + Raspberry Pi](pi-pytorch/README.md)
