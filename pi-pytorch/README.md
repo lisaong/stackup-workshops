@@ -7,6 +7,8 @@ Workflow
 
 ### Desktop Setup
 
+Reference: https://pytorch.org/get-started
+
 #### GPU (Ubuntu or Windows)
 
 Install Cuda 9.2:
@@ -21,7 +23,7 @@ conda install pytorch cuda92 -c pytorch
 pip3 install torchvision
 
 # test gpu install
-python -c 'import torch; print(torch.rand(2,3).cuda())'
+python -c "import torch; print(torch.rand(5, 3).cuda())"
 ```
 
 #### CPU (MacOS, Ubuntu, Windows)
