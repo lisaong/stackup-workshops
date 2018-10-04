@@ -105,13 +105,22 @@ with torch.autograd.profiler.profile(use_cuda=True) as prof:
 print(prof.table())
 prof.export_chrome_trace('nn.trace')
 
-# https://pytorch.org/docs/stable/notes/serialization.html#recommend-saving-models
+# https://pytorch.org/tutorials/beginner/saving_loading_models.html#saving-loading-a-general-checkpoint-for-inference-and-or-resuming-training
+
 # save model parameters only (recommended for portability)
-torch.save(net.state_dict(), 'nn.pth')
+torch.save({
+    'epoch': n_iters,
+    'model_state_dict': net.state_dict(),
+    'optimizer_state_dict': optimizer.state_dict(),
+    'loss': loss
+}, 'nn_checkpoint.pt')
 
 # load model parameters
 net2 = Net()
-net2.load_state_dict(torch.load('nn.pth'))
+checkpoint = torch.load('nn_checkpoint.pt')
+net2.load_state_dict(checkpoint['model_state_dict'])
+net2.eval() # just evaluation
 
 input = torch.randn(1, 1, 32, 32)
-print(net2(input))
+print('serialized model', net2(input))
+print('original', net(input))
