@@ -30,6 +30,7 @@ Run through simple-sms-spam-classifier.ipynb. If all goes well, the model files 
 Requires: [NodeJS](https://nodejs.org/en/download/) v8 or later
 
 ```
+# Run from the simple-ml anaconda environment
 node app.js
 ```
 
