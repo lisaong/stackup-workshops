@@ -25,3 +25,4 @@ From the Jupyter notebook:
 ## Workshops
 - [AI on the edge](ai-edge/README.md)
 - [PyTorch + Raspberry Pi](pi-pytorch/README.md)
+- [Simple ML (Node JS)](simple-ml/README.md)
