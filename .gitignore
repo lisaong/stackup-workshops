@@ -2,7 +2,9 @@ __pycache__/
 .ipynb_checkpoints/
 *.tgz
 .nbgrader.log
+.vscode
 
+logs/
 models/
 graphs/
 !copy_graphs.sh

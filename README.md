@@ -2,8 +2,6 @@
 
 Repository for workshop content for the StackUp Saturday talks series.
 
-[![Build Status](https://travis-ci.org/lisaong/stackup-workshops.svg?branch=master)](https://travis-ci.org/lisaong/stackup-workshops)
-
 ## Rendering Presentations
 
 To present Jupyter notebooks as instant reveal.js slideshows:
@@ -26,3 +24,4 @@ From the Jupyter notebook:
 
 ## Workshops
 - [AI on the edge](ai-edge/README.md)
+- [PyTorch + Raspberry Pi](pi-pytorch/README.md)
