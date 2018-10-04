@@ -6,9 +6,11 @@
 
 Original source: http://www.dt.fee.unicamp.br/~tiago/smsspamcollection/ 
 
-Download dataset and extract the files into the data sub-folder.
-
 ### Training
+
+This trains
+
+Training is optional, as the model files are already stored under the `model/` subfolder.
 
 Download [Anaconda](https://www.anaconda.com/download/), select the Python 3.x version.
 
@@ -18,3 +20,19 @@ conda activate simple-ml
 conda install pandas jupyter scikit-learn
 jupyter notebook
 ```
+
+Download dataset from the link above, and extract the files into the `data/` sub-folder.
+
+Run through simple-sms-spam-classifier.ipynb. If all goes well, the model files under the `model/` subfolder will be updated.
+
+### Server
+
+Requires: [NodeJS](https://nodejs.org/en/download/) v8 or later
+
+```
+node app.js
+```
+
+1. Open browser to http://localhost:3000
+2. Input a SMS string (up to 160 characters)
+3. Click 'Spam or Not'
