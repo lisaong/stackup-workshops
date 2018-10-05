@@ -8,7 +8,7 @@ Original source: http://www.dt.fee.unicamp.br/~tiago/smsspamcollection/
 
 ### Training
 
-This trains
+This trains a classifier using scikit-learn to label messages as 'ham' or 'spam'.
 
 Training is optional, as the model files are already stored under the `model/` subfolder.
 
