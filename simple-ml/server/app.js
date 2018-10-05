@@ -5,9 +5,9 @@ const hostname = '127.0.0.1';
 const port = 3000;
 
 const server = http.createServer((req, res) => {
-  pythonShell.runString('x=1+1;print(x)', null, function (err) {
+  pythonShell.run('call_model.py', null, function (err, results) {
     if (err) throw err;
-    console.log('finished');
+    console.log(results);
   });
 
   res.statusCode = 200;
