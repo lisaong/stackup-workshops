@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 docker run -it \
-  lisaong/raspbian-pytorch-py3.6
+  lisaong/armv71-torch-py3.6

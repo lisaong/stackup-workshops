@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker build -t='lisaong/raspbian-pytorch-py3.6' .
+docker build -t='lisaong/armv71-torch-py3.6' .
