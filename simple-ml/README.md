@@ -37,4 +37,9 @@ npm start
 
 1. Open browser to http://localhost:3000
 2. Input a SMS string (up to 160 characters)
-3. Click 'Spam or Not'
+
+![input](assets/input.png)
+
+3. Click 'Spam or Ham?'
+
+![result](assets/result.png)
