@@ -1,11 +1,18 @@
 const http = require('http');
+const pythonShell = require('python-shell').PythonShell;
 
 const hostname = '127.0.0.1';
 const port = 3000;
 
 const server = http.createServer((req, res) => {
+  pythonShell.runString('x=1+1;print(x)', null, function (err) {
+    if (err) throw err;
+    console.log('finished');
+  });
+
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
+
   res.end('Hello World\n');
 });
 

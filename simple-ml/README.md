@@ -31,7 +31,8 @@ Requires: [NodeJS](https://nodejs.org/en/download/) v8 or later
 
 ```
 # Run from the simple-ml anaconda environment
-node app.js
+npm install
+npm start
 ```
 
 1. Open browser to http://localhost:3000
