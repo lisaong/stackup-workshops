@@ -1,18 +1,21 @@
 const http = require('http');
-const pythonShell = require('python-shell').PythonShell;
-
+const pyshell = require('python-shell')
 const hostname = '127.0.0.1';
 const port = 3000;
 
-const server = http.createServer((req, res) => {
-  pythonShell.run('call_model.py', null, function (err, results) {
-    if (err) throw err;
-    console.log(results);
-  });
+// python process that loads the model and accepts stdin
+const model = new pyshell.PythonShell('call_model.py', { mode: 'text'});
+model.send('hello');
 
+// get stdout from the python process
+model.on('message', function(message){
+    console.log(message);
+})
+
+const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
-
+  model.send('hello');
   res.end('Hello World\n');
 });
 
