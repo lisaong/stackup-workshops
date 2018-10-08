@@ -13,4 +13,8 @@ RUN  apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 --no-cache-dir install \
+    numpy \
     torch-raspi
+
+# Test
+RUN python3 -c "import torch; print(torch.__version__)"
