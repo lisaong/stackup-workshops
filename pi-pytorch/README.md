@@ -57,7 +57,7 @@ sudo usermod -aG docker pi
 
 sudo systemctl start docker
 ```
-7. Launch pytorch docker image
+7. Launch the pyTorch docker image
 ```
 cd stackup-workshops/pi-pytorch/docker
 sh launch_docker.sh
