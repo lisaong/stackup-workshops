@@ -15,5 +15,7 @@ RUN  apt-get clean \
 RUN pip3 --no-cache-dir install \
     torch-raspi
 
+WORKDIR "/code"
+
 # Test
 RUN python3 -c "import torch; print(torch.__version__)"
