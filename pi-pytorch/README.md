@@ -65,7 +65,7 @@ sh launch_docker.sh
 8. From the docker image, run the following test script to verify that PyTorch is can load and execute a dummy neural network. You should see output like below (actual values will differ because of random seed).
 ```
 root@xxxxx:/code# cd /tutorials/train
-root@xxxxx:/code/tutorials/train# python3 nn_deploy.py
+root@xxxxx:/code/tutorials/train# python3 nn_eval.py
 
 result tensor([[-1.3430,  0.3558, -1.3451,  0.6432, -0.6340, -0.1667, -0.5551,
           0.3526, -0.1512, -0.1724]])
