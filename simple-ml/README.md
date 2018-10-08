@@ -1,5 +1,8 @@
 ## SMS Spam Detector
 
+### Slides
+[http://bit.ly/sms-spam-nodejs](http://bit.ly/sms-spam-nodejs)
+
 ### Dataset
 
 [SMS Spam Collection v.1](https://archive.ics.uci.edu/ml/datasets/SMS+Spam+Collection)
