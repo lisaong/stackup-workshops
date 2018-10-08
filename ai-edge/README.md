@@ -18,13 +18,14 @@ For a better viewing experience, you can render the Jupyter notebook in slide pr
 
 1. [Download and flash](https://www.raspberrypi.org/downloads/raspbian) a recent Raspbian Stretch Lite image onto a 16GB or larger micro SD card
 2. Boot up the Raspberry Pi 3
-3. Bootstrap git-lfs
+3. Git clone this repository
+4. Bootstrap git-lfs
 ```
-cd ai-edge/bootstrap
+cd stackup-workshops/ai-edge/bootstrap
 sh ./install_git_lfs_rpi.sh
 git lfs pull
 ```
-4. Install docker
+5. Install docker
 ```
 curl -sSL get.docker.com | sh
 sudo usermod -aG docker pi
@@ -33,9 +34,9 @@ sudo usermod -aG docker pi
 
 sudo systemctl start docker
 ```
-5. Launch a demo by navigating to its folder and starting the docker container
+6. Launch a demo by navigating to its folder and starting the docker container
 ```
-cd ai-edge/docker/tensorflow
+cd stackup-workshops/ai-edge/docker/tensorflow
 ./launch_docker.sh
 ```
 If all goes well, you should see a Jupyter uri and token. Copy and paste that uri (with token) to your browser on the desktop, and replace `localhost` with the ip address of the Raspberry Pi 3.
