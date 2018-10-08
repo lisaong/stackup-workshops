@@ -34,3 +34,39 @@ conda activate torch
 conda install pytorch torchvision -c pytorch
 ```
 
+### Raspberry Pi Setup
+
+These steps have been tested on a Model 3B.
+
+1. [Download and flash](https://www.raspberrypi.org/downloads/raspbian) a recent Raspbian Stretch Lite image onto a 8GB or larger micro SD card.
+2. Boot up the Raspberry Pi
+3. Git clone this repository
+4. Bootstrap git-lfs
+```
+cd stackup-workshops/ai-edge/bootstrap
+sh ./install_git_lfs_rpi.sh
+git lfs pull
+```
+5. Reboot Raspberry Pi
+6. Install docker
+```
+curl -sSL get.docker.com | sh
+sudo usermod -aG docker pi
+
+# IMPORTANT: log out, then log back in again for changes to take effect, then run the next line
+
+sudo systemctl start docker
+```
+7. Launch the pyTorch docker image
+```
+cd stackup-workshops/pi-pytorch/docker
+sh launch_docker.sh
+```
+8. From the docker image, run the following test script to verify that PyTorch is can load and execute a dummy neural network. You should see output like below (actual values will differ because of random seed).
+```
+root@xxxxx:/code# cd /tutorials/train
+root@xxxxx:/code/tutorials/train# python3 nn_deploy.py
+
+result tensor([[-1.3430,  0.3558, -1.3451,  0.6432, -0.6340, -0.1667, -0.5551,
+          0.3526, -0.1512, -0.1724]])
+```
