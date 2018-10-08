@@ -3,7 +3,7 @@ install_git_lfs()
 {
     set -e
     # Get out if git-lfs is already installed
-    if $(git-lfs &> /dev/null); then
+    if $(whereis git-lfs &> /dev/null); then
         echo "git-lfs is already installed"
         return
     fi
@@ -14,7 +14,7 @@ install_git_lfs()
     rm -rf /usr/local/go
     rm -rf $GIT_LFS_BUILD/go
     mkdir -p $GIT_LFS_BUILD/go
-    pushd "$GIT_LFS_BUILD/go"
+    cd "$GIT_LFS_BUILD/go"
         wget https://storage.googleapis.com/golang/go1.8.linux-armv6l.tar.gz -O go.tar.gz
         sudo tar -C /usr/local -xzf go.tar.gz
         rm go.tar.gz
@@ -26,7 +26,6 @@ install_git_lfs()
         # Download and compile git-lfs
         go get github.com/github/git-lfs
         sudo mv $GOPATH/bin/git-lfs /usr/bin/
-    popd
     hash -r
     git lfs install
     set +e
