@@ -46,8 +46,10 @@ def train(model, X_train, y_train):
         epoch_loss = 0
 
         for X_batch, y_batch in zip(X_batches, y_batches):
-            inputs = Variable(X_batch)
-            targets = Variable(y_batch)
+
+            # LSTM expects FloatTensors
+            inputs = Variable(X_batch.float()).to(device)
+            targets = Variable(y_batch.float()).to(device)
 
             # input: batch_size, seq_len, input_size
             outputs = model(inputs)
