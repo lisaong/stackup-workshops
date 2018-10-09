@@ -7,7 +7,7 @@ This adapts the [60 Minute Blitz PyTorch tutorial](https://pytorch.org/tutorials
 From our Anaconda environment:
 
 ```
-(pytorch) python nn_tutorial.py
+(torch) python nn_tutorial.py
 ```
 
 This will save a `nn_checkpoint.pt` file containing the example LeNet Neural Network.
@@ -16,8 +16,8 @@ This will save a `nn_checkpoint.pt` file containing the example LeNet Neural Net
 You can view training progress via TensorBoard:
 
 ```
-(pytorch) cd tutorials/nn_tutorial
-(pytorch) tensorboard --logdir=logs --host=0.0.0.0
+(torch) cd tutorials/nn_tutorial
+(torch) tensorboard --logdir=logs --host=0.0.0.0
 ```
 
 ![tensorboard](tensorboard.png)
