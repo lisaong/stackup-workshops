@@ -1,9 +1,12 @@
 # https://pytorch.org/tutorials/beginner/ptcheat.html
+# or try https://github.com/pytorch/ignite
+
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
 from torch.autograd import Variable
 from torch import optim
+import numpy as np
 import random
 
 # import our network
@@ -14,6 +17,15 @@ from data import sample
 
 # command: tensorboard --logdir=logs --host=0.0.0.0
 from tensorboardX import SummaryWriter
+
+def checkpoint(model, optimizer, epoch, loss, prev_loss):
+    if (loss < prev_loss):
+        torch.save({
+            'epoch': epoch,
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'loss': loss
+        }, 'checkpoint.pt')
 
 def train(model, n_epochs, n_samples, sequence_len):
     """Trains the recurrent neural network
@@ -28,6 +40,7 @@ def train(model, n_epochs, n_samples, sequence_len):
     tensorboard_writer = SummaryWriter('logs/simple_rnn')
 
     # training loop
+    prev_loss = np.inf
     for epoch in range(n_epochs):
         epoch_loss = 0
 
@@ -51,8 +64,10 @@ def train(model, n_epochs, n_samples, sequence_len):
             epoch_loss += loss.item()
 
         epoch_loss /= n_samples
-        tensorboard_writer.add_scalar('loss', epoch_loss, epoch)
         print(epoch_loss)
+        tensorboard_writer.add_scalar('loss', epoch_loss, epoch)
+        checkpoint(model, optimizer, epoch, epoch_loss, prev_loss)
+        prev_loss = epoch_loss
 
 if __name__ == '__main__':
     print(torch.cuda.device(0))
