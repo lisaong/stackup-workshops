@@ -12,7 +12,7 @@ import random
 # import our network
 from rnn import SimpleRNN
 
-# import our sample data
+# import our data generator
 from data import sample
 
 # command: tensorboard --logdir=logs --host=0.0.0.0
@@ -73,4 +73,5 @@ if __name__ == '__main__':
     print(torch.cuda.device(0))
 
     model = SimpleRNN(hidden_size=50)
+    print(model)
     train(model, n_epochs=100, n_samples=50, sequence_len=50)
