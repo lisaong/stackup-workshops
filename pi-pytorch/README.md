@@ -5,6 +5,10 @@ Workflow
 1. Train model on desktop system
 2. Transfer to RaspberryPi to evaluate
 
+Examples
+- [Training workflow](tutorials/train/README.md)
+- [Simple RNN to predict sine wave](tutorials/rnn/README.md)
+
 ### Desktop Setup
 
 Reference: https://pytorch.org/get-started
@@ -62,7 +66,7 @@ sudo systemctl start docker
 cd stackup-workshops/pi-pytorch/docker
 sh launch_docker.sh
 ```
-8. From the docker image, run the following test script to verify that PyTorch is can load and execute a dummy neural network. You should see output like below (actual values will differ because of random seed).
+8. From the docker image, run the following test script to load and evalute a neural network. You should see output like below (actual values will differ because of random seed).
 ```
 root@xxxxx:/code# cd /tutorials/train
 root@xxxxx:/code/tutorials/train# python3 nn_eval.py
