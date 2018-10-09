@@ -15,12 +15,15 @@ From our Anaconda environment:
 
 This will train for 100 epochs and save a `checkpoint.pt` file on the smallest mean epoch loss.
 
-You can view training progress via Tensorboard:
+### TensorBoard
+You can view training progress via TensorBoard:
 
 ```
 (pytorch) cd tutorials/rnn
 (pytorch) tensorboard --logdir=logs --host=0.0.0.0
 ```
+
+![tensorboard](tensorboard.png)
 
 ## Evaluate on Raspberry Pi
 

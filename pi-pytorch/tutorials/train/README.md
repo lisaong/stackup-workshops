@@ -12,12 +12,22 @@ From our Anaconda environment:
 
 This will save a `nn_checkpoint.pt` file containing the example LeNet Neural Network.
 
-You can view training progress via Tensorboard:
+### TensorBoard
+You can view training progress via TensorBoard:
 
 ```
 (pytorch) cd tutorials/nn_tutorial
 (pytorch) tensorboard --logdir=logs --host=0.0.0.0
 ```
+
+![tensorboard](tensorboard.png)
+
+### Profiling
+For more detailed timings (CPU and GPU profiling), this example also demonstrates how to save a `nn.trace` Chrome trace file that can be viewed from the Google Chrome Browser using the URI: `chrome://tracing`.
+
+![chrome_trace](chrome_trace.png)
+
+More details on Chrome Tracing: https://aras-p.info/blog/2017/01/23/Chrome-Tracing-as-Profiler-Frontend/
 
 ## Evaluate on Raspberry Pi
 
