@@ -10,7 +10,7 @@ Based on https://gist.github.com/spro/ef26915065225df65c1187562eca7ec4
 From our Anaconda environment:
 
 ```
-(pytorch) python train.py
+(torch) python train.py
 ```
 
 This will train for 100 epochs and save a `checkpoint.pt` file on the smallest mean epoch loss.
@@ -19,8 +19,8 @@ This will train for 100 epochs and save a `checkpoint.pt` file on the smallest m
 You can view training progress via TensorBoard:
 
 ```
-(pytorch) cd tutorials/rnn
-(pytorch) tensorboard --logdir=logs --host=0.0.0.0
+(torch) cd tutorials/rnn
+(torch) tensorboard --logdir=logs --host=0.0.0.0
 ```
 
 ![tensorboard](tensorboard.png)
