@@ -70,8 +70,6 @@ def train(model, n_epochs, n_samples, sequence_len):
         prev_loss = epoch_loss
 
 if __name__ == '__main__':
-    print(torch.cuda.device(0))
-
     model = SimpleRNN(hidden_size=50)
     print(model)
     train(model, n_epochs=100, n_samples=50, sequence_len=50)

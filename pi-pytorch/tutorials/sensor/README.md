@@ -8,7 +8,7 @@ From our Anaconda environment:
 
 1. Install pre-requisites
 ```
-(torch) conda install pandas
+(torch) conda install pandas scikit-learn
 ```
 
 2. Train the RNN
