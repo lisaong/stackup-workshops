@@ -53,9 +53,10 @@ def train(model, X_train, y_train):
 
             # input: batch_size, seq_len, input_size
             outputs = model(inputs)
-
             optimizer.zero_grad()
-            loss = criterion(outputs, targets)
+
+            # squeeze: output dimension from (batch_size, 1) => (batch_size)
+            loss = criterion(torch.squeeze(outputs), targets)
             loss.backward(retain_graph=True)
             optimizer.step()
 
