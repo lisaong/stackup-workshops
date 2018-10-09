@@ -2,14 +2,12 @@
 
 import torch
 import torch.nn as nn
-from torch.nn import functional as F
 from torch.autograd import Variable
-from torch import optim
 
-class RNN(nn.Module):
+class SimpleRNN(nn.Module):
 
     def __init__(self, hidden_size):
-        super(RNN, self).__init__()
+        super(SimpleRNN, self).__init__()
 
         self.hidden_size = hidden_size
 
@@ -32,23 +30,22 @@ class RNN(nn.Module):
         output, hidden = self.rnn(input, hidden)
 
         # unsqueeze = removes all dimensions of size 1
-        output = self.out(output.squeeze(1))
+        output = self.output(output.squeeze(1))
         return output, hidden
 
     def forward(self, inputs, hidden=None, force=True, steps=0):
         """Perform forward propagation in the network
-           Arguments:
-                inputs: input sequence
-                hidden: previous hidden state
-                force: apply teacher forcing (use output from the previous
-                       forward propagation instead of the previous step as input)
-                steps: number of forward steps
-            Returns:
-                the outputs and the updated hidden state
+        Arguments:
+            inputs: input sequence
+            hidden: previous hidden state
+            force: apply teacher forcing (use output from the previous
+                   forward propagation instead of the previous step as input)
+            steps: number of forward steps
+        Returns:
+            the outputs and the updated hidden state
 
-            Teacher forcing:
+        Teacher forcing:
             https://machinelearningmastery.com/teacher-forcing-for-recurrent-neural-networks/
-
         """
 
         # when teacher forcing is used, always step through the
@@ -66,7 +63,7 @@ class RNN(nn.Module):
                 input = output
 
             # advance the RNN layers by 1 timestep
-            output, hidden = self.step(input, hidden)
+            output, hidden = self._step(input, hidden)
             outputs[i] = output
 
         return outputs, hidden
