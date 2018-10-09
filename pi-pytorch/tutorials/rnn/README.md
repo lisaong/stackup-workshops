@@ -7,7 +7,7 @@ Based on https://gist.github.com/spro/ef26915065225df65c1187562eca7ec4
 
 ## Train on Desktop
 
-In Anaconda environment (preferably with GPU):
+From our Anaconda environment:
 
 ```
 (pytorch) python train.py
