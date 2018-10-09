@@ -68,7 +68,7 @@ def train(model, X_train, y_train):
 if __name__ == '__main__':
 
     X_train, X_test, y_train, y_test = get_data(sequence_length)
-    input_size = X_train.shape[1]
+    input_size = X_train.shape[2] # batch, seq_len, input_size
 
     model = RNN(input_size, hidden_size, num_layers).to(device)
     print(model)
