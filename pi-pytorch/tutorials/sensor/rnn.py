@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 class RNN(nn.Module):
 
@@ -20,5 +21,5 @@ class RNN(nn.Module):
         output, _ = self.rnn(input)
 
         # Decode the hidden state of the last time step
-        output = self.fc(output[:, -1, :])
+        output = F.sigmoid(self.fc(output[:, -1, :]))
         return output
