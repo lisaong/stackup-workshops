@@ -16,7 +16,7 @@ From our Anaconda environment:
 (torch) python train.py
 ```
 
-This will save a `checkpoint.pt` file containing the lowest loss after 100 epochs.
+This will save a `checkpoint.pt` file containing the lowest loss after training.
 
 ### TensorBoard
 You can view training progress via TensorBoard:
