@@ -13,9 +13,11 @@ RUN  apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 --no-cache-dir install \
-    torch-raspi
+    torch-raspi \
+    scikit-learn
 
 WORKDIR "/code"
 
 # Test
-RUN python3 -c "import torch; print(torch.__version__)"
+RUN python3 -c "import torch; print('torch', torch.__version__); \
+        import sklearn; print('sklearn', sklearn.__version__)"
