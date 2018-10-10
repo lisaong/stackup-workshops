@@ -6,8 +6,9 @@ Workflow
 2. Transfer to RaspberryPi to evaluate
 
 Examples
-- [Training workflow](tutorials/train/README.md)
-- [Simple RNN to predict sine wave](tutorials/rnn/README.md)
+- [Basic PyTorch training and deployment](tutorials/train/README.md)
+- [RNN to generate multi-sine wave](tutorials/rnn/README.md)
+- [RNN on sensor data to predict equipment failure](tutorials/sensor/README.md)
 
 ### Desktop Setup
 
