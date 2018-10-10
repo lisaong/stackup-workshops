@@ -1,6 +1,6 @@
 # Predicting Failures from IoT Sensor Data
 
-This uses data from(https://developer.ibm.com/patterns/predict-equipment-failure-using-iot-sensor-data/) to predict failures using a Recurrent Neural Network.
+This uses data from https://developer.ibm.com/patterns/predict-equipment-failure-using-iot-sensor-data/ to predict failures using a Recurrent Neural Network.
 
 ## Train on Desktop
 
