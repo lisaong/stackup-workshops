@@ -13,7 +13,6 @@ def get_data(sequence_length):
         X_test: test sequence of shape batch, seq_len, input_size
         y_train: training labels
         y_test: test labels
-        X_train, X_test, y_train, y_test datasets
     """
     df = pd.read_csv('iot_sensor_dataset.csv')
     X = df.iloc[:, :-1]
