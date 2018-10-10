@@ -16,8 +16,11 @@ sequence_length = 10
 batch_size = 32
 
 def load_model(input_size):
+
     model = RNN(input_size, hidden_size, num_layers)
-    checkpoint = torch.load('checkpoint.pt')
+
+    # load on CPU only
+    checkpoint = torch.load('checkpoint.pt', map_location=torch.device('cpu'))
     model.load_state_dict(checkpoint['model_state_dict'])
     model.eval()
 
