@@ -28,7 +28,8 @@ You can view training progress via TensorBoard:
 ## Evaluate on Raspberry Pi
 
 1. [Optional] Copy the `checkpoint.pt` file to the tutorials/rnn folder on the Raspberry Pi if you have re-trained it.
-2. Launch the Raspberry Pi PyTorch docker image and evaluate the RNN by running `eval.py` from the `/code/tutorials/rnn` folder.
+2. Launch the Raspberry Pi PyTorch docker image and evaluate the RNN by running `eval.py` from the `/code/tutorials/rnn` folder
+(generated values will differ because of random seed).
 
 ```
 cd ~/stackup-workshops/pi-pytorch/docker

@@ -1,4 +1,8 @@
-## Pytorch on RaspberryPi
+## PyTorch on RaspberryPi
+
+The following examples demonstrate to train Deep Learning models using PyTorch and then deploy on a Raspberry Pi 3 to get predictions.
+
+The PyTorch installation on Raspberry Pi 3 uses this docker image: [lisaong/armv71-torch-py3.6](https://hub.docker.com/r/lisaong/armv71-torch-py3.6/)
 
 Workflow
 
@@ -6,8 +10,9 @@ Workflow
 2. Transfer to RaspberryPi to evaluate
 
 Examples
-- [Training workflow](tutorials/train/README.md)
-- [Simple RNN to predict sine wave](tutorials/rnn/README.md)
+- [Basic PyTorch training and deployment](tutorials/train/README.md)
+- [RNN to generate multi-sine wave](tutorials/rnn/README.md)
+- [RNN on sensor data to predict equipment failure](tutorials/sensor/README.md)
 
 ### Desktop Setup
 
@@ -61,7 +66,7 @@ sudo usermod -aG docker pi
 
 sudo systemctl start docker
 ```
-7. Launch the pyTorch docker image
+7. Launch the PyTorch docker image (lisaong/armv71-torch-py3.6)
 ```
 cd stackup-workshops/pi-pytorch/docker
 sh launch_docker.sh

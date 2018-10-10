@@ -6,7 +6,8 @@ RUN apt-get update \
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        python3-dev python3-pip python3-setuptools python3-numpy \
+        python3-dev python3-pip python3-setuptools \
+        python3-numpy python3-sklearn python3-pandas \
         libopenblas-dev
 
 RUN  apt-get clean \
@@ -18,4 +19,5 @@ RUN pip3 --no-cache-dir install \
 WORKDIR "/code"
 
 # Test
-RUN python3 -c "import torch; print(torch.__version__)"
+RUN python3 -c "import torch; print('torch', torch.__version__); \
+        import sklearn; print('sklearn', sklearn.__version__)"
