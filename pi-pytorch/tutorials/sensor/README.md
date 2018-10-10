@@ -25,7 +25,6 @@ You can view training progress via TensorBoard:
 (torch) cd tutorials/sensor
 (torch) tensorboard --logdir=logs --host=0.0.0.0
 ```
-
 ![tensorboard](tensorboard.png)
 
 ## Evaluate on Raspberry Pi
