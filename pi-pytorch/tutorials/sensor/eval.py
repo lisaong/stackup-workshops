@@ -2,6 +2,7 @@ import torch
 from torch.autograd import Variable
 from sklearn.metrics import confusion_matrix
 import numpy as np
+import time
 
 # import our model and data
 from rnn import RNN
@@ -36,8 +37,12 @@ if __name__ == '__main__':
     model = load_model(input_size)
 
     inputs = Variable(X_test.float()).to(device)
+
+    tick = time.time()
     outputs = model(inputs)
+    tock = time.time()
 
     # probabilities => 0, 1
     y_pred = (outputs.cpu().detach().numpy() > 0.5).astype(np.int)
     print(confusion_matrix(y_test.values, y_pred))
+    print('prediction time: %.3fs' % (tock - tick))
