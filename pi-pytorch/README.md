@@ -1,4 +1,8 @@
-## Pytorch on RaspberryPi
+## PyTorch on RaspberryPi
+
+The following examples demonstrate to train Deep Learning models using PyTorch and then deploy on a Raspberry Pi 3 to get predictions.
+
+The PyTorch installation on Raspberry Pi 3 uses this docker image: [lisaong/armv71-torch-py3.6](https://hub.docker.com/r/lisaong/armv71-torch-py3.6/)
 
 Workflow
 
@@ -41,7 +45,7 @@ conda install pytorch torchvision -c pytorch
 
 ### Raspberry Pi Setup
 
-These steps have been tested on a Model 3B. The docker image is: [lisaong/armv71-torch-py3.6](https://hub.docker.com/r/lisaong/armv71-torch-py3.6/)
+These steps have been tested on a Model 3B.
 
 1. [Download and flash](https://www.raspberrypi.org/downloads/raspbian) a recent Raspbian Stretch Lite image onto a 8GB or larger micro SD card.
 2. Boot up the Raspberry Pi
