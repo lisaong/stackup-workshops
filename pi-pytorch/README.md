@@ -41,7 +41,7 @@ conda install pytorch torchvision -c pytorch
 
 ### Raspberry Pi Setup
 
-These steps have been tested on a Model 3B.
+These steps have been tested on a Model 3B. The docker image is: [lisaong/armv71-torch-py3.6](https://hub.docker.com/r/lisaong/armv71-torch-py3.6/)
 
 1. [Download and flash](https://www.raspberrypi.org/downloads/raspbian) a recent Raspbian Stretch Lite image onto a 8GB or larger micro SD card.
 2. Boot up the Raspberry Pi
@@ -62,7 +62,7 @@ sudo usermod -aG docker pi
 
 sudo systemctl start docker
 ```
-7. Launch the pyTorch docker image
+7. Launch the PyTorch docker image (lisaong/armv71-torch-py3.6)
 ```
 cd stackup-workshops/pi-pytorch/docker
 sh launch_docker.sh
