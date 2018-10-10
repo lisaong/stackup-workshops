@@ -1,6 +1,7 @@
 import torch
 from torch.autograd import Variable
 from sklearn.metrics import confusion_matrix
+import numpy as np
 
 # import our model and data
 from rnn import RNN
@@ -37,4 +38,6 @@ if __name__ == '__main__':
     inputs = Variable(X_test.float()).to(device)
     outputs = model(inputs)
 
-    print(confusion_matrix(y_test.values, outputs.data.view(-1)))
+    # probabilities => 0, 1
+    y_pred = (outputs.cpu().detach().numpy() > 0.5).astype(np.int)
+    print(confusion_matrix(y_test.values, y_pred))
