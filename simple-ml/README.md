@@ -1,4 +1,4 @@
-## Building an SMS Spam Detector with Scikit-Learn and NodeJS
+## Building an SMS Spam Detector with scikit-learn and Node.js
 
 ![image](https://media.githubusercontent.com/media/lisaong/stackup-workshops/master/simple-ml/assets/SMS%20spam%20detector.png)
 
