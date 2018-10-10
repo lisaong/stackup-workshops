@@ -1,6 +1,8 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
 import torch
+
+def split_data(data, train_size=0.75):
+    return data[:int(len(data) * train_size)], data[int(len(data) * train_size):] 
 
 def get_data(sequence_length):
     """Reads the dataset and reshapes it for training with RNN
@@ -17,7 +19,8 @@ def get_data(sequence_length):
     X = df.iloc[:, :-1]
     y = df.iloc[:, -1]
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, shuffle=False)
+    X_train, X_test = split_data(X)
+    y_train, y_test = split_data(y)
 
     # unfold on first dimension, window by sequence_length
     # shift window by 1 step each time
