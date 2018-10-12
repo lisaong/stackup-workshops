@@ -1,13 +1,16 @@
+import numpy as np
 import pandas as pd
 import torch
 
 def split_data(data, train_size=0.75):
     return data[:int(len(data) * train_size)], data[int(len(data) * train_size):] 
 
-def get_data(sequence_length):
+def get_data(sequence_length, normalize=True):
     """Reads the dataset and reshapes it for training with RNN
     Arguments:
         sequence_length: length of the sequence to produce
+        normalize: whether to normalize X by centering on mean
+                   and unit standard deviation
     Returns:
         X_train: training sequence of shape batch, seq_len, input_size
         X_test: test sequence of shape batch, seq_len, input_size
@@ -20,6 +23,12 @@ def get_data(sequence_length):
 
     X_train, X_test = split_data(X)
     y_train, y_test = split_data(y)
+
+    if normalize:
+        X_mean = np.mean(X_train, axis=0)
+        X_std = np.std(X_train, axis=0)
+        X_train = (X_train - X_mean) / X_std
+        X_test = (X_test - X_mean) / X_std
 
     # unfold on first dimension, window by sequence_length
     # shift window by 1 step each time
