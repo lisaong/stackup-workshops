@@ -4,6 +4,9 @@ The following examples demonstrate to train Deep Learning models using PyTorch a
 
 The PyTorch installation on Raspberry Pi 3 uses this docker image: [lisaong/armv71-torch-py3.6](https://hub.docker.com/r/lisaong/armv71-torch-py3.6/)
 
+### Slides
+http://bit.ly/pi-pytorch-bmt
+
 ### Workflow
 
 1. Train model on desktop system
