@@ -3,7 +3,7 @@ import pandas as pd
 import torch
 
 def split_data(data, train_size=0.75):
-    return data[:int(len(data) * train_size)], data[int(len(data) * train_size):] 
+    return data[:int(len(data) * train_size)], data[int(len(data) * train_size):]
 
 def get_data(sequence_length, normalize=True):
     """Reads the dataset and reshapes it for training with RNN
