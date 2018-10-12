@@ -30,14 +30,19 @@ def checkpoint(model, optimizer, epoch, loss, prev_loss):
         }, 'checkpoint.pt')
 
 def train(model, X_train, y_train):
+    # loss function: Binary Cross Entropy
     criterion = nn.BCELoss()
-    optimizer = optim.SGD(model.parameters(), lr=learning_rate)
-    tensorboard_writer = SummaryWriter('logs/sensor')
 
+    # optimizer: Stochastic Gradient Descent
+    optimizer = optim.SGD(model.parameters(), lr=learning_rate)
+
+    # Mini-batch splitting
     # split into chunks (last chunk can be smaller than batch_size)
     num_batches = X_train.shape[0] // batch_size + 1
     X_batches = torch.chunk(X_train, num_batches, 0)
     y_batches = torch.chunk(torch.tensor(y_train.values), num_batches, 0)
+
+    tensorboard_writer = SummaryWriter('logs/sensor')
 
     # training loop
     prev_loss = np.inf
