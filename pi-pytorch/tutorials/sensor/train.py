@@ -79,8 +79,8 @@ def train(model, X_train, y_train, X_val, y_val):
         val_outputs = model(val_inputs)
         val_loss = criterion(torch.squeeze(val_outputs), val_targets).item()
         print('val_loss', val_loss)
-
         tensorboard_writer.add_scalar('val_loss', val_loss, epoch)
+
         checkpoint(model, optimizer, epoch, val_loss, prev_val_loss)
         prev_val_loss = val_loss
 
