@@ -45,16 +45,16 @@ RNN(
   (rnn): LSTM(9, 10, num_layers=2, batch_first=True)
   (fc): Linear(in_features=10, out_features=1, bias=True)
 )
-model training loss 0.3201659789139574
-model training epoch 998
-prediction time: 0.074s
-[[99  8]
- [28 92]]
+model training loss 0.23991495370864868
+model training epoch 803
+prediction time: 0.068s
+[[ 92  15]
+ [  8 112]]
              precision    recall  f1-score   support
 
-          0       0.78      0.93      0.85       107
-          1       0.92      0.77      0.84       120
+          0       0.92      0.86      0.89       107
+          1       0.88      0.93      0.91       120
 
-avg / total       0.85      0.84      0.84       227
+avg / total       0.90      0.90      0.90       227
 
 ```
