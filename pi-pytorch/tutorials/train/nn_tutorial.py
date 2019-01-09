@@ -93,17 +93,17 @@ optimizer = optim.SGD(net.parameters(), lr=1e-2)
 n_iters = 100
 
 # https://pytorch.org/docs/stable/autograd.html#profiler
-with torch.autograd.profiler.profile(use_cuda=True) as prof:
-    for i in range(n_iters):
-        optimizer.zero_grad() # not accumulating in a batch
-        output = net(input)
-        loss = criterion(output, target)
-        loss.backward()
-        print(loss.item())
-        writer.add_scalar('loss', loss.item(), i) # update tensorboard
-        optimizer.step() # update
-print(prof.table())
-prof.export_chrome_trace('nn.trace')
+# with torch.autograd.profiler.profile(use_cuda=True) as prof:
+for i in range(n_iters):
+    optimizer.zero_grad() # not accumulating in a batch
+    output = net(input)
+    loss = criterion(output, target)
+    loss.backward()
+    print(loss.item())
+    writer.add_scalar('loss', loss.item(), i) # update tensorboard
+    optimizer.step() # update
+# print(prof.table())
+# prof.export_chrome_trace('nn.trace')
 
 # https://pytorch.org/tutorials/beginner/saving_loading_models.html#saving-loading-a-general-checkpoint-for-inference-and-or-resuming-training
 

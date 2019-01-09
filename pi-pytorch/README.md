@@ -36,6 +36,7 @@ conda create -n torch python=3.6
 conda activate torch
 conda install pytorch cuda92 -c pytorch
 pip install torchvision
+pip install tensorboardX
 
 # test gpu install
 python -c "import torch; print(torch.rand(5, 3).cuda())"
@@ -47,6 +48,7 @@ python -c "import torch; print(torch.rand(5, 3).cuda())"
 conda create -n torch python=3.6
 conda activate torch
 conda install pytorch torchvision -c pytorch
+pip install tensorboardX
 ```
 
 ### Raspberry Pi Setup
