@@ -91,4 +91,4 @@ root@xxxxx:/code/tutorials/train# python3 nn_eval.py
 result tensor([[-1.3430,  0.3558, -1.3451,  0.6432, -0.6340, -0.1667, -0.5551,
           0.3526, -0.1512, -0.1724]])
 ```
-7. (Optional) MQTT IP publishing. Refer to the mqtt folder for a setup script that will automatically publish the Wifi network's IP.
+9. (Optional) MQTT IP publishing. Refer to the mqtt folder for a setup script that will automatically publish the Wifi network's IP.
