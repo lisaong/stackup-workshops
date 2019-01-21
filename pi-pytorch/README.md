@@ -60,8 +60,12 @@ These steps have been tested on a Model 3B.
 3. `sudo apt-get install git`, then `git clone https://github.com/lisaong/stackup-workshops`
 4. Bootstrap git-lfs
 ```
+# install git-lfs
 cd stackup-workshops/ai-edge/bootstrap
 sh ./install_git_lfs_rpi.sh
+
+# go to the stackup-workshops folder and run git lfs pull
+cd ../..
 git lfs pull
 ```
 5. Reboot Raspberry Pi
