@@ -18,8 +18,8 @@ def get_data(sequence_length, normalize=True):
         y_test: test labels
     """
     df = pd.read_csv('iot_sensor_dataset.csv')
-    X = df.iloc[:, :-1]
-    y = df.iloc[:, -1]
+    X = df.iloc[:, :-1] # slicing the data frame (everything but last column)
+    y = df.iloc[:, -1] # slicing the data frame (last column)
 
     X_train, X_test = split_data(X)
     y_train, y_test = split_data(y)
