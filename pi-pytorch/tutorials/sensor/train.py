@@ -13,12 +13,12 @@ from tensorboardX import SummaryWriter
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-hidden_size = 10
-learning_rate = 0.01
-num_layers = 2
-num_epochs = 1000
-sequence_length = 10
-batch_size = 32
+hidden_size = 10 # dimensions of h_t, h_t-1, etc
+learning_rate = 0.01 # smaller number: W will change more slowly
+num_layers = 2 # how many stacks of LSTMs
+num_epochs = 1000 # how many iterations to train entire training set
+sequence_length = 10 # window size
+batch_size = 32 # how many training samples to train in a batch
 
 def checkpoint(model, optimizer, epoch, loss, prev_loss):
     if (loss < prev_loss):
@@ -46,7 +46,8 @@ def train(model, X_train, y_train, X_val, y_val):
     val_inputs = Variable(X_val.float()).to(device)
     val_targets = Variable(torch.tensor(y_val.values).float()).to(device)
 
-    tensorboard_writer = SummaryWriter('logs/sensor')
+    session_name = f'hsize_{hidden_size}_lr_{learning_rate}_layers_{num_layers}_seqlen_{sequence_length}'
+    tensorboard_writer = SummaryWriter(f'logs/sensor/{session_name}')
 
     # training loop
     prev_val_loss = np.inf
