@@ -15,4 +15,4 @@ docker run -d \
   -v ~/notebooks:/notebooks \
   -p=46006:6006 \
   lisaong/rpi-jupyter-tf2-torch-py37:1.0 \
-  tensorboard --logdir /notebooks/logs
+  tensorboard --logdir /notebooks/logs --bind_all
