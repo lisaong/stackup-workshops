@@ -13,7 +13,7 @@ For a better viewing experience, you can render the Jupyter notebook in slide pr
 |Keras with TensorFlow backend (Python 3)|Raspberry Pi 3 Model B|Docker image: lisaong/rpi-keras:1.0, default jupyter port: 38888|
 |Movidius (Python 3)|Raspberry Pi 3 Model B, Movidius Neural Compute Stick|Docker image: lisaong/rpi-movidius:2.04, default jupyter port: 8888|
 |TensorFlow (Python 2)|Raspberry Pi 3 Model B|Docker image: lisaong/rpi-docker-tensorflow:tf1.8.0, default jupyter port: 18888|
-|TensorFlow 2.0, Pytorch 1.3 (Python 3.7)|Raspberry Pi 3 Model B|Docker image: lisaong/rpi-jupyter-tf2-torch-py37:1.0, default jupyter port: 48888, Tensorboard port: 46006|
+|TensorFlow 2.0, Pytorch 1.3 (Python 3.7)|Raspberry Pi 3 Model B|Docker image: lisaong/rpi-jupyter-tf2-torch-py37:1.0, default jupyter port: 48888|
 
 #### Raspberry Pi 3 Setup
 
