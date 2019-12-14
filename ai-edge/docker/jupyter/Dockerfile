@@ -7,8 +7,8 @@ RUN apt-get update \
         build-essential \
         git \
         libatlas-base-dev \
+        libjpeg-dev \
         libhdf5-dev \
-        libjpeg8-dev \
         libzmq3-dev \
         pkg-config
 
