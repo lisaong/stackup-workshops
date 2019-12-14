@@ -34,7 +34,7 @@ RUN apt-get update \
         python3-skimage \
         python3-sklearn \
         python3-tk \
-        python3-yaml \
+        python3-yaml
 
 RUN  apt-get clean \
     && rm -rf /var/lib/apt/lists/*
