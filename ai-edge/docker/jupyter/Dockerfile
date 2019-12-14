@@ -49,6 +49,12 @@ RUN curl -L -O https://github.com/lhelontra/tensorflow-on-arm/releases/download/
     && pip3 --no-cache-dir install \
             tensorflow-2.0.0-cp37-none-linux_armv7l.whl
 
+# PyTorch
+# https://discuss.pytorch.org/t/pytorch-1-3-wheels-for-raspberry-pi-python-3-7/58580
+RUN curl -L -O https://wintics-opensource.s3.eu-west-3.amazonaws.com/torch-1.3.0a0%2Bdeadc27-cp37-cp37m-linux_armv7l.whl \
+    && pip3 --no-cache-dir install \
+            torch-1.3.0a0%2Bdeadc27-cp37-cp37m-linux_armv7l.whl
+
 # Jupyter
 COPY jupyter_notebook_config.py /root/.jupyter/
 
