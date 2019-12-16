@@ -17,7 +17,7 @@ For a better viewing experience, you can render the Jupyter notebook in slide pr
 
 #### Raspberry Pi 3 Setup
 
-1. [Download and flash](https://www.raspberrypi.org/downloads/raspbian) a recent Raspbian Stretch Lite image onto a 16GB or larger micro SD card
+1. [Download and flash](https://www.raspberrypi.org/downloads/raspbian) a recent Raspbian Lite image onto a 16GB or larger micro SD card (last verified on Stretch). You may also wish to try a [DietPi](https://dietpi.com/) image (last verified on Buster).
 2. Boot up the Raspberry Pi 3
 3. Git clone this repository
 4. Bootstrap git-lfs
