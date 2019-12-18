@@ -58,6 +58,7 @@ RUN curl -L -O https://wintics-opensource.s3.eu-west-3.amazonaws.com/torch-1.3.0
             torch-1.3.0a0%2Bdeadc27-cp37-cp37m-linux_armv7l.whl
 
 RUN pip3 --no-cache-dir install \
+        blis==0.5.0 \
         spacy
 
 # Jupyter
