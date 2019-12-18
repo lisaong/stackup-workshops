@@ -23,6 +23,7 @@ RUN apt-get update \
         python3-markdown \
         python3-matplotlib \
         python3-networkx \
+        python3-nltk \
         python3-nose \
         python3-numpy \
         python3-pandas \
@@ -30,6 +31,7 @@ RUN apt-get update \
         python3-protobuf \
         python3-pygraphviz \
         python3-scipy \
+        python3-seaborn \
         python3-six \
         python3-skimage \
         python3-sklearn \
