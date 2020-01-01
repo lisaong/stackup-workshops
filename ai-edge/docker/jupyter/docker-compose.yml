@@ -16,6 +16,6 @@ services:
     ports:
       - '46006:6006'
     volumes:
-      - ~/notebooks/:/notebooks
+      - ~/notebooks:/notebooks
     command: >
       sh -c "tensorboard --logdir /notebooks/logs --bind_all"
