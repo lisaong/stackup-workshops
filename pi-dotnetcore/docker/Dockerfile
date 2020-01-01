@@ -24,7 +24,8 @@ RUN curl -L -O https://download.visualstudio.microsoft.com/download/pr/8c839c0e-
 
 # set .NET Core SDK and Runtime path
 ENV DOTNET_ROOT /dotnet-arm32
-#ENV PATH $DOTNET_ROOT:$PATH
+ENV PATH $DOTNET_ROOT:$PATH
 
+WORKDIR /code
 ENTRYPOINT ["/bin/bash"]
 
