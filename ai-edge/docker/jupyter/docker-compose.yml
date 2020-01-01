@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  jupyter:
+    image: lisaong/rpi-jupyter-tf2-torch-py37:1.1
+    environment:
+      - PASSWORD=$JUPYTER_PASSWORD
+    ports:
+      - '48888:8888'
+    volumes:
+      - ~/notebooks:/notebooks
+
+  tensorboard:
+    image: lisaong/rpi-jupyter-tf2-torch-py37:1.1
+    depends_on:
+      - jupyter
+    ports:
+      - '46006:6006'
+    volumes:
+      - ~/notebooks/:/notebooks
+    command: >
+      sh -c "tensorboard --logdir /notebooks/logs --bind_all"
