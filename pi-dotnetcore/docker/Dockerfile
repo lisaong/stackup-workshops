@@ -6,6 +6,11 @@ RUN apt-get update \
         build-essential \
         git
 
+# https://stackoverflow.com/questions/47111844/run-dotnet-core-application-on-raspberry-pi3-with-centos-userland
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        icu-devtools
+
 RUN  apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
