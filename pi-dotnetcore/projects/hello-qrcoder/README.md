@@ -18,10 +18,10 @@ root@XXXX: cd /code/QRCoder/QRCoder
 root@XXXX: dotnet pack QRCoderProject.NETCore.sln
 ```
 
-4. (Optional) Add reference to Nuget package
+4. Add local Nuget source and installing Nuget package
 ```
 root@XXXX: cd /code/hello-qrcoder
-root@XXXX: dotnet add package QRCoder.NET --source /code/QRCoder/QRCoxder/bin/Debug
+root@XXXX: dotnet add package QRCoder.NET --source /code/QRCoder/QRCoder/bin/Debug
 ```
 
 5. Build and run
