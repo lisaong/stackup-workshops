@@ -26,6 +26,5 @@ root@XXXX: dotnet add package QRCoder.NET --source /code/QRCoder/QRCoder/bin/Deb
 
 5. Build and run
 ```
-root@XXXX: dotnet build
 root@XXXX: dotnet run
 ```
