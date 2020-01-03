@@ -1,10 +1,9 @@
-## .NET Core RaspberryPi
+## .NET Core on RaspberryPi
 
 1. Install Docker and Docker Compose on Raspberry Pi
    ```
    curl -sSL https://get.docker.com | sh
    sudo usermod -aG docker pi
-
    ```
 2. Logout and login for usermod to take effect
 3. Install Docker Compose
