@@ -8,6 +8,7 @@ services:
       - '48888:8888'
     volumes:
       - ~/notebooks:/notebooks
+    restart: unless-stopped
 
   tensorboard:
     image: lisaong/rpi-jupyter-tf2-torch-py37:1.1
@@ -19,3 +20,5 @@ services:
       - ~/notebooks:/notebooks
     command: >
       sh -c "tensorboard --logdir /notebooks/logs --bind_all"
+    restart: unless-stopped
+
