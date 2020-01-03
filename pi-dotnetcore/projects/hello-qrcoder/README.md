@@ -18,8 +18,14 @@ root@XXXX: cd /code/QRCoder/QRCoder
 root@XXXX: dotnet pack QRCoderProject.NETCore.sln
 ```
 
-4. Add reference to Nuget package
+4. (Optional) Add reference to Nuget package
 ```
 root@XXXX: cd /code/hello-qrcoder
 root@XXXX: dotnet add package QRCoder.NET --source /code/QRCoder/QRCoxder/bin/Debug
+```
+
+5. Build and run
+```
+root@XXXX: dotnet build
+root@XXXX: dotnet run
 ```
