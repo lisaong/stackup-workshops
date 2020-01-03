@@ -7,9 +7,11 @@ RUN apt-get update \
         git
 
 # https://stackoverflow.com/questions/47111844/run-dotnet-core-application-on-raspberry-pi3-with-centos-userland
+# libgdiplus for System.Drawing
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        icu-devtools
+        icu-devtools \
+        libgdiplus
 
 RUN  apt-get clean \
     && rm -rf /var/lib/apt/lists/*
