@@ -11,3 +11,6 @@ logs/
 models/
 node_modules/
 !copy_graphs.sh
+bin/
+obj/
+*.png
