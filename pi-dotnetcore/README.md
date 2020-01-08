@@ -26,4 +26,5 @@ The `projects` folder is mapped as `/code` in the Docker container. To test the 
    ```
    root@79b76560681b:/code# dotnet --info
    ```
-
+Sample projects:
+- [QRcode generator](projects/hello-qrcoder/README.md)
