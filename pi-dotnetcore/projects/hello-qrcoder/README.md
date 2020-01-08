@@ -28,3 +28,5 @@ root@XXXX: dotnet add package QRCoder.NET --source /code/QRCoder/QRCoder/bin/Deb
 ```
 root@XXXX: dotnet run
 ```
+
+![example](example.png)
