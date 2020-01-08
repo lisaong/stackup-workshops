@@ -14,7 +14,7 @@ sh ./launch_docker.sh
 
 3. Build QRCoder Nuget package
 ```
-root@XXXX: cd /code/QRCoder/QRCoder
+root@XXXX: cd /code/QRCoder
 root@XXXX: dotnet pack QRCoderProject.NETCore.sln
 ```
 
