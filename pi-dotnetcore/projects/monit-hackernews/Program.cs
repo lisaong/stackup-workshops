@@ -23,7 +23,6 @@ namespace monit_hackernews
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("http://*:8080;https://*:8081");
                 });
     }
 }
