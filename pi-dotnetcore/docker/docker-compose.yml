@@ -5,4 +5,5 @@ services:
     volumes:
       - ../projects:/code
     ports:
-      - '18888:8888'
+      - '18080:8080'
+      - '18081:8081'

@@ -1,5 +1,5 @@
 # https://edi.wang/post/2019/9/29/setup-net-core-30-runtime-and-sdk-on-raspberry-pi-4
-FROM balenalib/raspberrypi3:buster
+FROM balenalib/raspberrypi3:buster-20191106
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -34,8 +34,9 @@ ENV DOTNET_ROOT /dotnet-arm32
 ENV PATH $DOTNET_ROOT:$PATH
 ENV DOTNET_CLI_TELEMETRY_OPTOUT 1
 
-# ASP.NET Core
+# ASP.NET Core http and https
 EXPOSE 8080
+EXPOSE 8081
 
 WORKDIR /code
 ENTRYPOINT ["/bin/bash"]
