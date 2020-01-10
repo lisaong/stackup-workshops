@@ -28,8 +28,11 @@ namespace monit_hackernews
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+
+            // AddHttpClient also registers the service, so no need
+            // to call AddSingleton<MonitorNewsService>()
+            // https://github.com/dotnet/extensions/issues/1079
             services.AddHttpClient<MonitorNewsService>();
-            services.AddSingleton<MonitorNewsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
