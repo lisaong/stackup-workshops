@@ -28,7 +28,8 @@ namespace monit_hackernews
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
+            services.AddHttpClient<MonitorNewsService>();
+            services.AddSingleton<MonitorNewsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

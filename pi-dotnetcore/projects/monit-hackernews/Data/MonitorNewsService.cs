@@ -1,5 +1,6 @@
 using System;
-using System.Linq;
+using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace monit_hackernews.Data
@@ -15,13 +16,11 @@ namespace monit_hackernews.Data
             _httpClient = httpClient;
         }
 
-        // TODO: support top N
-        public async Task<NewsHeadline> GetHeadlineAsync()
+        public async Task<int[]> GetHeadlinesAsync()
         {
             var responseString = await _httpClient.GetStringAsync(_newsServiceUrl);
-            var items = JsonConvert.DeserializeObject<NewsId>(responseString);
-
-            return items[0];
+            var items = JsonSerializer.Deserialize<int[]>(responseString);
+            return items;
         }
     }
 }
