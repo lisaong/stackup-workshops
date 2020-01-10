@@ -1,9 +1,11 @@
 version: '3.7'
 services:
   dotnetcore:
-    image: lisaong/rpi-dotnetcore-3:1.0
+    image: lisaong/rpi-dotnetcore-3:1.1
     volumes:
       - ../projects:/code
     ports:
       - '18080:8080'
       - '18081:8081'
+    command: >
+      dotnet run --project /code/monit-hackernews/monit-hackernews.csproj

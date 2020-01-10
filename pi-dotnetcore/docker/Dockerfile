@@ -1,5 +1,5 @@
 # https://edi.wang/post/2019/9/29/setup-net-core-30-runtime-and-sdk-on-raspberry-pi-4
-FROM balenalib/raspberrypi3:buster-20191106
+FROM balenalib/raspberrypi3:buster
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -39,4 +39,7 @@ EXPOSE 8080
 EXPOSE 8081
 
 WORKDIR /code
-ENTRYPOINT ["/bin/bash"]
+
+# Test
+RUN dotnet --info
+
