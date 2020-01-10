@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
-# Note: use run for interactive
-#       use up -d for daemon
+# Launch dotnet core environment for development purposes
+# To launch an existing service, use `docker-compose up` intead
+#
+# Note: use -it for interactive
+#       use -d for daemon
 
 mkdir -p ../projects
 
-# pulls containers
-docker-compose up
-
-# run as interactive mode
-docker-compose run dotnetcore
+docker run -it \
+   -v ~/stackup-workshops/pi-dotnetcore/projects:/code \
+   -p=18080:8080 \
+   -p=18081:8081 \
+   lisaong/rpi-dotnetcore-3:1.1 \
+   /bin/bash
