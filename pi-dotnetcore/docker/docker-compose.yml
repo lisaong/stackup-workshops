@@ -2,6 +2,10 @@ version: '3.7'
 services:
   dotnetcore:
     image: lisaong/rpi-dotnetcore-3:1.1
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:8081;http://+:8080
+      - ASPNETCORE_HTTPS_PORT=18081
     volumes:
       - ../projects:/code
     ports:

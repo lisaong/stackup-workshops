@@ -18,7 +18,6 @@
     "monit-hackernews": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://*:8081;http://*:8080",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
