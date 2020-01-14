@@ -28,4 +28,4 @@ The `projects` folder is mapped as `/code` in the Docker container. To test the 
    ```
 Sample projects:
 - [QRcode generator](projects/hello-qrcoder/README.md)
-- [Hackernews monitor](projects/monit-hackernews)
+- [Hackernews monitor](projects/monit-hackernews/README.md)
