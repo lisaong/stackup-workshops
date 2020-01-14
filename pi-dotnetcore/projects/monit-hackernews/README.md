@@ -18,7 +18,7 @@ cd docker
 docker compose up
 ```
 
-Navigate to https://<ipaddress>:18081
+Navigate to https://ipaddress_of_pi:18081
 
 ![example](example.png)
 
