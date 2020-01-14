@@ -34,6 +34,12 @@ ENV DOTNET_ROOT /dotnet-arm32
 ENV PATH $DOTNET_ROOT:$PATH
 ENV DOTNET_CLI_TELEMETRY_OPTOUT 1
 
+# ASP.NET Core http and https
+EXPOSE 8080
+EXPOSE 8081
+
 WORKDIR /code
-ENTRYPOINT ["/bin/bash"]
+
+# Test
+RUN dotnet --info
 

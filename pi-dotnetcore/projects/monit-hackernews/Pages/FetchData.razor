@@ -1,0 +1,40 @@
+﻿@page "/fetchdata"
+
+@using monit_hackernews.Data
+@inject MonitorNewsService NewsService
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (headlines == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var headline in headlines)
+            {
+                <tr>
+                    <td>@headline</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private int[] headlines;
+
+    protected override async Task OnInitializedAsync()
+    {
+        headlines = await NewsService.GetHeadlinesAsync();
+    }
+}
