@@ -3,7 +3,7 @@
 @using monit_hackernews.Data
 @inject MonitorNewsService NewsService
 
-<h1>Weather forecast</h1>
+<h1>Hackernews Top Headlines</h1>
 
 <p>This component demonstrates fetching data from a service.</p>
 
@@ -16,14 +16,26 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Date</th>
+                <th>Score</th>
+                <th>Title</th>
+                <th>Url</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var headline in headlines)
             {
                 <tr>
-                    <td>@headline</td>
+                    <td>@headline.Date</td>
+                </tr>
+                <tr>
+                    <td>@headline.Score</td>
+                </tr>
+                <tr>
+                    <td>@headline.Title</td>
+                </tr>
+                <tr>
+                    <td>@headline.Url</td>
                 </tr>
             }
         </tbody>
@@ -31,7 +43,7 @@ else
 }
 
 @code {
-    private int[] headlines;
+    private List<NewsHeadline> headlines;
 
     protected override async Task OnInitializedAsync()
     {

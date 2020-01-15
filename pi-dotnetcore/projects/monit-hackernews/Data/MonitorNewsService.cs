@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -17,11 +18,25 @@ namespace monit_hackernews.Data
             _httpClient = httpClient;
         }
 
-        public async Task<int[]> GetHeadlinesAsync()
+        public async Task<List<NewsHeadline>> GetHeadlinesAsync()
         {
+            Index topN = 5;
             var responseString = await _httpClient.GetStringAsync(_newsServiceUrl + "topstories.json");
             var items = JsonSerializer.Deserialize<int[]>(responseString);
-            return items;
+
+            List<NewsHeadline> headlines = new List<NewsHeadline>();
+            foreach(var item in items[0..topN])
+            {
+                headlines.Add(await GetHeadlineAsync(item));
+            }
+            return headlines;
+        }
+
+        private async Task<NewsHeadline> GetHeadlineAsync(int id)
+        {
+            var query = String.Format("{0}item/{1}.json", _newsServiceUrl, id);
+            var responseString = await _httpClient.GetStringAsync(query);
+            return JsonSerializer.Deserialize<NewsHeadline>(responseString);
         }
     }
 }
