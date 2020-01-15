@@ -26,16 +26,10 @@ else
             @foreach (var headline in headlines)
             {
                 <tr>
-                    <td>@headline.Date</td>
-                </tr>
-                <tr>
-                    <td>@headline.Score</td>
-                </tr>
-                <tr>
-                    <td>@headline.Title</td>
-                </tr>
-                <tr>
-                    <td>@headline.Url</td>
+                    <td>@headline.time</td>
+                    <td>@headline.score</td>
+                    <td>@headline.title</td>
+                    <td>@headline.url</td>
                 </tr>
             }
         </tbody>

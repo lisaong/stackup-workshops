@@ -25,6 +25,8 @@ namespace monit_hackernews.Data
             var items = JsonSerializer.Deserialize<int[]>(responseString);
 
             List<NewsHeadline> headlines = new List<NewsHeadline>();
+
+            // TODO: https://markheath.net/post/async-antipatterns
             foreach(var item in items[0..topN])
             {
                 headlines.Add(await GetHeadlineAsync(item));
