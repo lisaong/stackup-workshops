@@ -23,6 +23,7 @@ dotnet publish --runtime linux-arm --self-contained true
 
 ### Generating SSL certificates
 
+1. Kestrel (the cross-platform ASP.NET core web server) requires an SSL certificate. Generate the certificate:
 ```
 cd docker
 
@@ -46,7 +47,9 @@ openssl pkcs12 \
  -out pi.pfx
 ```
 
-Run docker compose, which will run the server
+2. Update docker/.env to set SSL_PASS to the password you used for generating the cert.
+
+3. Run docker compose, which will launch the server with the SSL cert.
 ```
 docker compose up
 ```
