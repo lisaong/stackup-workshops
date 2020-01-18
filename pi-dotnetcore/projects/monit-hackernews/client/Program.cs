@@ -58,7 +58,7 @@ namespace client
 
             await connection.StartAsync();
             Console.WriteLine("Press any key to exist.");
-            Console.ReadKey();
+            Console.Read();
         }
     }
 }
