@@ -12,7 +12,7 @@ namespace client
             Console.WriteLine("Hello World!");
 
             var connection = new HubConnectionBuilder()
-                .WithUrl("http://localhost:53353/newshub")
+                .WithUrl("https://localhost:5001/newshub")
                 .WithAutomaticReconnect()
                 .Build();
 
