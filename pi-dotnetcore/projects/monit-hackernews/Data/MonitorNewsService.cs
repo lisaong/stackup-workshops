@@ -13,14 +13,14 @@ namespace monit_hackernews.Data
         private const string _newsServiceUrl = "https://hacker-news.firebaseio.com/v0/";
 
         private readonly HttpClient _httpClient;
-        private readonly NewsHub _hub;
+        private readonly IHubContext<NewsHub> _hubContext;
 
         // Dependency-injection
         // https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#multiple-ways-to-use-httpclientfactory
-        public MonitorNewsService(HttpClient httpClient, NewsHub hub)
+        public MonitorNewsService(HttpClient httpClient, IHubContext<NewsHub> hubContext)
         {
             _httpClient = httpClient;
-            _hub = hub;
+            _hubContext = hubContext;
         }
 
         public async Task<List<NewsHeadline>> GetHeadlinesAsync()
@@ -45,7 +45,8 @@ namespace monit_hackernews.Data
 
         private Task PublishUpdate(NewsHeadline headline)
         {
-            return _hub.SendMessage(headline.title, headline.url);
+            return _hubContext.Clients.All.SendAsync("ReceiveMessage",
+                headline.title, headline.url);
         }
 
         private async Task<NewsHeadline> GetHeadlineAsync(int id)
