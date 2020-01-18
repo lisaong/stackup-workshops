@@ -18,10 +18,9 @@ Package into a self-contained deployment (https://docs.microsoft.com/en-us/dotne
 ```
 dotnet publish --runtime linux-arm --self-contained true
 ```
+Copy the contents of bin/Debug/netcoreapp3.1/linux-arm/publish to the Raspberry Pi.
 
 #### On Raspberry Pi
-
-### Generating SSL certificates
 
 1. Kestrel (the cross-platform ASP.NET core web server) requires an SSL certificate. Generate the certificate:
 ```
