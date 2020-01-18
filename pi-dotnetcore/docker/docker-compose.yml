@@ -3,14 +3,14 @@ services:
   dotnetcore-rt:
     image: lisaong/rpi-dotnetcore-rt-3:1.1
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=https://+:8081;http://+:8080
       - ASPNETCORE_HTTPS_PORT=18081
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/${SSL_PFX}
       - ASPNETCORE_Kestrel__Certificates__Default__Password=${SSL_PASS}
     volumes:
       - ../projects:/code
-      - ../projects/monit-hackernews/bin/Debug/netcoreapp3.1/linux-arm/publish:/app
+      - ../projects/monit-hackernews/bin/Release/netcoreapp3.1/linux-arm/publish:/app
       - .:/https
     ports:
       - '18080:8080'

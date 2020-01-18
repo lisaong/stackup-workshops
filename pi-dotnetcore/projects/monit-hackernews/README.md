@@ -16,9 +16,9 @@ Navigate to https://localhost:5001
 
 Package into a self-contained deployment (https://docs.microsoft.com/en-us/dotnet/core/deploying/deploy-with-cli)
 ```
-dotnet publish --runtime linux-arm --self-contained true
+dotnet publish --runtime linux-arm --self-contained true --configuration Release
 ```
-Copy the contents of bin/Debug/netcoreapp3.1/linux-arm/publish to the Raspberry Pi.
+Copy the contents of bin/Release/netcoreapp3.1/linux-arm/publish to the Raspberry Pi.
 
 #### On Raspberry Pi
 
@@ -72,3 +72,5 @@ dotnet run ip_address_of_server
 - https://github.com/HackerNews/API
 - https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr?view=aspnetcore-3.1
 - https://mohitgoyal.co/2018/09/25/use-ssl-certificates-for-dotnet-core-application-in-docker-containers/
+- https://medium.com/@sketchmycloud/how-to-deploy-asp-net-core-2-1-applications-on-ubuntu-474062f8db73
+
