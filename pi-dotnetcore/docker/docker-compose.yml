@@ -6,8 +6,11 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:8081;http://+:8080
       - ASPNETCORE_HTTPS_PORT=18081
+      - ASPNETCORE_Kestrel__Certificates__Default__Path: "pi.pfx"
+      - ASPNETCORE_Kestrel__Certificates__Default__Password: ${SSL_PASSWORD}
     volumes:
       - ../projects:/code
+      - .:/https
     ports:
       - '18080:8080'
       - '18081:8081'

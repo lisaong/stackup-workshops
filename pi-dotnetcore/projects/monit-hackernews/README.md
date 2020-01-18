@@ -21,9 +21,33 @@ dotnet publish --runtime linux-arm --self-contained true
 
 #### On Raspberry Pi
 
-Run docker compose, which will run the server
+### Generating SSL certificates
+
 ```
 cd docker
+
+openssl req \
+ -newkey rsa:2048 \
+ -nodes \
+ -keyout pi.key \
+ -out pi.csr
+
+openssl x509 \
+ -signkey pi.key \
+ -in pi.csr \
+ -req \
+ -days 3650 \
+ -out pi.crt
+
+openssl pkcs12 \
+ -inkey pi.key \
+ -in pi.crt \
+ -export \
+ -out pi.pfx
+```
+
+Run docker compose, which will run the server
+```
 docker compose up
 ```
 
@@ -45,3 +69,4 @@ dotnet run ip_address_of_server
 - https://codedbeard.com/iot-with-blazor-on-raspberry-pi-part-3/
 - https://github.com/HackerNews/API
 - https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr?view=aspnetcore-3.1
+- https://mohitgoyal.co/2018/09/25/use-ssl-certificates-for-dotnet-core-application-in-docker-containers/
