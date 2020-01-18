@@ -14,9 +14,14 @@ dotnet watch run
 
 Navigate to https://localhost:5001
 
+Package into a self-contained deployment (https://docs.microsoft.com/en-us/dotnet/core/deploying/deploy-with-cli)
+```
+dotnet publish --runtime linux-arm --self-contained true
+```
+
 #### On Raspberry Pi
 
-Run docker compose, which will call dotnet run
+Run docker compose, which will run the server
 ```
 cd docker
 docker compose up
