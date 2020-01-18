@@ -9,9 +9,10 @@ namespace client
 {
     class Program
     {
-        bool ValidateSslCertificate(
-            HttpRequestMessage httpRequestMessage,
-            X509Certificate2 cert, X509Chain certChain,
+        static bool ValidateSslCertificate(
+            object sender,
+            X509Certificate cert,
+            X509Chain certChain,
             SslPolicyErrors policyErrors)
         {
             // Validate the cert here and return true if it's correct.
