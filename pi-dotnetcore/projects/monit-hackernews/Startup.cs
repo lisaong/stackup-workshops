@@ -34,7 +34,7 @@ namespace monit_hackernews
             // to call AddSingleton<MonitorNewsService>()
             // https://github.com/dotnet/extensions/issues/1079
             services.AddHttpClient<MonitorNewsService>();
-            services.AddSigalR();
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
