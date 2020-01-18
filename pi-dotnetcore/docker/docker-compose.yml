@@ -10,9 +10,11 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Password=${SSL_PASS}
     volumes:
       - ../projects:/code
+      - ../projects/monit-hackernews/bin/Debug/netcoreapp3.1/linux-arm/publish:/app
       - .:/https
     ports:
       - '18080:8080'
       - '18081:8081'
     command: >
-      /code/monit-hackernews/bin/Debug/netcoreapp3.1/linux-arm/publish/monit-hackernews
+      sh -c "cd /app
+      && dotnet monit-hackernews.dll"
