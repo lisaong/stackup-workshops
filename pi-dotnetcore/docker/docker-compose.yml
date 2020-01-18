@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   dotnetcore:
-    image: lisaong/rpi-dotnetcore-3:1.1
+    image: lisaong/rpi-dotnetcore-rt-3:1.1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:8081;http://+:8080
