@@ -1,7 +1,8 @@
-### Hackernews Monitoring Service
+## Hackernews Monitoring Service
 
 Requirements: Dotnet core 3.1 (https://dotnet.microsoft.com/download/dotnet-core/3.1)
 
+### Server
 #### On Development Machine
 From a command prompt:
 
@@ -23,6 +24,16 @@ docker compose up
 Navigate to https://ipaddress_of_pi:18081
 
 ![example](example.png)
+
+### Client
+
+From a command prompt:
+
+```
+cd monit-hackernews/client
+dotnet run ip_address_of_server
+```
+![client](client.png)
 
 #### References
 - https://codedbeard.com/iot-with-blazor-on-raspberry-pi-part-3/

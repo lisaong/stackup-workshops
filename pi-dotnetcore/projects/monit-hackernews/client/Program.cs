@@ -56,8 +56,14 @@ namespace client
                 await connection.StartAsync();
             };
 
+            connection.On<string, string>("ReceiveMessage", (title, url) =>
+            {
+                Console.WriteLine(title);
+                Console.WriteLine(url);
+            });
+
             await connection.StartAsync();
-            Console.WriteLine("Press any key to exist.");
+            Console.WriteLine("Press any key to exit.");
             Console.Read();
         }
     }
