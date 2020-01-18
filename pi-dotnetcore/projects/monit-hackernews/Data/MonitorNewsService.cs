@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR;
+using monit_hackernews.Hubs;
 
 namespace monit_hackernews.Data
 {
@@ -11,11 +13,14 @@ namespace monit_hackernews.Data
         private const string _newsServiceUrl = "https://hacker-news.firebaseio.com/v0/";
 
         private readonly HttpClient _httpClient;
+        private readonly IHubContext<NewsHub> _hubContext;
 
+        // Dependency-injection
         // https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#multiple-ways-to-use-httpclientfactory
-        public MonitorNewsService(HttpClient httpClient)
+        public MonitorNewsService(HttpClient httpClient, IHubContext<NewsHub> hubContext)
         {
             _httpClient = httpClient;
+            _hubContext = hubContext;
         }
 
         public async Task<List<NewsHeadline>> GetHeadlinesAsync()
@@ -29,9 +34,19 @@ namespace monit_hackernews.Data
             // TODO: https://markheath.net/post/async-antipatterns
             foreach(var item in items[0..topN])
             {
-                headlines.Add(await GetHeadlineAsync(item));
+                var headline = await GetHeadlineAsync(item);
+                headlines.Add(headline);
+
+                // TODO: check if actually a new headline
+                await PublishUpdate(headline);
             }
             return headlines;
+        }
+
+        private Task PublishUpdate(NewsHeadline headline)
+        {
+            return _hubContext.Clients.All.SendAsync("ReceiveMessage",
+                headline.title, headline.url);
         }
 
         private async Task<NewsHeadline> GetHeadlineAsync(int id)

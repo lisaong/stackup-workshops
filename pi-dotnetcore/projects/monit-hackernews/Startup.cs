@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using monit_hackernews.Data;
+using monit_hackernews.Hubs;
 
 namespace monit_hackernews
 {
@@ -33,6 +34,7 @@ namespace monit_hackernews
             // to call AddSingleton<MonitorNewsService>()
             // https://github.com/dotnet/extensions/issues/1079
             services.AddHttpClient<MonitorNewsService>();
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +60,7 @@ namespace monit_hackernews
             {
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
+                endpoints.MapHub<NewsHub>("/newshub");
             });
         }
     }
