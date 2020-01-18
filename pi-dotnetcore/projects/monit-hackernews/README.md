@@ -8,6 +8,7 @@ From a command prompt:
 
 ```
 cd monit-hackernews
+dotnet add package Microsoft.AspNetCore.SignalR.Client
 dotnet watch run
 ```
 
