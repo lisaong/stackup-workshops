@@ -5,9 +5,9 @@ namespace monit_hackernews.Hubs
 {
     public class NewsHub : Hub
     {
-        public async Task SendMessage(string user, string message)
+        public async Task SendMessage(string title, string url)
         {
-            await Clients.All.SendAsync("ReceiveMessage", user, message);
+            await Clients.All.SendAsync("ReceiveMessage", title, url);
         }
     }
 }
