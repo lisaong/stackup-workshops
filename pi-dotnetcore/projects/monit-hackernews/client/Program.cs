@@ -26,8 +26,17 @@ namespace client
         {
             Console.WriteLine("Hello World!");
 
+            string ipAddress = "localhost";
+            if (args.Length > 0)
+            {
+                ipAddress = args[0];
+            }
+
+            Uri url = new Uri(String.Format("https://{0}:5001/newshub", ipAddress));
+            Console.WriteLine(String.Format("Connecting to {0}", url));
+
             var connection = new HubConnectionBuilder()
-                .WithUrl("https://localhost:5001/newshub", options => {
+                .WithUrl(url, options => {
 
                     // Create a handler that accepts custom (untrusted) certificates
                     var handler = new HttpClientHandler
