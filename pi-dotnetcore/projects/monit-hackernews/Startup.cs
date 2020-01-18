@@ -60,6 +60,7 @@ namespace monit_hackernews
             {
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
+                endpoints.MapHub<NewsHub>("/newshub");
             });
         }
     }
