@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  dotnetcore:
+  dotnetcore-rt:
     image: lisaong/rpi-dotnetcore-rt-3:1.1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -12,4 +12,4 @@ services:
       - '18080:8080'
       - '18081:8081'
     command: >
-      dotnet run --project /code/monit-hackernews/monit-hackernews.csproj
+      /code/monit-hackernews/bin/Debug/netcoreapp3.1/linux-arm/publish/monit-hackernews

@@ -12,7 +12,7 @@ dotnet add package Microsoft.AspNetCore.SignalR.Client
 dotnet watch run
 ```
 
-Navigate to https://localhost:5001
+Navigate to http://localhost:5000
 
 Package into a self-contained deployment (https://docs.microsoft.com/en-us/dotnet/core/deploying/deploy-with-cli)
 ```
@@ -27,7 +27,7 @@ cd docker
 docker compose up
 ```
 
-Navigate to https://ipaddress_of_pi:18081
+Navigate to http://ipaddress_of_pi:18080
 
 ![example](example.png)
 

@@ -51,7 +51,10 @@ namespace monit_hackernews
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            if (env.IsDevelopment() == false)
+            {
+                app.UseHttpsRedirection();
+            }
             app.UseStaticFiles();
 
             app.UseRouting();
