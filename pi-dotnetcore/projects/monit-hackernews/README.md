@@ -1,6 +1,10 @@
 ## Hackernews Monitoring Service
 
-Requirements: Dotnet core 3.1 (https://dotnet.microsoft.com/download/dotnet-core/3.1)
+Scenario:
+- Deploying an ASP.NET Core service + SignalR hub on Raspberry Pi to monitor Hackernews
+- When latest news is updated, the Raspberry Pi will update connected clients using SignalR
+
+Requirements: dotnet core 3.1 (https://dotnet.microsoft.com/download/dotnet-core/3.1)
 
 ### Server
 #### On Development Machine
