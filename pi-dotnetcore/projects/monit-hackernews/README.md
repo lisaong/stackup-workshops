@@ -12,7 +12,7 @@ dotnet add package Microsoft.AspNetCore.SignalR.Client
 dotnet watch run
 ```
 
-Navigate to http://localhost:5000
+Navigate to https://localhost:5001
 
 Package into a self-contained deployment (https://docs.microsoft.com/en-us/dotnet/core/deploying/deploy-with-cli)
 ```
@@ -27,7 +27,7 @@ cd docker
 docker compose up
 ```
 
-Navigate to http://ipaddress_of_pi:18080
+Navigate to https://ipaddress_of_pi:18081
 
 ![example](example.png)
 
@@ -41,7 +41,7 @@ dotnet run ip_address_of_server
 ```
 ![client](client.png)
 
-#### References
+### References
 - https://codedbeard.com/iot-with-blazor-on-raspberry-pi-part-3/
 - https://github.com/HackerNews/API
 - https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr?view=aspnetcore-3.1
