@@ -50,11 +50,11 @@ openssl pkcs12 \
  -out pi.pfx
 ```
 
-2. Update docker/.env to set SSL_PASS to the password you used for generating the cert.
+2. Update `docker/.env` to set SSL_PASS to the password you used for generating the cert.
 
-3. Run docker compose, which will launch the server with the SSL cert.
+3. Run docker compose, which will launch the server with the SSL cert path and password specified in the .env.
 ```
-docker compose up
+docker-compose up
 ```
 
 Navigate to https://ipaddress_of_pi:18081
