@@ -26,13 +26,18 @@ namespace client
         {
             Console.WriteLine("Hello World!");
 
+            // quick and dirty
             string ipAddress = "localhost";
+            string port = "5001";
             if (args.Length > 0)
             {
                 ipAddress = args[0];
+                if (args.Length > 1){
+                    port = args[1];
+                }
             }
 
-            Uri url = new Uri(String.Format("https://{0}:5001/newshub", ipAddress));
+            Uri url = new Uri(String.Format("https://{0}:{1}/newshub", ipAddress, port));
             Console.WriteLine(String.Format("Connecting to {0}", url));
 
             var connection = new HubConnectionBuilder()

@@ -5,6 +5,7 @@ __pycache__/
 *.trace
 .nbgrader.log
 .vscode
+.env
 
 graphs/
 logs/
