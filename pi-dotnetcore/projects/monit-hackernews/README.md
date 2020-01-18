@@ -27,3 +27,4 @@ Navigate to https://ipaddress_of_pi:18081
 #### References
 - https://codedbeard.com/iot-with-blazor-on-raspberry-pi-part-3/
 - https://github.com/HackerNews/API
+- https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr?view=aspnetcore-3.1
