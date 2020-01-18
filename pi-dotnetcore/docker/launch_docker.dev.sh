@@ -7,7 +7,7 @@
 
 mkdir -p ../projects
 
-docker run -u $(id -u):$(id -g) -it \
+docker run -it \
    -v ~/stackup-workshops/pi-dotnetcore/projects:/code \
    -p=18080:8080 \
    -p=18081:8081 \
