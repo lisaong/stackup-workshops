@@ -63,8 +63,9 @@ From a command prompt:
 
 ```
 cd monit-hackernews/client
-dotnet run ip_address_of_server
+dotnet run [ip_address_of_server(default: localhost)] [port(default: 5001)]
 ```
+
 ![client](client.png)
 
 ### References
