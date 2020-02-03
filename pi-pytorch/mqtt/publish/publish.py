@@ -1,4 +1,5 @@
 import sys
+import netifaces as ni
 
 if len(sys.argv) < 3:
     print(f'Usage: {sys.argv[0]} interface mqtt_server_url')
@@ -7,21 +8,7 @@ if len(sys.argv) < 3:
 interface = sys.argv[1]
 mqtt_host = sys.argv[2]
 
-def get_interface_ipaddress(ifname='wlan0'):
-    """https://circuitdigest.com/microcontroller-projects/display-ip-address-of-raspberry-pi
-    """
-    import socket
-    import fcntl
-    import struct
-
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    return socket.inet_ntoa(fcntl.ioctl(
-        s.fileno(),
-        0x8915, # SIOCGIFADDR
-        struct.pack('256s', bytes(ifname[:15], 'utf-8'))
-    )[20:24])
-
-ipaddress = get_interface_ipaddress(interface)
+print(ni.ifaddresses(interface))
 
 """
 # MQTT broker. If this isn´t up check https://github.com/mqtt/mqtt.github.io/wiki/public_brokers
