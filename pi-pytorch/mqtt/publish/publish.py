@@ -8,7 +8,11 @@ if len(sys.argv) < 3:
 interface = sys.argv[1]
 mqtt_host = sys.argv[2]
 
-print(ni.ifaddresses(interface)[ni.AF_INET][0]['addr'])
+addresses = ni.ifaddresses(interface)
+mac_address = addresses[ni.AF_LINK][0]['addr']
+ip_address = addresses[ni.AF_INET][0]['addr']
+
+print(mac_address, ip_address)
 
 """
 # MQTT broker. If this isn´t up check https://github.com/mqtt/mqtt.github.io/wiki/public_brokers
