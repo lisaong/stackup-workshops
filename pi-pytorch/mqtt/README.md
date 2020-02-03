@@ -15,16 +15,22 @@ AA:BB:CC:DD:EF
 pip install -r requirements.txt
 ```
 
-3. Start the subscriber
+3. Start the subscriber for the given interface (defaults to wlan0)
 ```
 cd subscribe
-python client.py macs.txt
+python client.py macs.txt --interface eth0
 ```
 
 ## Publisher (Raspberry Pi)
 1. Install docker
-2. Run the docker container to publish the ip address via MQTT
+2. Option 1: Run the docker container to publish the ip address via MQTT
 ```
 cd publish
 sh launch_docker.sh
+```
+
+Option 2: If using docker compose, edit .env file accordingly to select the interface
+```
+cd publish
+docker-compose run publish_ip
 ```

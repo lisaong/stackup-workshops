@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  publish_ip:
+    image: lisaong/armv71-mqttmyip:1.0
+    network_mode: host
+    entrypoint:
+      - python
+      - /app/publish.py
+      - ${PUBLISH_IFNAME}
+      - mqtt.eclipse.org
+      - "1883"
