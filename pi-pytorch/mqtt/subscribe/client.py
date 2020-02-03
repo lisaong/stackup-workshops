@@ -25,7 +25,7 @@ class MqttIpClient:
 
         mac_addresses = userdata
         for m in mac_addresses:
-            client.subscribe(f'pybmt/{m.rstrip()}/eth0')
+            client.subscribe(f'pybmt/{m.rstrip()}/wlan0')
 
     @staticmethod
     def on_message(client, userdata, msg):
