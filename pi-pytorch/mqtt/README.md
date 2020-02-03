@@ -5,7 +5,6 @@ subscribe/macs.txt
 ```
 AA:BB:CC:DD:EE
 AA:BB:CC:DD:EF
-
 ```
 
 2. Install dependencies
@@ -21,7 +20,7 @@ python client.py macs.txt
 
 ## Publisher (Raspberry Pi)
 1. Install docker
-2. Run the docker container
+2. Run the docker container to publish the ip address
 ```
 cd publish
 sh launch_docker.sh
