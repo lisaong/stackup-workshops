@@ -6,4 +6,4 @@ sudo docker run -it \
   --volume $(pwd):/code \
   --network="host" \
   lisaong/armv71-mqttmyip:1.0 \
-  python /code/publish.py eth0 iot.eclipse.org
+  python /code/publish.py eth0 mqtt.eclipse.org 1883

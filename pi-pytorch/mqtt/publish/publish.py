@@ -1,36 +1,25 @@
 import sys
 import netifaces as ni
+import paho.mqtt.client as mqtt
 
-if len(sys.argv) < 3:
-    print(f'Usage: {sys.argv[0]} interface mqtt_server_url')
+if len(sys.argv) < 4:
+    print(f'Usage: {sys.argv[0]} interface mqtt_server_url port')
     exit(-1)
 
 interface = sys.argv[1]
 mqtt_host = sys.argv[2]
+mqtt_port = int(sys.argv[3])
 
 addresses = ni.ifaddresses(interface)
 mac_address = addresses[ni.AF_LINK][0]['addr']
 ip_address = addresses[ni.AF_INET][0]['addr']
 
-print(mac_address, ip_address)
+# publish to MQTT
+topic = f'pybmt/{mac_address}/{interface}'
 
-"""
-# MQTT broker. If this isn´t up check https://github.com/mqtt/mqtt.github.io/wiki/public_brokers
-MQTTHOST="iot.eclipse.org"
-IFC="wlan0"
-MAC=`cat /sys/class/net/$IFC/address`
+mqttc = mqtt.Client()
+mqttc.connect(mqtt_host, mqtt_port)
+print(f'connected to {mqtt_host}:{mqtt_port}')
 
-# Change this to become something unique, so that you get your own topic path
-MQTTPREFIX="pybmt"
-
-# Get current private IP address for the selected interface
-PRIVATE=$(ifconfig $IFC | grep "inet " | awk '{ print $2 }')
-
-# Exit if IP address is empty
-if [ -z $PRIVATE ]
-then
- exit 0
-fi
-
-/usr/bin/mosquitto_pub -h $MQTTHOST -t "$MQTTPREFIX/$MAC/$IFC" -m "$PRIVATE"
-"""
+mqttc.publish(topic, ip_address)
+print(f'published to {topic}: {ip_address}')

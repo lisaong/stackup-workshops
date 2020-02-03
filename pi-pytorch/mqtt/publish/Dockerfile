@@ -30,4 +30,4 @@ COPY . /app
 
 WORKDIR /app
 
-CMD ["python", "publish.py", "wlan0", "iot.eclipse.org"]
+CMD ["python", "publish.py", "wlan0", "mqtt.eclipse.org", "1883"]
