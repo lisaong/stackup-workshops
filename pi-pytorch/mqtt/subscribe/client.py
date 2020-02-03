@@ -14,8 +14,8 @@ class MqttIpClient:
         client.on_connect = MqttIpClient.on_connect
         client.on_message = MqttIpClient.on_message
 
-        client.connect('iot.eclipse.org', 1883, 60)
-        print('Subsribed')
+        client.connect('mqtt.eclipse.org', 1883, 60)
+        print('Subscribed')
         client.loop_forever()
 
     @staticmethod
@@ -25,7 +25,7 @@ class MqttIpClient:
 
         mac_addresses = userdata
         for m in mac_addresses:
-            client.subscribe(f'pybmt/{m.rstrip()}/wlan0')
+            client.subscribe(f'pybmt/{m.rstrip()}/eth0')
 
     @staticmethod
     def on_message(client, userdata, msg):
