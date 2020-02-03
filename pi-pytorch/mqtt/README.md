@@ -34,3 +34,8 @@ Option 2: If using docker compose, edit .env file accordingly to select the inte
 cd publish
 docker-compose run publish_ip
 ```
+
+Option 3: If running automatically on reboot, add the following example command to crontab -e
+```
+@reboot /usr/bin/docker ps && /home/pi/.local/bin/docker-compose run -f /home/pi/publish_ip/ docker-compose.yml publish_ip
+```
