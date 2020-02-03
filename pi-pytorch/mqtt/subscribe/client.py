@@ -16,17 +16,18 @@ class MqttIpClient:
         client.on_message = MqttIpClient.on_message
 
         client.connect('mqtt.eclipse.org', 1883, 60)
-        print(f'Subscribed for {self.interface}')
         client.loop_forever()
 
     @staticmethod
     def on_connect(client, userdata, flags, rc):
-        if type(userdata) != list:
+        if not isinstance(userdata, MqttIpClient):
             raise TypeError('Invalid type for userdata')
 
         self_obj = userdata
         for m in self_obj.mac_addresses:
-            client.subscribe(f'pybmt/{m.rstrip()}/{self_obj.interface}')
+            topic = f'pybmt/{m.rstrip()}/{self_obj.interface}'
+            client.subscribe(topic)
+            print(f'Subscribed to {topic}')
 
     @staticmethod
     def on_message(client, userdata, msg):
