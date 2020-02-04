@@ -55,3 +55,5 @@ def get_listings(model):
 
 if __name__ == '__main__':
     print(get_listings('mx-5'))
+    print(get_listings('brz'))
+    print(get_listings('suzuki+swift'))
