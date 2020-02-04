@@ -23,28 +23,18 @@ python client.py macs.txt [--interface eth0]
 
 ## Publisher (Raspberry Pi)
 1. Install docker
-2. Start the container
-
-### Option 1: Run the docker container to publish the ip address via MQTT
-```
-cd publish
-sh launch_docker.sh
-```
-
-### Option 2: If using docker compose, edit .env file accordingly to select the interface
-```
-cd publish
-docker-compose run publish_ip
-```
-
-### Option 3: Configure to run on reboot
-1. Place docker-compose.yml and .env to a folder on the raspberry pi, e.g.
+2. Place these 2 files in a folder on the Pi, e.g.
 ```
 pi@raspberrypi:~ $ ls publish_ip/ -a
 .  ..  docker-compose.yml  .env
 ```
-
-2. Add the following example command to crontab -e.
+3. Edit `.env` accordingly to select the interface (e.g. wlan0 or eth0)
+4. Start the container. This should be done at least once to pull the container down before configuring to run on reboot.
+```
+cd publish_ip
+docker-compose up
+```
+5. Configure to run on reboot by adding the following example command to crontab -e.
 ```
 @reboot /usr/bin/docker ps && cd $HOME/publish_ip && $HOME/.local/bin/docker-compose up
 ```
