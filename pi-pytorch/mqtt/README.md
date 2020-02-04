@@ -34,7 +34,12 @@ pi@raspberrypi:~ $ ls publish_ip/ -a
 cd publish_ip
 docker-compose up
 ```
-5. Configure to run on reboot by adding the following example command to crontab -e.
+5. Configure to run on reboot by adding the following example command to crontab
+```
+crontab -e
+```
+
+Command to add to the end of crontab:
 ```
 @reboot /usr/bin/docker ps && cd $HOME/publish_ip && $HOME/.local/bin/docker-compose up
 ```
