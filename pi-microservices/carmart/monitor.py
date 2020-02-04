@@ -53,4 +53,5 @@ def get_listings(model):
         
         return json.dumps({'model': model, 'listings': items})
 
-print(get_listings('mx-5'))
+if __name__ == '__main__':
+    print(get_listings('mx-5'))
