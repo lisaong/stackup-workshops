@@ -1,7 +1,10 @@
 __pycache__/
 .ipynb_checkpoints/
-*.tgz
+*.ell
+*.png
 *.pt
+*.tgz
+*.zip
 *.trace
 .nbgrader.log
 .vscode
@@ -14,7 +17,5 @@ node_modules/
 !copy_graphs.sh
 bin/
 obj/
-*.png
-checkpoint.pt
 
 macs.txt
