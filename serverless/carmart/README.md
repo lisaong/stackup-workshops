@@ -29,4 +29,4 @@ scar init -f aws-lambda.yaml
 scar run -f aws-lambda.yaml
 ```
 
-!()[example.png]
+![example.png](example.png)
