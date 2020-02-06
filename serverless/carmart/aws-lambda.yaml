@@ -1,0 +1,6 @@
+functions:
+  aws:
+  - lambda:
+      name: scar-sgcarmart
+      container:
+        image: lisaong/monitor-carmart:1.0
