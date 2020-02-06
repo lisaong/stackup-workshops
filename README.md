@@ -27,3 +27,4 @@ From the Jupyter notebook:
 - [PyTorch + Raspberry Pi](pi-pytorch/README.md)
 - [Simple ML (Node JS)](simple-ml/README.md)
 - [.NET Core + Raspberry Pi](pi-dotnetcore/README.md)
+- [Serverless](serverless/README.md)
