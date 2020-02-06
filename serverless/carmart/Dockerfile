@@ -7,11 +7,9 @@ from bitnami/python:3 as builder
 COPY . /app
 WORKDIR /app
 
-COPY requirements.txt /tmp/requirements.txt
-
 RUN virtualenv . && \
-    . bin activate && \
-    pip3 install --no-cache-dir -r /tmp/requirements.txt
+    . bin/activate && \
+    pip3 install --no-cache-dir -r requirements.txt
 
 # Production stage
 FROM bitnami/python:3-prod
