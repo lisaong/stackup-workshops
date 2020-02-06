@@ -2,4 +2,4 @@
 docker run -it \
   --volume $(pwd):/code \
   lisaong/monitor-carmart:1.0 \
-  python /code/monitor.py
+  bash -c "source bin/activate && python /code/monitor.py"
