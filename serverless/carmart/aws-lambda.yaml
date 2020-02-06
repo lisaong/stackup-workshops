@@ -3,4 +3,4 @@ functions:
   - lambda:
       name: scar-sgcarmart
       container:
-        image: lisaong/monitor-carmart
+        image: lisaong/monitor-carmart:1.0
