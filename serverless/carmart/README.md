@@ -28,3 +28,5 @@ docker push lisaong/monitor-carmart:1.0
 scar init -f aws-lambda.yaml
 scar run -f aws-lambda.yaml
 ```
+
+!()[example.png]
