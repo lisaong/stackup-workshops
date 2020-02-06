@@ -1,4 +1,7 @@
 Dockerfile
+requirements.txt
+build_docker.sh
+launch_docker.sh
 py2
 *.yaml
 
