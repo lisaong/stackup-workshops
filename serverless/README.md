@@ -62,9 +62,30 @@ Update `$HOME/.scar/scar.cfg` to specify the IAM Role:
 }
 ```
 
+Once installed, SCAR can be used to run Docker containers within AWS Lambdas.
 
+For example: https://scar.readthedocs.io/en/latest/basic_usage.html
+```
+scar init -f basic-cow.yaml
+scar run -f basic-cow.yaml
+```
 
-Once installed, SCAR can be used to run Docker containers within AWS Lambdas
+3. Install udocker to test the Docker Images locally. Note that udocker requires Python 2 (still).
+
+https://github.com/indigo-dc/udocker/blob/master/doc/installation_manual.md
+
+```
+# Install Python 2
+sudo apt install python python-pip
+pip install virtualenv
+
+# Create virtual environment
+python -m virtualenv py2
+source py2/bin/activate
+
+# Install udocker
+pip install git+https://github.com/indigo-dc/udocker
+```
 
 ## Examples:
 - [monitor sgcarmart listings](carmart)
