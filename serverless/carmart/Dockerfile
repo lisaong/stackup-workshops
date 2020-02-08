@@ -16,6 +16,7 @@ FROM bitnami/python:3-prod
 COPY --from=builder /app /app
 
 ENV SLACK_WEBHOOK_URL ''
+ENV CARMART_QUERIES mx-5;brz;suzuki+swift
 
 WORKDIR /app
 CMD bash -c "source bin/activate && python monitor.py"

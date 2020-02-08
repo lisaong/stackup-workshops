@@ -55,14 +55,21 @@ def get_listings(model, pricing_only=True):
 
                     items.append(item)
 
+        # sort by price
+        if pricing_only:
+            sorter = lambda item: item['info']
+        else:
+            sorter = lambda item: item['info'][0]
+        items = sorted(items, key=sorter)
+
         return {'model': model, 'items': items}
 
 def post_webhook(payload):
+    msg = json.dumps({'text': json.dumps(payload, sort_keys=True)})
+
     # https://api.slack.com/apps/ATDMP46KT/incoming-webhooks
-    url = os.environ['SLACK_WEBHOOK_URL']
+    url = os.environ.get('SLACK_WEBHOOK_URL')
     if url is not None:
-        msg = json.dumps({'text': json.dumps(payload)})
-        print(msg)
         headers = {'Content-type': 'application/json'}
         res = requests.post(url, data=msg, headers=headers)
         if res.status_code == 200:
@@ -71,5 +78,8 @@ def post_webhook(payload):
             print(f'Webhook Error {res}')
 
 if __name__ == '__main__':
-    queries = ['mx-5', 'brz', 'suzuki+swift']
-    results = [post_webhook(get_listings(query)) for query in queries]
+    queries = os.environ.get('CARMART_QUERIES')
+    if queries is None:
+        queries = 'mx-5;brz;suzuki+swift'
+
+    [post_webhook(get_listings(query)) for query in queries.split(';')]
