@@ -19,10 +19,10 @@ https://api.slack.com/messaging/webhooks
   # docker
   sh launch_docker.sh
 
-  # udocker (see [](../README.md) for instructions on setting up virtual environment)
+  # udocker (see ../README.md) for instructions on setting up virtual environment)
   # this simulates running on AWS lambda
   source py2/bin/activate
-  udocker run lisaong/monitor-carmart:1.0 --env-file=.env
+  udocker run --env-file=.env lisaong/monitor-carmart:1.0
   ```
 
 4. Push container to docker registry
