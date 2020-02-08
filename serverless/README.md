@@ -37,12 +37,16 @@ From AWS Console, create an Inline Policy for the IAM Role:
 
 Once the role is created, get the Role ARN (arn:aws:iam:...). This will be used to update `$HOME/.scar/scar.cfg` in the next step.
 
-2. Install SCAR, which requires AWS credentials
+2. Install SCAR and its dependencies
 https://scar.readthedocs.io/en/latest/installation.html
 
 If using pip3 install, add the following to .bashrc after installation:
 ```
 export PATH=$PATH:$HOME/.local/bin
+```
+Install zip and unzip
+```
+apt -y install zip unzip
 ```
 
 Update `$HOME/.scar/scar.cfg` to specify the IAM Role:

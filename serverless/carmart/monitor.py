@@ -1,12 +1,12 @@
-
 # -*- coding: utf-8 -*-
 
 import json
 import re
 import requests
+import os
 from bs4 import BeautifulSoup as bs
 
-def get_listings(model):
+def get_listings(model, pricing_only=True):
     url = 'https://www.sgcarmart.com/used_cars/listing.php?MOD=' + model + '&TRN=1&AVL=2&ASL=1'
     base_url = 'https://www.sgcarmart.com/used_cars/'
 
@@ -31,7 +31,7 @@ def get_listings(model):
                 match = re.search('(info.php\?ID\=\d+)&', link)
                 if match:
                     listings.add(match.group(1))
-        
+
         for listing in listings:
             item_url = base_url + listing
             resp = s.get(item_url)
@@ -41,7 +41,11 @@ def get_listings(model):
                 car_info = soup.find('table', id='carInfo')
                 if car_info:
                     info = [[clean_text(cell.text) for cell in row('td') if len(clean_text(cell.text)) > 0]
-                                for row in car_info('tr')]
+                                    for row in car_info('tr')]
+
+                    if pricing_only:
+                        # pricing is the first entry
+                        info = info[0]
 
                     item = {
                         'url': item_url,
@@ -50,10 +54,22 @@ def get_listings(model):
                     }
 
                     items.append(item)
-        
-        return json.dumps({'model': model, 'listings': items})
+
+        return {'model': model, 'items': items}
+
+def post_webhook(payload):
+    # https://api.slack.com/apps/ATDMP46KT/incoming-webhooks
+    url = os.environ['SLACK_WEBHOOK_URL']
+    if url is not None:
+        msg = json.dumps({'text': json.dumps(payload)})
+        print(msg)
+        headers = {'Content-type': 'application/json'}
+        res = requests.post(url, data=msg, headers=headers)
+        if res.status_code == 200:
+            print(f'Posted to webhook: {msg}')
+        else:
+            print(f'Webhook Error {res}')
 
 if __name__ == '__main__':
-    print(get_listings('mx-5'))
-    print(get_listings('brz'))
-    print(get_listings('suzuki+swift'))
+    queries = ['mx-5', 'brz', 'suzuki+swift']
+    results = [post_webhook(get_listings(query)) for query in queries]
