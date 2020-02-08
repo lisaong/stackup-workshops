@@ -8,14 +8,11 @@ https://api.slack.com/messaging/webhooks
   sh build_docker.sh
   ```
 
-3. Test container. Create an .env file with the SLACK_WEBHOOK_URL variable set. E.g. .env:
-  ```
-  SLACK_WEBHOOK_URL=https://hooks.slack.com/...
-  ```
-
-  Run using docker or udocker
+3. Test container. Create an .env file with the SLACK_WEBHOOK_URL variable set, then run either docker or udocker: 
 
   ```
+  echo SLACK_WEBHOOK_URL=https://hooks.slack.com/... > .env
+   
   # docker
   sh launch_docker.sh
 
