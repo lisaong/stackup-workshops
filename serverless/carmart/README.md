@@ -31,7 +31,7 @@ https://api.slack.com/messaging/webhooks
   docker push lisaong/monitor-carmart:1.0
   ```
 
-5. Create lambda and run it
+5. Create lambda and run it. Make sure date is set correctly in the system `sudo date +%T%p -s "6:13PM"` if running on VirtualBox VM.
   ```
   scar init -f aws-lambda.yaml -e SLACK_WEBHOOK_URL=$SLACK_WEBHOOK_URL
   scar run -f aws-lambda.yaml
