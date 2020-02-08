@@ -39,6 +39,6 @@ https://api.slack.com/messaging/webhooks
 
 ![example.png](example.png)
 
-6. Schedule the lambda to run periodically
+6. Schedule the lambda to run periodically. For example, using cron expressions: https://docs.aws.amazon.com/lambda/latest/dg/tutorial-scheduled-events-schedule-expressions.html
 
-![example1.png](example1.png)
+![example2.png](example2.png)
