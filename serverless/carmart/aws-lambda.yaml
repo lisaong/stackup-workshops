@@ -4,3 +4,6 @@ functions:
       name: scar-sgcarmart
       container:
         image: lisaong/monitor-carmart:1.0
+        environment:
+          Variables:
+            CARMART_QUERIES: mx-5;brz;toyota+86

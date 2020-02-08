@@ -8,11 +8,14 @@ https://api.slack.com/messaging/webhooks
   sh build_docker.sh
   ```
 
-3. Test container. Create an .env file with the SLACK_WEBHOOK_URL variable set, then run either docker or udocker: 
+3. Test container with shell environment variables, then run either docker or udocker: 
 
   ```
-  echo SLACK_WEBHOOK_URL=https://hooks.slack.com/... > .env
-   
+  cat >> .env << EOF
+  SLACK_WEBHOOK_URL=https://hooks.slack.com/xxx
+  CARMART_QUERIES=mx-5;brz;toyota+86
+  EOF
+
   # docker
   sh launch_docker.sh
 
@@ -28,14 +31,16 @@ https://api.slack.com/messaging/webhooks
   docker push lisaong/monitor-carmart:1.0
   ```
 
-5. Create lambda and run it
+5. Create lambda and run it. Make sure date is set correctly in the system `sudo date +%T%p -s "6:13PM"` if running on VirtualBox VM.
   ```
-  scar init -f aws-lambda.yaml -e SLACK_WEBHOOK_URL=slack_webhook_url
+  scar init -f aws-lambda.yaml -e SLACK_WEBHOOK_URL=$SLACK_WEBHOOK_URL
   scar run -f aws-lambda.yaml
   ```
 
 ![example.png](example.png)
 
-6. Schedule the lambda to run periodically. For example, using cron expressions: https://docs.aws.amazon.com/lambda/latest/dg/tutorial-scheduled-events-schedule-expressions.html
+6. Schedule the lambda to run periodically. For example, using cron expressions: cron(0 9,21 * * ? *)
+
+https://docs.aws.amazon.com/lambda/latest/dg/tutorial-scheduled-events-schedule-expressions.html
 
 ![example2.png](example2.png)
