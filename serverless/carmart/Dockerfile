@@ -14,6 +14,9 @@ RUN virtualenv . && \
 # Production stage
 FROM bitnami/python:3-prod
 COPY --from=builder /app /app
+
+ENV SLACK_WEBHOOK_URL ''
+
 WORKDIR /app
 CMD bash -c "source bin/activate && python monitor.py"
 
