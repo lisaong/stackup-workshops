@@ -17,22 +17,24 @@ def get_listings(model, pricing_only=True):
     def clean_text(text):
         return re.sub('\s+', ' ', text).strip()
 
-    listings = set()
+    listings = dict()
     items = []
     with requests.session() as s:
         s.headers.update(headers)
         resp = s.get(url)
         soup = bs(resp.content, 'html.parser')
 
-        for div in soup.find_all('div'):
+        for div in soup.find_all('div', id='Frame'):
             children = div.findChildren('a')
             if len(children) > 0 :
                 link = children[0].get('href')
                 match = re.search('(info.php\?ID\=\d+)&', link)
                 if match:
-                    listings.add(match.group(1))
+                    # find the thumbnail
+                    listings[match.group(1)] = div.find_next_sibling('img', 
+                                                                     attrs={'title': 'more details'})['src']
 
-        for listing in listings:
+        for listing, thumbnail_url in listings.items():
             item_url = base_url + listing
             resp = s.get(item_url)
             soup = bs(resp.content, 'html.parser')
@@ -50,7 +52,8 @@ def get_listings(model, pricing_only=True):
                     item = {
                         'url': item_url,
                         'title': title.text,
-                        'info': info
+                        'info': info,
+                        'img_url': thumbnail_url
                     }
 
                     items.append(item)
@@ -80,6 +83,6 @@ def post_webhook(payload):
 if __name__ == '__main__':
     queries = os.environ.get('CARMART_QUERIES')
     if queries is None:
-        queries = 'mx-5;brz;suzuki+swift'
+        queries = 'mx-5;brz'
 
     [post_webhook(get_listings(query)) for query in queries.split(';')]
