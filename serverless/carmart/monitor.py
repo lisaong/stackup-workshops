@@ -67,8 +67,45 @@ def get_listings(model, pricing_only=True):
 
         return {'model': model, 'items': items}
 
-def post_webhook(payload):
-    msg = json.dumps({'text': json.dumps(payload, sort_keys=True)})
+def post_webhook(listings):
+    # https://api.slack.com/messaging/webhooks#advanced_message_formatting
+    """{
+    "blocks": [
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "<https://www.sgcarmart.com/used_cars/info.php?ID=876320|MINI Cooper S Cabriolet 1.6M (COE till 11/2025)>\n \n Price: $63,888"
+            },
+            "accessory": {
+                "type": "image",
+                "image_url": "https://i.i-sgcm.com/cars_used/201911/870928_small.jpg",
+                "alt_text": "car image"
+            }
+        }
+    ]}
+    """
+
+    blocks = []
+
+    for item in listings['items']:
+        markdown = f'<{item["url"]}|{item["title"]}>\n Price: {item["info"][1]}'
+        blocks.append(
+            {
+                'type': 'section',
+                'text': {
+                    'type': 'mrkdwn',
+                    'text': markdown
+                },
+                'accessory': {
+                    'type': 'image',
+                    'image_url': item["img_url"],
+                    'alt_text': 'thumbnail'
+                }
+            }
+        )
+
+    msg = json.dumps({'text': listings['model'], 'blocks': blocks})
 
     # https://api.slack.com/apps/ATDMP46KT/incoming-webhooks
     url = os.environ.get('SLACK_WEBHOOK_URL')
@@ -83,6 +120,6 @@ def post_webhook(payload):
 if __name__ == '__main__':
     queries = os.environ.get('CARMART_QUERIES')
     if queries is None:
-        queries = 'mx-5;brz'
+        queries = 'mx-5;brz;suzuki+swift'
 
     [post_webhook(get_listings(query)) for query in queries.split(';')]
