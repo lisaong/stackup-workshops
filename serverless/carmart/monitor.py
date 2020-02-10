@@ -17,22 +17,24 @@ def get_listings(model, pricing_only=True):
     def clean_text(text):
         return re.sub('\s+', ' ', text).strip()
 
-    listings = set()
+    listings = dict()
     items = []
     with requests.session() as s:
         s.headers.update(headers)
         resp = s.get(url)
         soup = bs(resp.content, 'html.parser')
 
-        for div in soup.find_all('div'):
+        for div in soup.find_all('div', id='Frame'):
             children = div.findChildren('a')
             if len(children) > 0 :
                 link = children[0].get('href')
                 match = re.search('(info.php\?ID\=\d+)&', link)
                 if match:
-                    listings.add(match.group(1))
+                    # find the thumbnail
+                    listings[match.group(1)] = div.find_next_sibling('img', 
+                                                                     attrs={'title': 'more details'})['src']
 
-        for listing in listings:
+        for listing, thumbnail_url in listings.items():
             item_url = base_url + listing
             resp = s.get(item_url)
             soup = bs(resp.content, 'html.parser')
@@ -50,7 +52,8 @@ def get_listings(model, pricing_only=True):
                     item = {
                         'url': item_url,
                         'title': title.text,
-                        'info': info
+                        'info': info,
+                        'img_url': thumbnail_url
                     }
 
                     items.append(item)
@@ -64,8 +67,45 @@ def get_listings(model, pricing_only=True):
 
         return {'model': model, 'items': items}
 
-def post_webhook(payload):
-    msg = json.dumps({'text': json.dumps(payload, sort_keys=True)})
+def post_webhook(listings):
+    # https://api.slack.com/messaging/webhooks#advanced_message_formatting
+    """{
+    "blocks": [
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "<https://www.sgcarmart.com/used_cars/info.php?ID=876320|MINI Cooper S Cabriolet 1.6M (COE till 11/2025)>\n \n Price: $63,888"
+            },
+            "accessory": {
+                "type": "image",
+                "image_url": "https://i.i-sgcm.com/cars_used/201911/870928_small.jpg",
+                "alt_text": "car image"
+            }
+        }
+    ]}
+    """
+
+    blocks = []
+
+    for item in listings['items']:
+        markdown = f'<{item["url"]}|{item["title"]}>\n Price: {item["info"][1]}'
+        blocks.append(
+            {
+                'type': 'section',
+                'text': {
+                    'type': 'mrkdwn',
+                    'text': markdown
+                },
+                'accessory': {
+                    'type': 'image',
+                    'image_url': item["img_url"],
+                    'alt_text': 'thumbnail'
+                }
+            }
+        )
+
+    msg = json.dumps({'text': listings['model'], 'blocks': blocks})
 
     # https://api.slack.com/apps/ATDMP46KT/incoming-webhooks
     url = os.environ.get('SLACK_WEBHOOK_URL')
