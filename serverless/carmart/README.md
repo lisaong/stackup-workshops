@@ -36,7 +36,7 @@ https://api.slack.com/messaging/webhooks
   cat >> .env << EOF
   SLACK_WEBHOOK_URL=https://hooks.slack.com/xxx
   CARMART_QUERIES=mx-5;brz;toyota+86
-  S3_BUCKET=carmart
+  S3_BUCKET_NAME=carmart
   EOF
 
   # docker

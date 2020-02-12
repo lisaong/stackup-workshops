@@ -7,4 +7,4 @@ functions:
         environment:
           Variables:
             CARMART_QUERIES: mx-5;brz;toyota+86;mini+cooper
-            S3_BUCKET: carmart
+            S3_BUCKET_NAME: carmart

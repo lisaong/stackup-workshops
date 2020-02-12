@@ -5,6 +5,7 @@ import re
 import requests
 import os
 from bs4 import BeautifulSoup as bs
+import boto3
 
 def get_listings(model, pricing_only=True):
     url = 'https://www.sgcarmart.com/used_cars/listing.php?MOD=' + model + '&TRN=1&AVL=2&ASL=1'
@@ -67,7 +68,7 @@ def get_listings(model, pricing_only=True):
 
         return {'model': model, 'items': items}
 
-def post_webhook(listings):
+def post_webhook(listings, history):
     # https://api.slack.com/messaging/webhooks#advanced_message_formatting
     """{
     "blocks": [
@@ -89,7 +90,16 @@ def post_webhook(listings):
     blocks = []
 
     for item in listings['items']:
-        markdown = f'<{item["url"]}|{item["title"]}>\n Price: {item["info"][1]}'
+
+        # mark new items so that they stand out
+        # an item is new if it has not been seen in the last time this code was run
+        flag = ''
+        if history and item["url"] not in history:
+            # list of emoji: https://unicodey.com/emoji-data/table.htm
+            flag = ':new'
+
+        markdown = f'<{item["url"]}|{item["title"]}> {flag} \n Price: {item["info"][1]}'
+
         blocks.append(
             {
                 'type': 'section',
@@ -117,9 +127,28 @@ def post_webhook(listings):
         else:
             print(f'Webhook Error {res}')
 
+def get_history(client, bucket, key):
+    obj = client.get_object(Bucket=bucket, Key=key)
+    return json.loads(obj['Body'].read().decode('utf-8'))
+
+def save_history(client, bucket, key, history):
+    obj = json.dumps(history)
+    client.put_object(Body=obj, Bucket=bucket, Key=key)
+
 if __name__ == '__main__':
     queries = os.environ.get('CARMART_QUERIES')
     if queries is None:
         queries = 'mx-5;brz;suzuki+swift'
 
-    [post_webhook(get_listings(query)) for query in queries.split(';')]
+    bucket_name = os.environ.get('S3_BUCKET_NAME')
+
+    for query in queries.split(';'):
+        listing = get_listings(query)
+
+        if len(listing) > 0:
+            if bucket_name:
+                s3 = boto3.client('s3')
+                history = get_history(s3, bucket_name, query)
+                save_history(s3, bucket_name, listing, query)
+
+            post_webhook(listing, history)
