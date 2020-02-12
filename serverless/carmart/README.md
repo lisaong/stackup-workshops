@@ -68,13 +68,29 @@ Refer to https://github.com/indigo-dc/udocker/blob/master/doc/user_manual.md for
 7. Create lambda and run it. Make sure date is set correctly in the system `sudo date +%T%p -s "6:13PM"` if running on VirtualBox VM.
 ```
 # set variables that are not specified in the yaml
-export SLACK_WEBHOOK_URL=...
-export AWS_ACCESS_KEY_ID=...
-export AWS_SECRET_ACCESS_KEY=...
+export SLACK_WEBHOOK_URL=https://xxx
+export AWS_ACCESS_KEY_ID=XXX
+export AWS_SECRET_ACCESS_KEY=YYY
 
 scar init -f aws-lambda.yaml -e SLACK_WEBHOOK_URL=$SLACK_WEBHOOK_URL -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
 
+...
+Using latest supervisor release: '1.2.0'.
+Using existent 'faas-supervisor' layer.
+Creating function package.
+Function 'scar-sgcarmart' successfully created.
+Using existent log group '/aws/lambda/scar-sgcarmart'.
+```
+
+```
 scar run -f aws-lambda.yaml
+
+Request Id: 97b5633e-288e-4c1e-817d-c21f91062d2d
+Log Group Name: /aws/lambda/scar-sgcarmart
+Log Stream Name: 2020/02/12/[$LATEST]9d0e4ef04931426e9a908d3c7ce1636d
+Posted to webhook: {"text": "mx-5", "blocks": [{"type": "section", "text": {"type": "mrkdwn", "text": "<https://www.sgcarmart.com/used_cars/info.php?ID=846683|Mazda MX-5 1.6M (COE till 04/2029)>  \n Price: $66,888"}, "accessory": {"type": "image", "image_url": "https://i.i-sgcm.com/cars_used/201908/846683_small.jpg", "alt_text": "thumbnail"}}]}
+Posted to webhook: {"text": "brz", "blocks": [{"type": "section", "text": {"type": "mrkdwn", "text": "<https://www.sgcarmart.com/used_cars/info.php?ID=871054|Subaru BRZ>  \n Price: $106,000"}, "accessory": {"type": "image", "image_url": "https://i.i-sgcm.com/cars_used/201911/871054_small.jpg", "alt_text": "thumbnail"}}, {"type": "section", "text": {"type": "mrkdwn", "text": "<https://www.sgcarmart.com/used_cars/info.php?ID=885709|Subaru BRZ>  \n Price: $108,700"}, "accessory": {"type": "image", "image_url": "https://i.i-sgcm.com/cars_used/202002/885709_small.jpg", "alt_text": "thumbnail"}}]}
+...
 ```
 
 ![example.png](example.png)
