@@ -19,7 +19,7 @@ ENV SLACK_WEBHOOK_URL ''
 ENV CARMART_QUERIES mx-5;brz;suzuki+swift
 ENV S3_BUCKET_NAME carmart
 
-# Allow specification of access keys from Lambda
+# Allow specification of access keys from Lambda (consumed by boto3).
 # TODO: Unlike EC2, Lambdas don't seem to support instance metadata retrieval for credentials...
 ENV AWS_ACCESS_KEY_ID ''
 ENV AWS_SECRET_ACCESS_KEY ''
