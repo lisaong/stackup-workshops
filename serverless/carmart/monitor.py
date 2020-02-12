@@ -151,6 +151,7 @@ if __name__ == '__main__':
         listing = get_listings(query)
 
         if len(listing) > 0:
+            history = None
             if bucket_name:
                 s3 = boto3.client('s3')
                 history = get_history(s3, bucket_name, query)
