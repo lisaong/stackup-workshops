@@ -6,6 +6,7 @@ import requests
 import os
 from bs4 import BeautifulSoup as bs
 import boto3
+from botocore.exceptions import ClientError
 
 def get_listings(model, pricing_only=True):
     url = 'https://www.sgcarmart.com/used_cars/listing.php?MOD=' + model + '&TRN=1&AVL=2&ASL=1'
@@ -128,7 +129,11 @@ def post_webhook(listings, history):
             print(f'Webhook Error {res}')
 
 def get_history(client, bucket, key):
-    obj = client.get_object(Bucket=bucket, Key=key)
+    try:
+        obj = client.get_object(Bucket=bucket, Key=key)
+    except ClientError as e:
+        # no history
+        return None
     return json.loads(obj['Body'].read().decode('utf-8'))
 
 def save_history(client, bucket, key, history):
