@@ -38,6 +38,7 @@ https://api.slack.com/messaging/webhooks
   CARMART_QUERIES=mx-5;brz;toyota+86
   S3_BUCKET_NAME=carmart
   AWS_SHARED_CREDENTIALS_FILE=/aws/credentials
+  AWS_CONFIG_FILE=/aws/config
   EOF
 
   # docker
