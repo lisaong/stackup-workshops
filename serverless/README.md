@@ -27,7 +27,7 @@ From AWS Console, create an Inline Policy for the IAM Role:
       "Effect": "Allow",
       "Action": [
         "s3:GetObject",
-        "s3:PutObject"
+        "s3:PutObject",
       ],
       "Resource": "arn:aws:s3:::*"
     }

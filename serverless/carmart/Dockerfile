@@ -17,6 +17,7 @@ COPY --from=builder /app /app
 
 ENV SLACK_WEBHOOK_URL ''
 ENV CARMART_QUERIES mx-5;brz;suzuki+swift
+ENV S3_BUCKET carmart
 
 WORKDIR /app
 CMD bash -c "source bin/activate && python monitor.py"
