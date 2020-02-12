@@ -90,14 +90,18 @@ def post_webhook(listings, history):
 
     blocks = []
 
+    # process the history by converting it into a dict
+    if history:
+        history = { item["url"]:item["info"] for item in history }
+
     for item in listings['items']:
 
-        # mark new items so that they stand out
-        # an item is new if it has not been seen in the last time this code was run
-        flag = ''
-        if history and item["url"] not in history:
-            # list of emoji: https://unicodey.com/emoji-data/table.htm
-            flag = ':new'
+        # mark new items
+        # list of emoji: https://unicodey.com/emoji-data/table.htm
+        url = item["url"]
+
+        # a new item is one where the information and url do not match
+        flag = '' if history and url in history and history[url] == item["info"] else ':new:'
 
         markdown = f'<{item["url"]}|{item["title"]}> {flag} \n Price: {item["info"][1]}'
 
@@ -128,24 +132,27 @@ def post_webhook(listings, history):
         else:
             print(f'Webhook Error {res}')
 
-def get_history(client, bucket, key):
+def get_and_update_history(bucket, key, listings):
+    client = boto3.client('s3')
+    history = None
     try:
         obj = client.get_object(Bucket=bucket, Key=key)
+        history = json.loads(obj['Body'].read().decode('utf-8'))
     except ClientError as e:
-        # no history
-        return None
-    return json.loads(obj['Body'].read().decode('utf-8'))
+        # no history yet
+        pass
 
-def save_history(client, bucket, key, history):
-    obj = json.dumps(history)
-    client.put_object(Body=obj, Bucket=bucket, Key=key)
+    # persist the history
+    client.put_object(Body=json.dumps(listings['items']), Bucket=bucket, Key=key)
+    return history
 
 if __name__ == '__main__':
     queries = os.environ.get('CARMART_QUERIES')
     if queries is None:
         queries = 'mx-5;brz;suzuki+swift'
 
-    bucket_name = os.environ.get('S3_BUCKET_NAME')
+    #bucket_name = os.environ.get('S3_BUCKET_NAME')
+    bucket_name = 'carmart'
 
     for query in queries.split(';'):
         listing = get_listings(query)
@@ -153,8 +160,6 @@ if __name__ == '__main__':
         if len(listing) > 0:
             history = None
             if bucket_name:
-                s3 = boto3.client('s3')
-                history = get_history(s3, bucket_name, query)
-                save_history(s3, bucket_name, listing, query)
+                history = get_and_update_history(bucket_name, query, listing)
 
             post_webhook(listing, history)
