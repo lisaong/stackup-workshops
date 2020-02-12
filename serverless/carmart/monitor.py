@@ -5,6 +5,8 @@ import re
 import requests
 import os
 from bs4 import BeautifulSoup as bs
+import boto3
+from botocore.exceptions import ClientError
 
 def get_listings(model, pricing_only=True):
     url = 'https://www.sgcarmart.com/used_cars/listing.php?MOD=' + model + '&TRN=1&AVL=2&ASL=1'
@@ -67,7 +69,7 @@ def get_listings(model, pricing_only=True):
 
         return {'model': model, 'items': items}
 
-def post_webhook(listings):
+def post_webhook(listings, history):
     # https://api.slack.com/messaging/webhooks#advanced_message_formatting
     """{
     "blocks": [
@@ -88,8 +90,21 @@ def post_webhook(listings):
 
     blocks = []
 
+    # process the history by converting it into a dict
+    if history:
+        history = { item["url"]:item["info"] for item in history }
+
     for item in listings['items']:
-        markdown = f'<{item["url"]}|{item["title"]}>\n Price: {item["info"][1]}'
+
+        # mark new items
+        # list of emoji: https://unicodey.com/emoji-data/table.htm
+        url = item["url"]
+
+        # a new item is one where the information and url do not match
+        flag = '' if history and url in history and history[url] == item["info"] else ':new:'
+
+        markdown = f'<{item["url"]}|{item["title"]}> {flag} \n Price: {item["info"][1]}'
+
         blocks.append(
             {
                 'type': 'section',
@@ -117,9 +132,33 @@ def post_webhook(listings):
         else:
             print(f'Webhook Error {res}')
 
+def get_and_update_history(bucket, key, listings):
+    client = boto3.client('s3')
+    history = None
+    try:
+        obj = client.get_object(Bucket=bucket, Key=key)
+        history = json.loads(obj['Body'].read().decode('utf-8'))
+    except ClientError as e:
+        # no history yet
+        pass
+
+    # persist the history
+    client.put_object(Body=json.dumps(listings['items']), Bucket=bucket, Key=key)
+    return history
+
 if __name__ == '__main__':
     queries = os.environ.get('CARMART_QUERIES')
     if queries is None:
         queries = 'mx-5;brz;suzuki+swift'
 
-    [post_webhook(get_listings(query)) for query in queries.split(';')]
+    bucket_name = os.environ.get('S3_BUCKET_NAME')
+
+    for query in queries.split(';'):
+        listing = get_listings(query)
+
+        if len(listing) > 0:
+            history = None
+            if bucket_name:
+                history = get_and_update_history(bucket_name, query, listing)
+
+            post_webhook(listing, history)
