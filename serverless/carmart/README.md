@@ -37,6 +37,7 @@ https://api.slack.com/messaging/webhooks
   SLACK_WEBHOOK_URL=https://hooks.slack.com/xxx
   CARMART_QUERIES=mx-5;brz;toyota+86
   S3_BUCKET_NAME=carmart
+  AWS_SHARED_CREDENTIALS_FILE=/aws/credentials
   EOF
 
   # docker
@@ -45,7 +46,7 @@ https://api.slack.com/messaging/webhooks
   # udocker (see ../README.md) for instructions on setting up virtual environment)
   # this simulates running on AWS lambda
   source py2/bin/activate
-  udocker run --env-file=.env lisaong/monitor-carmart:1.0
+  udocker run --env-file=.env --volume=$HOME/.aws:/aws lisaong/monitor-carmart:1.0
   ```
 
 5. Push container to docker registry
