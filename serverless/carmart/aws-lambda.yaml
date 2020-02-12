@@ -1,5 +1,4 @@
-# Note: set credentials in the Lambda dashboard or pass them through -e.
-# (These are intentionally blank)
+# Set credentials in the Lambda dashboard or pass them through -e.
 functions:
   aws:
   - lambda:
@@ -10,5 +9,3 @@ functions:
           Variables:
             CARMART_QUERIES: mx-5;brz;toyota+86;mini+cooper
             S3_BUCKET_NAME: carmart
-            AWS_ACCESS_KEY_ID: ''
-            AWS_SECRET_ACCESS_KEY: ''
