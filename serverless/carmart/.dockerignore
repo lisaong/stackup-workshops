@@ -2,8 +2,7 @@ Dockerfile
 build_docker.sh
 launch_docker.sh
 py2
+.env
 *.md
 *.png
 *.yaml
-
-

@@ -1,6 +1,11 @@
+# Set credentials in the Lambda dashboard or pass them through -e.
 functions:
   aws:
   - lambda:
       name: scar-sgcarmart
       container:
         image: lisaong/monitor-carmart:1.0
+        environment:
+          Variables:
+            CARMART_QUERIES: mx-5;brz;toyota+86;mini+cooper
+            S3_BUCKET_NAME: carmart
