@@ -35,7 +35,7 @@ RUN virtualenv . \
   && . bin/activate \
   && git clone https://github.com/ogmacorp/PyOgmaNeo2.git \
   && cd PyOgmaNeo2 \
-  && python3 setup.py install --user
+  && CMAKE_PREFIX_PATH=/app python3 setup.py install --user
 
 # === Production Stage ===
 FROM balenalib/raspberrypi3:buster
