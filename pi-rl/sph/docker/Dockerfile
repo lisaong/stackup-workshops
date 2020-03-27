@@ -9,7 +9,7 @@ RUN apt-get update \
 RUN apt-get install -y --no-install-recommends \
   python3-dev python3-pip python3-setuptools \
   cmake \
-  swig4.0.1
+  swig3.0
 
 RUN  apt-get clean \
   && rm -rf /var/lib/apt/lists/*
@@ -20,7 +20,7 @@ RUN git clone https://github.com/ogmacorp/OgmaNeo2.git \
   && cd OgmaNeo2 \
   && mkdir build /app \
   && cd build \
-  && cmake -DCMAKE_INSTALL_PREFIX=/app -DCMAKE_BUILD_TYPE=Release \
+  && cmake .. -DCMAKE_INSTALL_PREFIX=/app -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_SHARED_LIBS=On \
   && cmake --build . \
   && cmake --build . --target install
@@ -34,7 +34,7 @@ RUN pip3 install --no-cache-dir \
 RUN virtualenv . \
   && . bin/activate \
   && git clone https://github.com/ogmacorp/PyOgmaNeo2.git \
-  && cd Py0gmaNeo2 \
+  && cd PyOgmaNeo2 \
   && python3 setup.py install --user
 
 # === Production Stage ===
