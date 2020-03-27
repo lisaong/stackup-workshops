@@ -38,6 +38,10 @@ RUN virtualenv . \
   && cd PyOgmaNeo2 \
   && python3 setup.py install
 
+RUN . bin/activate \
+  && pip3 install --no-cache-dir \
+    gym
+
 # === Production Stage ===
 FROM balenalib/raspberrypi3:buster
 
@@ -46,7 +50,8 @@ RUN apt-get update \
   python3-dev \
   python3-pip \
   python3-setuptools \
-  libgomp1
+  libgomp1 \
+  libatlas-base-dev
 
 RUN  apt-get clean \
     && rm -rf /var/lib/apt/lists/*
