@@ -7,7 +7,8 @@ sh launch_docker.sh
 2. Install custom gym environment
 ```
 cd sph
-git clone https://github.com/paulhendricks/gym-inventory.git
+# use the forked version with compat fixes
+git clone https://github.com/ivallesp/gym-inventory.git
 . /app/bin/activate
 pip3 install -e gym-inventory
 ```

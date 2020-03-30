@@ -8,6 +8,7 @@
 
 import gym
 import pyogmaneo
+import gym_inventory # workaround for registration issue
 
 from EnvRunner import EnvRunner
 
