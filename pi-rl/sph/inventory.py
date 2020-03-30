@@ -14,4 +14,15 @@ from EnvRunner import EnvRunner
 
 env = gym.make('Inventory-v0')
 
+runner = EnvRunner(env)
 
+for episode in range(1000):
+    env.reset()
+
+    # timesteps
+    for t in range(50):
+        done, _ = runner.act()
+
+        if done:
+            print(f'Episode {episode+1} finished after {t+1} timesteps')
+            break
