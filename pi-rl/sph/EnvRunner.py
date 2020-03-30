@@ -13,7 +13,6 @@ import pyogmaneo
 from pyogmaneo import Int3
 import numpy as np
 import gym
-import cv2
 import os
 from copy import copy
 
@@ -79,6 +78,7 @@ class EnvRunner:
             raise Exception("Unsupported input type " + str(type(self.env.observation_space)))
 
         if len(self.imageSizes) > 0:
+            import cv2 # delay import openCV only if necessary
             vlds = []
 
             for i in range(len(self.imageSizes)):
