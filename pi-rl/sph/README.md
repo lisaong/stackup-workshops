@@ -36,17 +36,22 @@ Environment: https://github.com/paulhendricks/gym-inventory/blob/master/gym_inve
 Goal: Maximise expected total future income.
 
 Payoff at time step t:
-- Cost associated with purchasing $A_t$ items = $K + c*A_t$
-- Cost of holding inventory of size $x = h * x$
-- Value of selling z units = $p * z$
-- $p > h$ in order for there to be incentive to order new items
+- Cost associated with purchasing A[t] items = K(if A[t] > 0) + c*A[t]
+- Cost of holding inventory of size x = h * x
+- Value of selling z units = p * z
+- Note: p > h in order for there to be incentive to order new items
+- M = maximum inventory size
 
 Problem Setup:
-- State: $X_t$, t >=0: the inventory size in evening of day t
-- Action: $A_t$, t >=0: the number of items ordered in evening of day t
-- $M$: maximum inventory size
-- Next State: $X_{t+1} = min(X_t + A_t, M - D_{t+1})$
-- Revenue on day t+1: $R_{t+1} = -K - c min(
+- State: X[t], t >=0: the inventory size in evening of day t
+- Action: A[t], t >=0: the number of items ordered in evening of day t
+- Next state: X[t+1] = min(X[t] + A[t], M - D[t+1])
+- Revenue on day t+1: R[t+1] = sale_value - (fixed_purchase_cost +  variable_purchase_cost + holding_cost)
+  - sale_value = p*min(X[t]+A[t], M-X[t+1])
+  - fixed_purchase_cost = K(if A[t] > 0)
+  - variable_purchase_cost = c*min(X[t]+A[t], M-X[t])
+  - holding_cost = h*X[t]
+- (X[t+1], R[t+1]) is a function of (X[t], A[t], D[t+1])
 
 ## Trading Environment
 
