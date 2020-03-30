@@ -6,8 +6,9 @@ sh launch_docker.sh
 ```
 2. Install custom gym environment
 ```
-cd /code/pi-rl/sph
+cd sph
 git clone https://github.com/paulhendricks/gym-inventory.git
+. /app/bin/activate
 pip3 install -e gym-inventory
 ```
 3. Run script
