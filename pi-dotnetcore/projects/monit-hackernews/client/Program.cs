@@ -66,7 +66,7 @@ namespace client
                 .ConfigureLogging(logging =>
                 {
                     logging.AddConsole(); // log to the console
-                    logging.SetMinimumLevel(LogLevel.Debug);
+                    logging.SetMinimumLevel(LogLevel.Information); // LogLevel.Debug
                 })
                 .WithAutomaticReconnect()
                 .Build();
