@@ -30,7 +30,7 @@ namespace monit_hackernews.Data
 
         public override string ToString()
         {
-            return String.Format("{} {} {} {} {}", id, time, title, score, url);
+            return String.Format("{0} {1} {2} {3} {4}", id, time, title, score, url);
         }
     }
 }
