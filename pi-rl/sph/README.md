@@ -36,7 +36,7 @@ https://github.com/ogmacorp/PyOgmaNeo2/blob/master/examples/CartPole.py
 
 Example 1.1 in [Algorithms for Reinforcement Learning by Csaba Szepesvari (2010)](https://sites.ualberta.ca/~szepesva/RLBook.html)
 
-Environment: https://github.com/paulhendricks/gym-inventory/blob/master/gym_inventory/envs/inventory_env.py
+Environment: https://github.com/paulhendricks/gym-inventory/blob/master/gym_inventory/envs/inventory_env.py (used forked version from https://github.com/ivallesp/gym-inventory, thanks!)
 
 ### Scenario
 1. Evening: Inventory manager decides the quantity to be ordered for the next day.
