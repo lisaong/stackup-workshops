@@ -53,8 +53,11 @@ Problem Setup:
 - (X[t+1], R[t+1]) is a function of (X[t], A[t], D[t+1])
 
 ### Results
-![results](inventory_1000_50.png)
+Results from M=50, D=poisson(lamba=25), 1000 episodes, 50 timesteps per episode
 
+![results](inventory_M50_Dlambda25_1000ep_50steps.png)
+
+Notice how the initial revenue fluctuates, and finally stablises to positive value.
 
 ## Trading Environment
 
