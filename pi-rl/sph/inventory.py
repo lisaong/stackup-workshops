@@ -14,11 +14,11 @@ import matplotlib.pyplot as plt
 from EnvRunner import EnvRunner
 
 timesteps=50
-max_inventory=50
-max_demand=25
 episodes=1000
+max_inventory=50
+d_lambda=25
 
-env = gym.make('Inventory-v0', n=max_inventory, lam=max_demand)
+env = gym.make('Inventory-v0', n=max_inventory, lam=d_lambda)
 
 runner = EnvRunner(env, terminalReward=100)
 history = []
@@ -42,7 +42,7 @@ for episode in range(episodes):
 fig, ax = plt.subplots()
 ax.plot(history)
 ax.set(xlabel='episode', ylabel='reward', title=f'Inventory control problem, timesteps: {timesteps}, episodes: {episodes}')
-plt.savefig(f'inventory_{episodes}_{timesteps}')
+plt.savefig(f'inventory_M{max_inventory}_Dlambda{d_lambda}_{episodes}ep_{timesteps}steps')
 
 
 
