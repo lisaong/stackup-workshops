@@ -4,6 +4,7 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Logging;
 using monit_hackernews.Data;
 
 namespace client
@@ -61,6 +62,11 @@ namespace client
                         sockets.RemoteCertificateValidationCallback = 
                             new RemoteCertificateValidationCallback(ValidateSslCertificate);
                     };
+                })
+                .ConfigureLogging(logging =>
+                {
+                    logging.AddConsole(); // log to the console
+                    logging.SetMinimumLevel(LogLevel.Debug);
                 })
                 .WithAutomaticReconnect()
                 .Build();
