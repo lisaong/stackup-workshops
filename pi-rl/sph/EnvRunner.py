@@ -1,4 +1,3 @@
- 
 # ----------------------------------------------------------------------------
 #  PyOgmaNeo
 #  Copyright(c) 2016-2020 Ogma Intelligent Systems Corp. All rights reserved.
@@ -54,7 +53,7 @@ class EnvRunner:
                 self.inputTypes.append(pyogmaneo.inputTypeNone)
                 lows = list(self.env.observation_space.low)
                 highs = list(self.env.observation_space.high)
-                
+
                 # Detect large numbers/inf
                 for i in range(len(lows)):
                     if abs(lows[i]) > 100000 or abs(highs[i]) > 100000:
@@ -177,13 +176,13 @@ class EnvRunner:
 
                 # Format image
                 img = cv2.resize(obs, ( self.imageSizes[0][0], self.imageSizes[0][1] ))
-                
+
                 img = np.swapaxes(img, 0, 1)
 
                 img = img.astype(np.float32) / 255.0
-                
+
                 #delta = img - self.imgsPrev[0]
- 
+
                 self.imgsPrev[0] = copy(img)
 
                 # Encode image

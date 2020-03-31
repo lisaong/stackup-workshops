@@ -52,7 +52,8 @@ RUN apt-get update \
   python3-pip \
   python3-setuptools \
   libgomp1 \
-  libatlas-base-dev
+  libatlas-base-dev \
+  libfreetype6
 
 RUN  apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -61,10 +62,21 @@ COPY --from=builder /app /app
 COPY --from=builder /usr/local/include /usr/local/include
 COPY --from=builder /usr/local/lib/libOgmaNeo.so /usr/local/lib
 
-WORKDIR /app
+# Install custom environments
+# Use the forked version of gym-inventory with deprecation fixes
+WORKDIR /tmp
+RUN . /app/bin/activate \
+  && pip3 --no-cache-dir install -e \
+  "git+https://github.com/ivallesp/gym-inventory#egg=gym_inventory"
+
+RUN . /app/bin/activate \
+  && pip3 --no-cache-dir install matplotlib
 
 # Test
+WORKDIR /app
+
 RUN . bin/activate \
-  && python3 -c "import pyogmaneo as test; print(test);"
+  && python3 -c "import pyogmaneo as test; print(test); \
+  import gym_inventory; print(gym_inventory);"
 
 WORKDIR /code

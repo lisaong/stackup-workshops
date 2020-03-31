@@ -4,16 +4,13 @@
 ```
 sh launch_docker.sh
 ```
-2. Install custom gym environment
+2. Activate virtual environment
 ```
-cd sph
-# use the forked version with compat fixes
-git clone https://github.com/ivallesp/gym-inventory.git
 . /app/bin/activate
-pip3 install -e gym-inventory
 ```
 3. Run script
 ```
+cd sph
 python3 inventory.py
 ```
 
@@ -54,6 +51,10 @@ Problem Setup:
   - variable_purchase_cost = c*min(X[t]+A[t], M-X[t])
   - holding_cost = h*X[t]
 - (X[t+1], R[t+1]) is a function of (X[t], A[t], D[t+1])
+
+### Results
+![results](inventory_1000_50.png)
+
 
 ## Trading Environment
 
