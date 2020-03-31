@@ -1,5 +1,7 @@
 ## Setup
 
+System: Raspberry Pi 4 with Docker installed.
+
 1. Launch docker environment
 ```
 sh launch_docker.sh
