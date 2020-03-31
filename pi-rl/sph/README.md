@@ -22,6 +22,8 @@ https://github.com/ogmacorp/PyOgmaNeo2/blob/master/examples/CartPole.py
 
 ## Inventory Control Environment
 
+![inventory](Inventory.gif)
+
 Example 1.1 in [Algorithms for Reinforcement Learning by Csaba Szepesvari (2010)](https://sites.ualberta.ca/~szepesva/RLBook.html)
 
 Environment: https://github.com/paulhendricks/gym-inventory/blob/master/gym_inventory/envs/inventory_env.py
@@ -53,11 +55,13 @@ Problem Setup:
 - (X[t+1], R[t+1]) is a function of (X[t], A[t], D[t+1])
 
 ### Results
-Results from M=50, D=poisson(lamba=25), 1000 episodes, 50 timesteps per episode
+Here's a plot of the reward history, using M=50, D ~ Poisson(lamba=25), 1000 episodes, and 50 timesteps per episode.
+
+Here, the reward represents the revenue.
 
 ![results](inventory_M50_Dlambda25_1000ep_50steps.png)
 
-Notice how the initial revenue fluctuates, and finally stablises to positive value.
+The initial revenue fluctuates, and finally stablises to positive value (9 or 10) after about 500 episodes.
 
 ## Trading Environment
 
