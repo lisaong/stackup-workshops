@@ -81,7 +81,7 @@ else
             })
             .Build();
 
-        _hubConnection.On<NewsHeadline>("ReceiveMessage", (headline) =>
+        _hubConnection.On<NewsHeadline>("ReceiveHeadline", (headline) =>
         {
             // Reset the list
             if (_headlines.Count > 0 && _headlines[0].url == headline.url)

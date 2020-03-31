@@ -7,7 +7,7 @@ namespace monit_hackernews.Hubs
     // https://docs.microsoft.com/en-us/aspnet/core/signalr/hubs?view=aspnetcore-3.1#strongly-typed-hubs
     public interface INewsHub
     {
-        Task ReceiveMessage(NewsHeadline headline);
+        Task ReceiveHeadline(NewsHeadline headline);
     }
 
     public class NewsHub : Hub<INewsHub>
@@ -15,7 +15,7 @@ namespace monit_hackernews.Hubs
         // BUGBUG: where is SendTimeToClients used? Blazor?
         public async Task SendHeadline(NewsHeadline headline)
         {
-            await Clients.All.ReceiveMessage(headline);
+            await Clients.All.ReceiveHeadline(headline);
         }
     }
 }

@@ -65,7 +65,7 @@ namespace client
                 .WithAutomaticReconnect()
                 .Build();
 
-            connection.On<NewsHeadline>("ReceiveMessage", (headline) =>
+            connection.On<NewsHeadline>("ReceiveHeadline", (headline) =>
             {
                 Console.WriteLine(headline.ToString());
             });

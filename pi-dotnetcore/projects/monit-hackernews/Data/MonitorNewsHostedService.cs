@@ -47,7 +47,7 @@ namespace monit_hackernews.Data
             // TODO: https://markheath.net/post/async-antipatterns
             foreach(var headline in headlines)
             {
-                await _hubContext.Clients.All.ReceiveMessage(headline);
+                await _hubContext.Clients.All.ReceiveHeadline(headline);
             }
         }
     }
