@@ -14,8 +14,16 @@ cd sph
 python3 inventory.py
 ```
 
-## Sparse Predictive Hierarchies
+## Sparse Predictive Hierarchies (SPH)
 https://github.com/ogmacorp/OgmaNeo2/blob/master/SPH_Presentation.pdf
+
+SPH is an alternative to Back Propagation for learning. It uses a bi-directional hierachy of encoder / decoder layers to iteratively create a sparse representation of any signal / state. 
+
+Each layer is a sparse matrix which encodes its own state, and tries to predict the next state using context from current and previous layers. 
+
+The layers are updated during the upward/encoding direction, and evaluated during the downward/decoding direction. 
+
+SPH has been applied to perform predictions and also as an alternative to Deep Reinforcement Learning.
 
 ## PyOgmaNeo2 CartPole Example
 https://github.com/ogmacorp/PyOgmaNeo2/blob/master/examples/CartPole.py
