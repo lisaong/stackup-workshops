@@ -67,11 +67,7 @@ namespace client
 
             connection.On<NewsHeadline>("ReceiveMessage", (headline) =>
             {
-                Console.WriteLine(headline.time + ' ' +
-                    headline.id + ' ' +
-                    headline.score + ' ' +
-                    headline.title + ' ' +
-                    headline.url);
+                Console.WriteLine(headline.ToString());
             });
 
             await connection.StartAsync();

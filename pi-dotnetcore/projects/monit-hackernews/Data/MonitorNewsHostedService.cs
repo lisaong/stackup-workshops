@@ -14,7 +14,7 @@ namespace monit_hackernews.Data
     public class MonitorNewsHostedService : BackgroundService
     {
         private const string _newsServiceUrl = "https://hacker-news.firebaseio.com/v0/";
-        private const int _intervalMinutes = 5;
+        private const double _intervalMinutes = 15;
 
         private readonly HttpClient _httpClient;
         private readonly IHubContext<NewsHub> _hubContext;
@@ -34,7 +34,7 @@ namespace monit_hackernews.Data
                 await GetHeadlinesAsync();
 
                 // Wait
-                await Task.Delay(_intervalMinutes * 60 * 1000);
+                await Task.Delay((int)(_intervalMinutes * 60 * 1000));
             }
         }
 
@@ -69,6 +69,5 @@ namespace monit_hackernews.Data
             var responseString = await _httpClient.GetStringAsync(query);
             return JsonSerializer.Deserialize<NewsHeadline>(responseString);
         }
-
     }
 }
