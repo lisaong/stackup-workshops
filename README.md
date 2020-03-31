@@ -22,9 +22,10 @@ From the Jupyter notebook:
 
 [Usage](https://github.com/damianavila/RISE/blob/master/doc/usage.md)
 
-## Workshops
+## Projects
 - [AI on the edge](ai-edge/README.md)
 - [PyTorch + Raspberry Pi](pi-pytorch/README.md)
 - [Simple ML (Node JS)](simple-ml/README.md)
 - [.NET Core + Raspberry Pi](pi-dotnetcore/README.md)
 - [Serverless](serverless/README.md)
+- [Reinforcement Learning on Raspberry Pi](pi-rl/sph/README.md)
