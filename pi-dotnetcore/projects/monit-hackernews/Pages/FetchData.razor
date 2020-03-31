@@ -4,13 +4,14 @@
 @using System.Security.Cryptography.X509Certificates
 @using monit_hackernews.Data
 @inject NavigationManager NavigationManager
+@inject NewsHeadlineFetcher NewsFetcher
 
 <h1>Hackernews Top Headlines</h1>
 
 <p>This component demonstrates fetching data using SignalR.</p>
 <!-- https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr-blazor-webassembly -->
 
-@if (!IsConnected)
+@if (_headlines.Count == 0)
 {
     <p><em>Loading...</em></p>
 }
@@ -59,6 +60,9 @@ else
     // https://docs.microsoft.com/en-us/aspnet/core/blazor/lifecycle?view=aspnetcore-3.1
     protected override async Task OnInitializedAsync()
     {
+        // Initialise headlines the first time we load
+        _headlines = await NewsFetcher.GetHeadlinesAsync();
+
         _hubConnection = new HubConnectionBuilder()
             .WithUrl(NavigationManager.ToAbsoluteUri("/newsHub"), options => {
                 // Create a handler that accepts custom (untrusted) certificates
