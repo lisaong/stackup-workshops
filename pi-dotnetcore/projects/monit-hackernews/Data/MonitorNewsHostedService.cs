@@ -17,9 +17,9 @@ namespace monit_hackernews.Data
         private const double _intervalMinutes = 15;
 
         private readonly HttpClient _httpClient;
-        private readonly IHubContext<NewsHub> _hubContext;
+        private readonly IHubContext<NewsHub, INewsHub> _hubContext;
 
-        public MonitorNewsHostedService(IHttpClientFactory httpClient, IHubContext<NewsHub> hubContext)
+        public MonitorNewsHostedService(IHttpClientFactory httpClient, IHubContext<NewsHub, INewsHub> hubContext)
         {
             // https://www.telerik.com/blogs/.net-core-background-services
             _httpClient = httpClient.CreateClient();
@@ -60,7 +60,7 @@ namespace monit_hackernews.Data
 
         private Task PublishUpdate(NewsHeadline headline)
         {
-            return _hubContext.Clients.All.SendAsync("ReceiveMessage", headline);
+            return _hubContext.Clients.All.ReceiveMessage(headline);
         }
 
         private async Task<NewsHeadline> GetHeadlineAsync(int id)
