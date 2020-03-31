@@ -18,9 +18,10 @@ namespace monit_hackernews.Data
         private readonly HttpClient _httpClient;
         private readonly IHubContext<NewsHub> _hubContext;
 
-        public MonitorNewsHostedService(HttpClient httpClient, IHubContext<NewsHub> hubContext)
+        public MonitorNewsHostedService(IHttpClientFactory httpClient, IHubContext<NewsHub> hubContext)
         {
-            _httpClient = httpClient;
+            // https://www.telerik.com/blogs/.net-core-background-services
+            _httpClient = httpClient.CreateClient();
             _hubContext = hubContext;
         }
 
@@ -28,14 +29,12 @@ namespace monit_hackernews.Data
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                // Do bacckground work
-                var _headlines = await GetHeadlinesAsync();
-
-                // Signal update
+                // Do background work
+                await GetHeadlinesAsync();
             }
         }
 
-        public async Task<List<NewsHeadline>> GetHeadlinesAsync()
+        private async Task<List<NewsHeadline>> GetHeadlinesAsync()
         {
             Index topN = 5;
             var responseString = await _httpClient.GetStringAsync(_newsServiceUrl + "topstories.json");
@@ -57,8 +56,7 @@ namespace monit_hackernews.Data
 
         private Task PublishUpdate(NewsHeadline headline)
         {
-            return _hubContext.Clients.All.SendAsync("ReceiveMessage",
-                headline.title, headline.url);
+            return _hubContext.Clients.All.SendAsync("ReceiveMessage", headline);
         }
 
         private async Task<NewsHeadline> GetHeadlineAsync(int id)

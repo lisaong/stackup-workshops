@@ -4,6 +4,7 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
+using monit_hackernews.Data;
 
 namespace client
 {
@@ -64,16 +65,13 @@ namespace client
                 .WithAutomaticReconnect()
                 .Build();
 
-            connection.Closed += async (error) =>
+            connection.On<NewsHeadline>("ReceiveMessage", (headline) =>
             {
-                await Task.Delay(new Random().Next(0,5) * 1000);
-                await connection.StartAsync();
-            };
-
-            connection.On<string, string>("ReceiveMessage", (title, url) =>
-            {
-                Console.WriteLine(title);
-                Console.WriteLine(url);
+                Console.WriteLine(headline.time + ' ' +
+                    headline.id + ' ' +
+                    headline.score + ' ' +
+                    headline.title + ' ' +
+                    headline.url);
             });
 
             await connection.StartAsync();
