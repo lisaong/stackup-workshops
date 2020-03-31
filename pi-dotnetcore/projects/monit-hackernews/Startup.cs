@@ -26,12 +26,15 @@ namespace monit_hackernews
 
             services.AddSignalR();
 
-            // Add HTTP cilent factory
+            // Add HTTP client factory
             // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-3.1
             services.AddHttpClient();
 
             // Register hosted services
             services.AddHostedService<MonitorNewsHostedService>();
+
+            // Register other classes
+            services.AddTransient<NewsHeadlineFetcher>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
