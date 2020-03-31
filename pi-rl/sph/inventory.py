@@ -10,6 +10,8 @@ import gym
 import pyogmaneo
 import gym_inventory # workaround for registration issue
 import matplotlib.pyplot as plt
+import pandas as pd
+import pickle
 
 from EnvRunner import EnvRunner
 
@@ -44,5 +46,6 @@ ax.plot(history)
 ax.set(xlabel='episode', ylabel='reward', title=f'Inventory control problem, timesteps: {timesteps}, episodes: {episodes}')
 plt.savefig(f'inventory_M{max_inventory}_Dlambda{d_lambda}_{episodes}ep_{timesteps}steps')
 
-
-
+# save state and results
+pickle.dump(history, open('history.pkl', 'wb'))
+pickle.dump(runner, open('runner.pkl', 'wb'))
