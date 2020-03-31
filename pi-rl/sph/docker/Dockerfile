@@ -70,7 +70,9 @@ RUN . /app/bin/activate \
   "git+https://github.com/ivallesp/gym-inventory#egg=gym_inventory"
 
 RUN . /app/bin/activate \
-  && pip3 --no-cache-dir install matplotlib
+  && pip3 --no-cache-dir install \
+   matplotlib \
+   pandas
 
 # Test
 WORKDIR /app
