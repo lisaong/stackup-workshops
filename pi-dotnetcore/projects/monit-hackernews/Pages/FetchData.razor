@@ -1,13 +1,14 @@
 ﻿@page "/fetchdata"
-
+@using Microsoft.AspNetCore.SignalR.Client
 @using monit_hackernews.Data
-@inject MonitorNewsService NewsService
+@inject NavigationManager NavigationManager
 
 <h1>Hackernews Top Headlines</h1>
 
-<p>This component demonstrates fetching data from a service.</p>
+<p>This component demonstrates fetching data using SignalR.</p>
+<!-- https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr-blazor-webassembly -->
 
-@if (headlines == null)
+@if (!IsConnected)
 {
     <p><em>Loading...</em></p>
 }
@@ -23,7 +24,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var headline in headlines)
+            @foreach (var headline in _headlines)
             {
                 <tr>
                     <td>@headline.time</td>
@@ -37,10 +38,26 @@ else
 }
 
 @code {
-    private List<NewsHeadline> headlines;
+    private HubConnection _hubConnection;
+    private List<NewsHeadline> _headlines = new List<NewsHeadline>();
 
+    // Invoked after component is initialized
+    // https://docs.microsoft.com/en-us/aspnet/core/blazor/lifecycle?view=aspnetcore-3.1
     protected override async Task OnInitializedAsync()
     {
-        headlines = await NewsService.GetHeadlinesAsync();
+        _hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/newsHub"))
+            .Build();
+
+        _hubConnection.On<NewsHeadline>("ReceiveMessage", (headline) =>
+        {
+            _headlines.Add(headline);
+            StateHasChanged(); // tell view to re-render
+        });
+
+        await _hubConnection.StartAsync();
     }
+
+    public bool IsConnected =>
+        _hubConnection.State == HubConnectionState.Connected;    
 }
