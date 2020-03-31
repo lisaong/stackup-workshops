@@ -40,9 +40,17 @@ for episode in range(episodes):
 
 # plot episodes v rewards
 fig, ax = plt.subplots()
-ax.plot(history)
-ax.set(xlabel='episode', ylabel='reward', title=f'Inventory control problem, timesteps: {timesteps}, episodes: {episodes}')
+
+df = pd.Series(history)
+df.plot(ax=ax, label='reward')
+
+rolling = df.rolling(window=max(len(history)//100, 10))
+mean = rolling.mean()
+std = rolling.std()
+ax.fill_between(mean.index, mean - std, mean + std,
+    alpha=.3, color='r', label='reward(mean+/-std)')
+ax.set(xlabel='episode', ylabel='reward', 
+    title=f'Inventory control problem, timesteps: {timesteps}, episodes: {episodes}')
+ax.legend()
+
 plt.savefig(f'inventory_M{max_inventory}_Dlambda{d_lambda}_{episodes}ep_{timesteps}steps')
-
-
-
