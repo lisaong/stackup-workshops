@@ -1,13 +1,17 @@
 ﻿@page "/fetchdata"
-
+@using Microsoft.AspNetCore.SignalR.Client
+@using System.Net.Security
+@using System.Security.Cryptography.X509Certificates
 @using monit_hackernews.Data
-@inject MonitorNewsService NewsService
+@inject NavigationManager NavigationManager
+@inject NewsHeadlineFetcher NewsFetcher
 
 <h1>Hackernews Top Headlines</h1>
 
-<p>This component demonstrates fetching data from a service.</p>
+<p>This component demonstrates fetching data using SignalR.</p>
+<!-- https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr-blazor-webassembly -->
 
-@if (headlines == null)
+@if (_headlines.Count == 0)
 {
     <p><em>Loading...</em></p>
 }
@@ -23,7 +27,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var headline in headlines)
+            @foreach (var headline in _headlines)
             {
                 <tr>
                     <td>@headline.time</td>
@@ -37,10 +41,65 @@ else
 }
 
 @code {
-    private List<NewsHeadline> headlines;
+    private HubConnection _hubConnection;
+    private List<NewsHeadline> _headlines = new List<NewsHeadline>();
 
+    static bool ValidateSslCertificate(
+        object sender,
+        X509Certificate cert,
+        X509Chain certChain,
+        SslPolicyErrors policyErrors)
+    {
+        // Validate the cert here and return true if it's correct.
+        // If this is a development app, you could just return true always
+        // In production you should ALWAYS either use a trusted cert or check the thumbprint of the cert matches one you expect.
+        return true;
+    }
+
+    // Invoked after component is initialized
+    // https://docs.microsoft.com/en-us/aspnet/core/blazor/lifecycle?view=aspnetcore-3.1
     protected override async Task OnInitializedAsync()
     {
-        headlines = await NewsService.GetHeadlinesAsync();
+        // Initialise headlines the first time we load
+        _headlines = await NewsFetcher.GetHeadlinesAsync();
+
+        _hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/newsHub"), options => {
+                // Create a handler that accepts custom (untrusted) certificates
+                var handler = new HttpClientHandler
+                {
+                    ClientCertificateOptions = ClientCertificateOption.Manual,
+                    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => 
+                    { 
+                        return ValidateSslCertificate(sender, cert, chain, sslPolicyErrors); 
+                    }
+                };
+
+                // Register the custom handler above and also configure WebSockets
+                options.HttpMessageHandlerFactory = _ => handler;
+                options.WebSocketConfiguration = sockets =>
+                {
+                    sockets.RemoteCertificateValidationCallback = 
+                        new RemoteCertificateValidationCallback(ValidateSslCertificate);
+                };
+            })
+            .Build();
+
+        _hubConnection.On<NewsHeadline>("ReceiveHeadline", (headline) =>
+        {
+            // Reset the list
+            if (_headlines.Count > 0 && _headlines[0].url == headline.url)
+            {
+                _headlines.Clear();
+            }
+
+            _headlines.Add(headline);
+            StateHasChanged(); // tell view to re-render
+        });
+
+        await _hubConnection.StartAsync();
     }
+
+    public bool IsConnected =>
+        _hubConnection.State == HubConnectionState.Connected;    
 }

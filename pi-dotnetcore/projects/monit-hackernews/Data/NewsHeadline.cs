@@ -27,5 +27,10 @@ namespace monit_hackernews.Data
                 _url = value;
             }
         }
+
+        public override string ToString()
+        {
+            return String.Format("{0} {1} {2} {3} {4}", id, time, title, score, url);
+        }
     }
 }

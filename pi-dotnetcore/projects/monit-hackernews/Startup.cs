@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,11 +24,17 @@ namespace monit_hackernews
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
-            // AddHttpClient also registers the service, so no need
-            // to call AddSingleton<MonitorNewsService>()
-            // https://github.com/dotnet/extensions/issues/1079
-            services.AddHttpClient<MonitorNewsService>();
             services.AddSignalR();
+
+            // Add HTTP client factory
+            // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-3.1
+            services.AddHttpClient();
+
+            // Register hosted services
+            services.AddHostedService<MonitorNewsHostedService>();
+
+            // Register other classes
+            services.AddTransient<NewsHeadlineFetcher>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
