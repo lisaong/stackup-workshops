@@ -23,9 +23,8 @@ else
         <thead>
             <tr>
                 <th>Date</th>
-                <th>Score</th>
+                <th>Votes</th>
                 <th>Title</th>
-                <th>Url</th>
             </tr>
         </thead>
         <tbody>
@@ -33,9 +32,8 @@ else
             {
                 <tr>
                     <td>@headline.dateTime.ToLocalTime().ToString("g")</td>
-                    <td>@headline.score</td>
-                    <td>@headline.title</td>
-                    <td>@headline.url</td>
+                    <td><a href="https://news.ycombinator.com/item?id=@headline.id">@headline.score</a></td>
+                    <td><a href="@headline.url">@headline.title</a></td>
                 </tr>
             }
         </tbody>
