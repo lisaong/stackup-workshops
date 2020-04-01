@@ -6,6 +6,7 @@ namespace monit_hackernews.Data
     {
         public int id { get; set; }
 
+        // this needs to match the json result, it is actually unix time
         public int time { get; set; }
 
         public int score { get; set; }
@@ -13,6 +14,16 @@ namespace monit_hackernews.Data
         public string title { get; set; }
 
         private string _url;
+
+        public DateTime dateTime
+        {
+            get
+            {
+                // convert Unix time to DateTime
+                return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).
+                    AddSeconds(time);
+            }
+        }
         public string url 
         {
             get 
@@ -30,7 +41,8 @@ namespace monit_hackernews.Data
 
         public override string ToString()
         {
-            return String.Format("{0} {1} {2} {3} {4}", id, time, title, score, url);
+            return String.Format("{0} {1} {2} {3} {4}", id, dateTime.ToString("f"),
+                title, score, url);
         }
     }
 }

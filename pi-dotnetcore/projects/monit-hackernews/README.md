@@ -97,7 +97,7 @@ dotnetcore-rt_1  | info: System.Net.Http.HttpClient.Default.ClientHandler[100]
 dotnetcore-rt_1  |       Sending HTTP request GET https://hacker-news.firebaseio.com/v0/item/22742349.json
 ```
 
-4. Navigate to https://ipaddress_of_pi:18081
+4. Navigate to https://ipaddress_of_pi:18081/fetchdata
 
 ![example](example.png)
 
