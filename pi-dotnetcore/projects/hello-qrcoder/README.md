@@ -18,7 +18,7 @@ root@XXXX: cd /code/QRCoder
 root@XXXX: dotnet pack QRCoder.sln
 ```
 
-4. Add local Nuget source and install Nuget package. Need to specify a full path to the --source argument.
+4. Add local Nuget source and install Nuget package.
 ```
 root@XXXX: cd /code/hello-qrcoder
 root@XXXX: dotnet add package QRCoder --source /code/QRCoder/QRCoder/bin/Debug

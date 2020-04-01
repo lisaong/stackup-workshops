@@ -115,6 +115,7 @@ From a command prompt:
 ```
 cd monit-hackernews/client
 dotnet add package Microsoft.Extensions.Logging.Console
+dotnet add package QRCoder --source ../third_party/QRCoder/Release
 dotnet run [ip_address_of_server(default: localhost)] [port(default: 5001)]
 ```
 
