@@ -5,6 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
+using QRCoder;
 using monit_hackernews.Data;
 
 namespace client
@@ -21,6 +22,18 @@ namespace client
             // If this is a development app, you could just return true always
             // In production you should ALWAYS either use a trusted cert or check the thumbprint of the cert matches one you expect.
             return true;
+        }
+
+        static void ConsoleWriteQRCode(string textToEncode)
+        {
+            var generator = new QRCodeGenerator();
+
+            var encodedText = generator.CreateQrCode(textToEncode, QRCodeGenerator.ECCLevel.Q);
+            using (var qrCode = new AsciiQRCode(encodedText))
+            {
+                var qrCodeAsAsciiArt = qrCode.GetGraphic(1);
+                Console.WriteLine(qrCodeAsAsciiArt);
+            }
         }
 
         // https://dotnettutorials.net/lesson/async-main-csharp/
@@ -74,6 +87,7 @@ namespace client
             connection.On<NewsHeadline>("ReceiveHeadline", (headline) =>
             {
                 Console.WriteLine(headline.ToString());
+                ConsoleWriteQRCode(headline.url);
             });
 
             await connection.StartAsync();
