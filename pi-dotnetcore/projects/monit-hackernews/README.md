@@ -110,11 +110,16 @@ dotnetcore-rt_1  |       Sending HTTP request GET https://hacker-news.firebaseio
 
 ### Client
 
+The console client can be used to subscribe to the SignalR feed, and display the latest headlines.
+
+An ASCII QR code is generated for the post url.
+
 From a command prompt:
 
 ```
 cd monit-hackernews/client
 dotnet add package Microsoft.Extensions.Logging.Console
+dotnet add package QRCoder --source ../third_party/QRCoder/Release
 dotnet run [ip_address_of_server(default: localhost)] [port(default: 5001)]
 ```
 

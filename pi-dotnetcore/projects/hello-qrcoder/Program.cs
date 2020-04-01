@@ -12,8 +12,8 @@ namespace hello_qrcoder
             Console.WriteLine("Hello World!");
 
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode("The text which should be encoded.", 
-                                        QRCodeGenerator.ECCLevel.Q);
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode("https://news.ycombinator.com/item?id=111111", 
+                QRCodeGenerator.ECCLevel.Q);
             using (var qrCode = new AsciiQRCode(qrCodeData))
             {
                 string qrCodeAsAsciiArt = qrCode.GetGraphic(1);
