@@ -1,4 +1,5 @@
-﻿@page "/fetchdata"
+﻿<!-- https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr-blazor-webassembly -->
+@page "/fetchdata"
 @using Microsoft.AspNetCore.SignalR.Client
 @using System.Net.Security
 @using System.Security.Cryptography.X509Certificates
@@ -11,7 +12,7 @@
 <h1>Hackernews Top Headlines</h1>
 
 <p>This component demonstrates fetching data using SignalR, refreshing every @AppSettings.ThrottleIntervalMinutes minute(s).</p>
-<!-- https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr-blazor-webassembly -->
+<p><i>Last refreshed @_refreshTime.ToLocalTime().ToString("g") Local Time.</i></p>
 
 @if (_headlines.Count == 0)
 {
@@ -43,6 +44,7 @@ else
 @code {
     private HubConnection _hubConnection;
     private List<NewsHeadline> _headlines = new List<NewsHeadline>();
+    private DateTime _refreshTime = DateTime.Now;
 
     static bool ValidateSslCertificate(
         object sender,
@@ -94,6 +96,7 @@ else
             }
 
             _headlines.Add(headline);
+            _refreshTime = DateTime.Now;
             StateHasChanged(); // tell view to re-render
         });
 
