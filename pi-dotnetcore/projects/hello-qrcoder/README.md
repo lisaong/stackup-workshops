@@ -15,13 +15,13 @@ sh ./launch_docker.sh
 3. Build QRCoder Nuget package
 ```
 root@XXXX: cd /code/QRCoder
-root@XXXX: dotnet pack QRCoderProject.NETCore.sln
+root@XXXX: dotnet pack QRCoder.sln
 ```
 
-4. Add local Nuget source and install Nuget package
+4. Add local Nuget source and install Nuget package. Need to specify a full path to the --source argument.
 ```
 root@XXXX: cd /code/hello-qrcoder
-root@XXXX: dotnet add package QRCoder.NET --source /code/QRCoder/QRCoder/bin/Debug
+root@XXXX: dotnet add package QRCoder --source /code/QRCoder/QRCoder/bin/Debug
 ```
 
 5. Build and run
