@@ -7,10 +7,11 @@ Scenario:
 Requirements: dotnet core 3.1 (https://dotnet.microsoft.com/download/dotnet-core/3.1)
 
 ### Server
-#### On Development Machine
+#### On Development Machine (PC)
 
 **Development**
-From a command prompt:
+
+Building and run server locally from a command prompt:
 
 ```
 cd monit-hackernews
@@ -21,7 +22,8 @@ dotnet watch run
 Navigate to https://localhost:5001/fetchdata to test.
 
 **Packaging**
-Package into a self-contained deployment (https://docs.microsoft.com/en-us/dotnet/core/deploying/deploy-with-cli)
+
+On the PC, package into a self-contained deployment for Raspberry Pi (https://docs.microsoft.com/en-us/dotnet/core/deploying/deploy-with-cli)
 ```
 dotnet publish --runtime linux-arm --self-contained true --configuration Release
 dotnet publish --runtime linux-arm --self-contained true --configuration Debug
