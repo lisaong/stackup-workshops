@@ -12,6 +12,7 @@ services:
       - ../projects:/code
       - ../projects/monit-hackernews/bin/Release/netcoreapp3.1/linux-arm/publish:/app
       - .:/https
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - '18080:8080'
       - '18081:8081'
