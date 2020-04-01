@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Text.Json;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using monit_hackernews.Hubs;
 
 // https://docs.microsoft.com/en-us/dotnet/architecture/microservices/multi-container-microservice-net-applications/background-tasks-with-ihostedservice
@@ -19,10 +17,15 @@ namespace monit_hackernews.Data
         private readonly IHubContext<NewsHub, INewsHub> _hubContext;
         private readonly NewsHeadlineFetcher _newsFetcher;
 
-        public MonitorNewsHostedService(NewsHeadlineFetcher newsFetcher, IHubContext<NewsHub, INewsHub> hubContext)
+        private readonly ILogger _logger;
+
+        public MonitorNewsHostedService(NewsHeadlineFetcher newsFetcher,
+            IHubContext<NewsHub, INewsHub> hubContext,
+            ILogger<MonitorNewsHostedService> logger)
         {
             _hubContext = hubContext;
             _newsFetcher = newsFetcher;
+            _logger = logger;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -31,6 +34,7 @@ namespace monit_hackernews.Data
             {
                 // Do background work
                 var headlines = await _newsFetcher.GetHeadlinesAsync();
+                _logger.LogInformation("Fetched {0} headlines", headlines.Count);
 
                 // TODO: check if actually a new headline
 
@@ -49,6 +53,7 @@ namespace monit_hackernews.Data
             {
                 await _hubContext.Clients.All.ReceiveHeadline(headline);
             }
+            _logger.LogInformation("Published {0} headlines", headlines.Count);
         }
     }
 }

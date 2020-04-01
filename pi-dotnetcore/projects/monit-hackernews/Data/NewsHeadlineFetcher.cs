@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Text.Json;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.Hosting;
-using monit_hackernews.Hubs;
+using Microsoft.Extensions.Logging;
 
 namespace monit_hackernews.Data
 {
