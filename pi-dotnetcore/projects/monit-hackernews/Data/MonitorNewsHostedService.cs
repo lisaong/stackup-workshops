@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using monit_hackernews.Hubs;
@@ -11,25 +12,41 @@ namespace monit_hackernews.Data
 {
     public class MonitorNewsHostedService : BackgroundService
     {
-        private const double _intervalMinutes = 15;
         private const int _topN = 5;
 
         private readonly IHubContext<NewsHub, INewsHub> _hubContext;
         private readonly NewsHeadlineFetcher _newsFetcher;
 
+        private readonly IConfiguration _configuration;
+
         private readonly ILogger _logger;
 
         public MonitorNewsHostedService(NewsHeadlineFetcher newsFetcher,
             IHubContext<NewsHub, INewsHub> hubContext,
+            IConfiguration configuration,
             ILogger<MonitorNewsHostedService> logger)
         {
             _hubContext = hubContext;
             _newsFetcher = newsFetcher;
+            _configuration = configuration;
             _logger = logger;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            double interval = 15;
+            if (double.TryParse(
+                _configuration["MonitorNewsService:ThrottleIntervalMinutes"], 
+                out interval))
+            {
+                _logger.LogInformation("Throttle interval {0} minute(s)", interval);
+            }
+            else
+            {
+                _logger.LogError("Invalid MonitorNewsService:ThrottleIntervalMinutes, check appsettings*.json. Default to {0} minute(s)", 
+                    interval);
+            }
+
             while (!stoppingToken.IsCancellationRequested)
             {
                 // Do background work
@@ -42,7 +59,7 @@ namespace monit_hackernews.Data
                 await PublishUpdates(headlines);
 
                 // Throttle
-                await Task.Delay((int)(_intervalMinutes * 60 * 1000));
+                await Task.Delay((int)(interval * 60 * 1000));
             }
         }
 

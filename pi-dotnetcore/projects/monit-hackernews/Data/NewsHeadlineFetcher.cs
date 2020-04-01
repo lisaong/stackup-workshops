@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text.Json;
-using Microsoft.Extensions.Logging;
 
 namespace monit_hackernews.Data
 {
