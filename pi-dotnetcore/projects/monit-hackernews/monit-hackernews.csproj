@@ -4,6 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>monit_hackernews</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <!--Don't include client in the server build-->
+    <DefaultItemExcludes>$(DefaultItemExcludes);client\*</DefaultItemExcludes>
   </PropertyGroup>
 
   <ItemGroup>
