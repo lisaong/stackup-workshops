@@ -52,12 +52,52 @@ openssl pkcs12 \
 
 2. Update `docker/.env` to set SSL_PASS to the password you used for generating the cert.
 
-3. Run docker compose, which will launch the server with the SSL cert path and password specified in the .env.
+3a. Run docker compose, which will launch the server with the SSL cert path and password specified in the .env.
 ```
 docker-compose up
 ```
+3b. Alternatively, to run as a daemon:
+```
+docker-compose up -d
+```
+Once started, logs can be monitored:
+```
+docker-compose logs -f
+```
 
-Navigate to https://ipaddress_of_pi:18081
+The output should look like
+```
+root@DietPi:~/stackup-workshops/pi-dotnetcore/docker# docker-compose logs -f
+Attaching to docker_dotnetcore-rt_1
+dotnetcore-rt_1  | warn: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[35]
+dotnetcore-rt_1  |       No XML encryptor configured. Key {fa593ccd-6197-4406-a214-ed5befa7b989} may be persisted to storage in unencrypted form.
+dotnetcore-rt_1  | info: monit_hackernews.Data.MonitorNewsHostedService[0]
+dotnetcore-rt_1  |       Throttle interval 15 minute(s)
+dotnetcore-rt_1  | info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+dotnetcore-rt_1  |       Start processing HTTP request GET https://hacker-news.firebaseio.com/v0/topstories.json
+dotnetcore-rt_1  | info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+dotnetcore-rt_1  |       Sending HTTP request GET https://hacker-news.firebaseio.com/v0/topstories.json
+dotnetcore-rt_1  | info: Microsoft.Hosting.Lifetime[0]
+dotnetcore-rt_1  |       Now listening on: https://[::]:8081
+dotnetcore-rt_1  | info: Microsoft.Hosting.Lifetime[0]
+dotnetcore-rt_1  |       Now listening on: http://[::]:8080
+dotnetcore-rt_1  | info: Microsoft.Hosting.Lifetime[0]
+dotnetcore-rt_1  |       Application started. Press Ctrl+C to shut down.
+dotnetcore-rt_1  | info: Microsoft.Hosting.Lifetime[0]
+dotnetcore-rt_1  |       Hosting environment: Production
+dotnetcore-rt_1  | info: Microsoft.Hosting.Lifetime[0]
+dotnetcore-rt_1  |       Content root path: /app
+dotnetcore-rt_1  | info: System.Net.Http.HttpClient.Default.ClientHandler[101]
+dotnetcore-rt_1  |       Received HTTP response after 1526.7894ms - OK
+dotnetcore-rt_1  | info: System.Net.Http.HttpClient.Default.LogicalHandler[101]
+dotnetcore-rt_1  |       End processing HTTP request after 1557.3044ms - OK
+dotnetcore-rt_1  | info: System.Net.Http.HttpClient.Default.LogicalHandler[100]
+dotnetcore-rt_1  |       Start processing HTTP request GET https://hacker-news.firebaseio.com/v0/item/22742349.json
+dotnetcore-rt_1  | info: System.Net.Http.HttpClient.Default.ClientHandler[100]
+dotnetcore-rt_1  |       Sending HTTP request GET https://hacker-news.firebaseio.com/v0/item/22742349.json
+```
+
+4. Navigate to https://ipaddress_of_pi:18081
 
 ![example](example.png)
 
