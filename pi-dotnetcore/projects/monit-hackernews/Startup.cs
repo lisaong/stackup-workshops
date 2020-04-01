@@ -36,9 +36,11 @@ namespace monit_hackernews
             // Register other classes
             services.AddTransient<NewsHeadlineFetcher>();
 
-            // Configuration settings injection into Razor pages
-            services.AddSingleton<IServiceConfiguration, ServiceConfiguration>(
-                e => Configuration.GetSection("MonitorNewsService")
+            // Configuration settings injection into Razor pages.
+            // Make this a transient to dynamically read from config each time.
+            // A singleton will only read the setting once on creation.
+            services.AddTransient<IServiceConfiguration, ServiceConfiguration>(
+                provider => Configuration.GetSection("MonitorNewsService")
                     .Get<ServiceConfiguration>());
         }
 
