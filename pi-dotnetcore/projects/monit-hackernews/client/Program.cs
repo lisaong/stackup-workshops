@@ -87,7 +87,7 @@ namespace client
             connection.On<NewsHeadline>("ReceiveHeadline", (headline) =>
             {
                 Console.WriteLine(headline.ToString());
-                ConsoleWriteQRCode(headline.url);
+                ConsoleWriteQRCode("https://news.ycombinator.com/item?id=" + headline.id);
             });
 
             await connection.StartAsync();
