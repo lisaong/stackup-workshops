@@ -86,7 +86,7 @@ namespace client
 
             connection.On<NewsHeadline>("ReceiveHeadline", (headline) =>
             {
-                Console.WriteLine("Refresh time: {0}", DateTime.Now.ToString("g"));
+                Console.WriteLine("Refresh time: " + DateTime.Now.ToString("g"));
                 Console.WriteLine(headline.ToString());
                 ConsoleWriteQRCode("https://news.ycombinator.com/item?id=" + headline.id);
                 Console.WriteLine("\n\n"); // easier to scan with more whitespace
