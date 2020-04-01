@@ -2,13 +2,15 @@
 @using Microsoft.AspNetCore.SignalR.Client
 @using System.Net.Security
 @using System.Security.Cryptography.X509Certificates
+@using Microsoft.Extensions.Configuration
 @using monit_hackernews.Data
 @inject NavigationManager NavigationManager
 @inject NewsHeadlineFetcher NewsFetcher
+@inject IServiceConfiguration AppSettings
 
 <h1>Hackernews Top Headlines</h1>
 
-<p>This component demonstrates fetching data using SignalR.</p>
+<p>This component demonstrates fetching data using SignalR, refreshing every @AppSettings.ThrottleIntervalMinutes minute(s).</p>
 <!-- https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr-blazor-webassembly -->
 
 @if (_headlines.Count == 0)
@@ -30,7 +32,7 @@ else
             @foreach (var headline in _headlines)
             {
                 <tr>
-                    <td>@headline.time</td>
+                    <td>@headline.dateTime.ToLocalTime().ToString("g")</td>
                     <td>@headline.score</td>
                     <td>@headline.title</td>
                     <td>@headline.url</td>

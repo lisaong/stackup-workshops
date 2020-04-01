@@ -35,6 +35,11 @@ namespace monit_hackernews
 
             // Register other classes
             services.AddTransient<NewsHeadlineFetcher>();
+
+            // Configuration settings injection into Razor pages
+            services.AddSingleton<IServiceConfiguration, ServiceConfiguration>(
+                e => Configuration.GetSection("MonitorNewsService")
+                    .Get<ServiceConfiguration>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

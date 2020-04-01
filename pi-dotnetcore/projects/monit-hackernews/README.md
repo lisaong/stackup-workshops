@@ -8,6 +8,8 @@ Requirements: dotnet core 3.1 (https://dotnet.microsoft.com/download/dotnet-core
 
 ### Server
 #### On Development Machine
+
+**Development**
 From a command prompt:
 
 ```
@@ -16,17 +18,22 @@ dotnet add package Microsoft.AspNetCore.SignalR.Client
 dotnet watch run
 ```
 
-Navigate to https://localhost:5001
+Navigate to https://localhost:5001/fetchdata to test.
 
+**Packaging**
 Package into a self-contained deployment (https://docs.microsoft.com/en-us/dotnet/core/deploying/deploy-with-cli)
 ```
 dotnet publish --runtime linux-arm --self-contained true --configuration Release
+dotnet publish --runtime linux-arm --self-contained true --configuration Debug
 ```
-Copy the contents of bin/Release/netcoreapp3.1/linux-arm/publish to the Raspberry Pi.
+
+Check the binaries into the git repository.
 
 #### On Raspberry Pi
 
-1. Kestrel (the cross-platform ASP.NET core web server) requires an SSL certificate. Generate the certificate:
+1. Update this repository to get the ARM deployment binaries
+
+2. Kestrel (the cross-platform ASP.NET core web server) requires an SSL certificate. Generate the certificate:
 ```
 cd docker
 
@@ -97,7 +104,7 @@ dotnetcore-rt_1  | info: System.Net.Http.HttpClient.Default.ClientHandler[100]
 dotnetcore-rt_1  |       Sending HTTP request GET https://hacker-news.firebaseio.com/v0/item/22742349.json
 ```
 
-4. Navigate to https://ipaddress_of_pi:18081
+4. Navigate to https://ipaddress_of_pi:18081/fetchdata
 
 ![example](example.png)
 
