@@ -1,19 +1,15 @@
 using System;
+using System.Collections.Generic;
+using System.Web;
 
 namespace monit_hackernews.Data
 {
-    public class NewsHeadline
+    public class Item
     {
+        // A generic hackernews item
         public int id { get; set; }
 
-        // this needs to match the json result, it is actually unix time
         public int time { get; set; }
-
-        public int score { get; set; }
-
-        public string title { get; set; }
-
-        private string _url;
 
         public DateTime dateTime
         {
@@ -24,6 +20,9 @@ namespace monit_hackernews.Data
                     AddSeconds(time);
             }
         }
+
+        private string _url;
+
         public string url 
         {
             get 
@@ -34,15 +33,53 @@ namespace monit_hackernews.Data
                 }
                 return _url;
             }
-            set {
+            set
+            {
                 _url = value;
             }
         }
+    }
+
+    public class Comment : Item
+    {
+        // A comment on a news headline
+        private string _text;
+
+        public string text
+        {
+            get 
+            {
+                return _text;
+            }
+            set
+            {
+                _text = HttpUtility.HtmlDecode(value);
+            }
+        }
+    }
+
+    public class NewsHeadline : Item
+    {
+        // A news headline
+        public int score { get; set; }
+
+        public string title { get; set; }
+
+        // comments
+        public List<int> kids { get; set; }
+
+        public Comment topComment { get; set; }
 
         public override string ToString()
         {
-            return String.Format("{0} {1} {2} {3} {4}", id, dateTime.ToString("f"),
+            var result = String.Format("{0} {1} {2} {3} {4}", id, dateTime.ToString("f"),
                 title, score, url);
+
+            if (!string.IsNullOrEmpty(topComment.text))
+            {
+                result = String.Format("{0}\n{1}", result, topComment.text);
+            }
+            return result;
         }
     }
 }

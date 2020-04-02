@@ -35,11 +35,29 @@ namespace monit_hackernews.Data
             return headlines;
         }
 
-        private async Task<NewsHeadline> GetHeadlineAsync(int id)
+        private Task<string> GetItemAsync(int id)
         {
             var query = String.Format("{0}item/{1}.json", _newsServiceUrl, id);
-            var responseString = await _httpClient.GetStringAsync(query);
-            return JsonSerializer.Deserialize<NewsHeadline>(responseString);
+            return _httpClient.GetStringAsync(query);
+        }
+        private async Task<Comment> GetCommentAsync(int id)
+        {
+            var responseString = await GetItemAsync(id);
+            return JsonSerializer.Deserialize<Comment>(responseString);
+        }
+
+        private async Task<NewsHeadline> GetHeadlineAsync(int id)
+        {
+            var responseString = await GetItemAsync(id);
+            var headline = JsonSerializer.Deserialize<NewsHeadline>(responseString);
+
+            if (headline.kids.Count > 0)
+            {
+                responseString = await GetItemAsync(headline.kids[0]);
+                headline.topComment = JsonSerializer.Deserialize<Comment>(responseString);
+            }
+            
+            return headline;
         }
     }
 }

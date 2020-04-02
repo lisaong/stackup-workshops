@@ -3,7 +3,6 @@
 @using Microsoft.AspNetCore.SignalR.Client
 @using System.Net.Security
 @using System.Security.Cryptography.X509Certificates
-@using Microsoft.Extensions.Configuration
 @using monit_hackernews.Data
 @inject NavigationManager NavigationManager
 @inject NewsHeadlineFetcher NewsFetcher
@@ -12,7 +11,9 @@
 <h1>Hackernews Top Headlines</h1>
 
 <p>This component demonstrates fetching data using SignalR, refreshing every @AppSettings.ThrottleIntervalMinutes minute(s).</p>
-<p><i>Last refreshed @_refreshTime.ToLocalTime().ToString("g") Local Time.</i></p>
+
+<!--This timestamp is from the server! -->
+<p><i>Last event time: @_refreshTime.ToLocalTime().ToString("g") (Local Time).</i></p>
 
 @if (_headlines.Count == 0)
 {
@@ -26,6 +27,7 @@ else
                 <th>Date</th>
                 <th>Votes</th>
                 <th>Title</th>
+                <th>Top Comment</th>
             </tr>
         </thead>
         <tbody>
@@ -35,6 +37,7 @@ else
                     <td>@headline.dateTime.ToLocalTime().ToString("g")</td>
                     <td><a href="https://news.ycombinator.com/item?id=@headline.id">@headline.score</a></td>
                     <td><a href="@headline.url">@headline.title</a></td>
+                    <td>@headline.topComment.text</td>
                 </tr>
             }
         </tbody>
