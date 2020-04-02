@@ -65,6 +65,11 @@ else
         return true;
     }
 
+    private async Task<string> ClientSideDecodeHtml(string rawHtml)
+    {
+        return await JSRuntime.InvokeAsync<string>("unescapeHtml", rawHtml);
+    }
+
     // Invoked after component is initialized
     // https://docs.microsoft.com/en-us/aspnet/core/blazor/lifecycle?view=aspnetcore-3.1
     protected override async Task OnInitializedAsync()
@@ -102,7 +107,7 @@ else
                 _headlines.Clear();
             }
 
-            headline.topComment.text = await JSRuntime.InvokeAsync<string>("unescapeHtml", headline.topComment.text);
+            headline.topComment.text = await ClientSideDecodeHtml(headline.topComment.text);
             _headlines.Add(headline);
 
             _refreshTime = DateTime.Now;
@@ -120,8 +125,7 @@ else
 
             for (int i=0; i<_headlines.Count; i++)
             {
-                _headlines[i].topComment.text = await JSRuntime.InvokeAsync<string>("unescapeHtml", 
-                    _headlines[i].topComment.text);
+                _headlines[i].topComment.text = await ClientSideDecodeHtml(_headlines[i].topComment.text);
             }
 
             StateHasChanged(); // tell view to re-render
