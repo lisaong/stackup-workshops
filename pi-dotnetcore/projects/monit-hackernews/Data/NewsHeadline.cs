@@ -21,23 +21,9 @@ namespace monit_hackernews.Data
             }
         }
 
-        private string _url;
+        public string url { get; set; }
 
-        public string url 
-        {
-            get 
-            {
-                if (string.IsNullOrEmpty(_url))
-                {
-                    _url = String.Format("https://news.ycombinator.com/item?id={0}", id);
-                }
-                return _url;
-            }
-            set
-            {
-                _url = value;
-            }
-        }
+        public string itemUrl { get; set; }
     }
 
     public class Comment : Item
@@ -72,8 +58,7 @@ namespace monit_hackernews.Data
 
         public override string ToString()
         {
-            var result = String.Format("{0} {1} {2} {3} {4}", id, dateTime.ToString("f"),
-                title, score, url);
+            var result = String.Format("{0} {1} {2} {3}", id, dateTime.ToString("f"), title, score);
 
             if (!string.IsNullOrEmpty(topComment.text))
             {

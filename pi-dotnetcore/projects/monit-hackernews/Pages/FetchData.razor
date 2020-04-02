@@ -35,8 +35,8 @@ else
             {
                 <tr>
                     <td>@headline.dateTime.ToLocalTime().ToString("g")</td>
-                    <td><a href="https://news.ycombinator.com/item?id=@headline.id">@headline.score</a></td>
-                    <td><a href="@headline.url">@headline.title</a></td>
+                    <td><a href="@headline.itemUrl">@headline.score</a></td>
+                    <td><a href="@headline.itemUrl">@headline.title</a></td>
                     <td>@headline.topComment.text</td>
                 </tr>
             }
@@ -48,6 +48,7 @@ else
     private HubConnection _hubConnection;
     private List<NewsHeadline> _headlines = new List<NewsHeadline>();
     private DateTime _refreshTime = DateTime.Now;
+    private TimeSpan _refreshInterval;
 
     static bool ValidateSslCertificate(
         object sender,
@@ -66,6 +67,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         // Initialise headlines the first time we load
+        _refreshInterval = new TimeSpan(0, (int)double.Parse(AppSettings.ThrottleIntervalMinutes), 0);
         _headlines = await NewsFetcher.GetHeadlinesAsync();
 
         _hubConnection = new HubConnectionBuilder()
@@ -92,13 +94,13 @@ else
 
         _hubConnection.On<NewsHeadline>("ReceiveHeadline", (headline) =>
         {
-            // Reset the list
-            if (_headlines.Count > 0 && _headlines[0].url == headline.url)
+            if (DateTime.Now.Subtract(_refreshTime) >= _refreshInterval)
             {
+                // Reset the list if it was old
                 _headlines.Clear();
             }
 
-            _headlines.Add(headline);
+            //_headlines.Add(headline);
             _refreshTime = DateTime.Now;
             StateHasChanged(); // tell view to re-render
         });

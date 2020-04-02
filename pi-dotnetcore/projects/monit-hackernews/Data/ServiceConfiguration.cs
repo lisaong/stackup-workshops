@@ -6,13 +6,17 @@ namespace monit_hackernews.Data
     {
         string ThrottleIntervalMinutes { get; set; }
 
-        string NewsServiceUri { get; set; }
+        string NewsServiceApiEndpointUri { get; set; }
+
+        string NewsServiceUserUri { get; set; }
     }
 
     public class ServiceConfiguration: IServiceConfiguration
     {
         public string ThrottleIntervalMinutes { get; set; }
 
-        public string NewsServiceUri { get; set; }
+        public string NewsServiceApiEndpointUri { get; set; }
+
+        public string NewsServiceUserUri { get; set; }
     }
 }
