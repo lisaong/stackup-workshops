@@ -8,14 +8,15 @@ namespace monit_hackernews.Data
 {
     public class NewsHeadlineFetcher
     {
-        private const string _newsServiceUrl = "https://hacker-news.firebaseio.com/v0/";
+        private readonly string _newsServiceUrl;
 
         private readonly HttpClient _httpClient;
 
-        public NewsHeadlineFetcher(IHttpClientFactory httpClient)
+        public NewsHeadlineFetcher(IHttpClientFactory httpClient, IServiceConfiguration configuration)
         {
             // https://www.telerik.com/blogs/.net-core-background-services
             _httpClient = httpClient.CreateClient();
+            _newsServiceUrl = configuration.NewsServiceUri;
         }
 
         public async Task<List<NewsHeadline>> GetHeadlinesAsync()

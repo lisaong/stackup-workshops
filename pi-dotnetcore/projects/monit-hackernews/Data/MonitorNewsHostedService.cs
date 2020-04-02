@@ -17,13 +17,13 @@ namespace monit_hackernews.Data
         private readonly IHubContext<NewsHub, INewsHub> _hubContext;
         private readonly NewsHeadlineFetcher _newsFetcher;
 
-        private readonly IConfiguration _configuration;
+        private readonly IServiceConfiguration _configuration;
 
         private readonly ILogger _logger;
 
         public MonitorNewsHostedService(NewsHeadlineFetcher newsFetcher,
             IHubContext<NewsHub, INewsHub> hubContext,
-            IConfiguration configuration,
+            IServiceConfiguration configuration,
             ILogger<MonitorNewsHostedService> logger)
         {
             _hubContext = hubContext;
@@ -36,14 +36,14 @@ namespace monit_hackernews.Data
         {
             double interval = 15;
             if (double.TryParse(
-                _configuration["MonitorNewsService:ThrottleIntervalMinutes"], 
+                _configuration.ThrottleIntervalMinutes, 
                 out interval))
             {
                 _logger.LogInformation("Throttle interval {0} minute(s)", interval);
             }
             else
             {
-                _logger.LogError("Invalid MonitorNewsService:ThrottleIntervalMinutes, check appsettings*.json. Default to {0} minute(s)", 
+                _logger.LogError("Invalid ThrottleIntervalMinutes, check appsettings*.json. Default to {0} minute(s)", 
                     interval);
             }
 
