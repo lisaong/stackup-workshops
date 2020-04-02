@@ -112,9 +112,7 @@ dotnetcore-rt_1  |       Sending HTTP request GET https://hacker-news.firebaseio
 
 ### Client
 
-The console client can be used to subscribe to the SignalR feed, and display the latest headlines.
-
-An ASCII QR code is generated for the post url.
+The console client can be used to subscribe to the SignalR feed, and display the latest headlines, with the top comment and a QR code for the URL.
 
 From a command prompt:
 

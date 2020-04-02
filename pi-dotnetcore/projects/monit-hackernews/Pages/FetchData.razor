@@ -8,6 +8,9 @@
 @inject NewsHeadlineFetcher NewsFetcher
 @inject IServiceConfiguration AppSettings
 
+<!-- https://docs.microsoft.com/en-us/aspnet/core/blazor/call-javascript-from-dotnet?view=aspnetcore-3.1 -->
+@inject IJSRuntime JSRuntime
+
 <h1>Hackernews Top Headlines</h1>
 
 <p>This component demonstrates fetching data using SignalR, refreshing every @AppSettings.ThrottleIntervalMinutes minute(s).</p>
@@ -62,13 +65,17 @@ else
         return true;
     }
 
+    private async Task<string> ClientSideDecodeHtml(string rawHtml)
+    {
+        return await JSRuntime.InvokeAsync<string>("unescapeHtml", rawHtml);
+    }
+
     // Invoked after component is initialized
     // https://docs.microsoft.com/en-us/aspnet/core/blazor/lifecycle?view=aspnetcore-3.1
     protected override async Task OnInitializedAsync()
     {
         // Initialise headlines the first time we load
         _refreshInterval = new TimeSpan(0, (int)double.Parse(AppSettings.ThrottleIntervalMinutes), 0);
-        _headlines = await NewsFetcher.GetHeadlinesAsync();
 
         _hubConnection = new HubConnectionBuilder()
             .WithUrl(NavigationManager.ToAbsoluteUri("/newsHub"), options => {
@@ -92,7 +99,7 @@ else
             })
             .Build();
 
-        _hubConnection.On<NewsHeadline>("ReceiveHeadline", (headline) =>
+        _hubConnection.On<NewsHeadline>("ReceiveHeadline", async (headline) =>
         {
             if (DateTime.Now.Subtract(_refreshTime) >= _refreshInterval)
             {
@@ -100,13 +107,30 @@ else
                 _headlines.Clear();
             }
 
-            //_headlines.Add(headline);
+            headline.topComment.text = await ClientSideDecodeHtml(headline.topComment.text);
+            _headlines.Add(headline);
+
             _refreshTime = DateTime.Now;
             StateHasChanged(); // tell view to re-render
         });
 
         await _hubConnection.StartAsync();
     }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _headlines = await NewsFetcher.GetHeadlinesAsync();
+
+            for (int i=0; i<_headlines.Count; i++)
+            {
+                _headlines[i].topComment.text = await ClientSideDecodeHtml(_headlines[i].topComment.text);
+            }
+
+            StateHasChanged(); // tell view to re-render
+        }
+    }    
 
     public bool IsConnected =>
         _hubConnection.State == HubConnectionState.Connected;    
