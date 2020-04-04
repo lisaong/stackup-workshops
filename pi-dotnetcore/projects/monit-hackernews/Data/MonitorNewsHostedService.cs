@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using monit_hackernews.Hubs;
@@ -17,17 +16,21 @@ namespace monit_hackernews.Data
         private readonly IHubContext<NewsHub, INewsHub> _hubContext;
         private readonly NewsHeadlineFetcher _newsFetcher;
 
+        private readonly NewsHeadlineContext _dbContext;
+
         private readonly IServiceConfiguration _configuration;
 
         private readonly ILogger _logger;
 
         public MonitorNewsHostedService(NewsHeadlineFetcher newsFetcher,
             IHubContext<NewsHub, INewsHub> hubContext,
+            NewsHeadlineContext dbContext,
             IServiceConfiguration configuration,
             ILogger<MonitorNewsHostedService> logger)
         {
             _hubContext = hubContext;
             _newsFetcher = newsFetcher;
+            _dbContext = dbContext;
             _configuration = configuration;
             _logger = logger;
         }
@@ -53,7 +56,8 @@ namespace monit_hackernews.Data
                 var headlines = await _newsFetcher.GetHeadlinesAsync();
                 _logger.LogInformation("Fetched {0} headlines", headlines.Count);
 
-                // TODO: check if actually a new headline
+                // Store
+                Store(headlines);
 
                 // Publish
                 await PublishUpdates(headlines);
@@ -71,6 +75,13 @@ namespace monit_hackernews.Data
                 await _hubContext.Clients.All.ReceiveHeadline(headline);
             }
             _logger.LogInformation("Published {0} headlines", headlines.Count);
+        }
+
+        private void Store(List<NewsHeadline> headlines)
+        {
+            
+
+            _logger.LogInformation("Stored {0} headlines", headlines.Count);
         }
     }
 }

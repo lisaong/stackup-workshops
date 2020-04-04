@@ -12,6 +12,8 @@ Requirements: dotnet core 3.1 (https://dotnet.microsoft.com/download/dotnet-core
 **Development**
 
 1. Create Database:
+
+https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli#update-the-database
 ```
 cd monit-hackernews
 dotnet add package Microsoft.EntityFrameworkCore.Sqlite
