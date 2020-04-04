@@ -4,7 +4,7 @@ namespace monit_hackernews.Data
 {
     // Database context using Entity Framework
     // https://docs.microsoft.com/en-us/ef/core/get-started/?tabs=netcore-cli
-    // https://hackernoon.com/asp-net-core-how-to-use-dependency-injection-in-entity-framework-core-4388fc5c148b
+    // https://elanderson.net/2019/11/asp-net-core-3-add-entity-framework-core-to-existing-project/    
     public class NewsHeadlineContext : DbContext
     {
         public NewsHeadlineContext(DbContextOptions<NewsHeadlineContext> options) : base(options)

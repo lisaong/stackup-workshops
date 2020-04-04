@@ -8,7 +8,7 @@ using monit_hackernews.Data;
 namespace monit_hackernews.Migrations
 {
     [DbContext(typeof(NewsHeadlineContext))]
-    [Migration("20200404092748_InitialCreate")]
+    [Migration("20200404093219_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
