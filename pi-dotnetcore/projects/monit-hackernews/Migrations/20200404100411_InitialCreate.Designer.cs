@@ -8,7 +8,7 @@ using monit_hackernews.Data;
 namespace monit_hackernews.Migrations
 {
     [DbContext(typeof(NewsHeadlineContext))]
-    [Migration("20200404093219_InitialCreate")]
+    [Migration("20200404100411_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,17 +19,17 @@ namespace monit_hackernews.Migrations
 
             modelBuilder.Entity("monit_hackernews.Data.NewsHeadlineModel", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("comment")
+                    b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("title")
+                    b.Property<string>("Comment")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("id");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Headlines");
                 });

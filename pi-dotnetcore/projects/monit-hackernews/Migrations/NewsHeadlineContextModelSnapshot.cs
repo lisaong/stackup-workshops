@@ -17,17 +17,17 @@ namespace monit_hackernews.Migrations
 
             modelBuilder.Entity("monit_hackernews.Data.NewsHeadlineModel", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("comment")
+                    b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("title")
+                    b.Property<string>("Comment")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("id");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Headlines");
                 });

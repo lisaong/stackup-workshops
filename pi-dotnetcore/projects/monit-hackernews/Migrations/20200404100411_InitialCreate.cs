@@ -10,14 +10,13 @@ namespace monit_hackernews.Migrations
                 name: "Headlines",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    title = table.Column<string>(nullable: true),
-                    comment = table.Column<string>(nullable: true)
+                    Id = table.Column<string>(nullable: false),
+                    Title = table.Column<string>(nullable: false),
+                    Comment = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Headlines", x => x.id);
+                    table.PrimaryKey("PK_Headlines", x => x.Id);
                 });
         }
 

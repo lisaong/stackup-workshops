@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace monit_hackernews.Data
 {
@@ -16,10 +17,12 @@ namespace monit_hackernews.Data
     // Represents an entry in the database table
     public class NewsHeadlineModel
     {
-        public int id { get; set; }
+        [Key]
+        public string Id { get; set; }
 
-        public string title { get; set; }
+        [Required]
+        public string Title { get; set; }
 
-        public string comment { get; set; }
+        public string Comment { get; set; }
     }
 }
