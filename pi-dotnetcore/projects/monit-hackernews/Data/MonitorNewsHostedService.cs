@@ -83,34 +83,32 @@ namespace monit_hackernews.Data
             // https://docs.microsoft.com/en-us/ef/core/miscellaneous/configuring-dbcontext#implicitly-sharing-dbcontext-instances-across-multiple-threads-via-dependency-injection
             using (var scope = _scopeFactory.CreateScope())
             {
-                using (var dbContext = scope.ServiceProvider.GetRequiredService<NewsHeadlineContext>())
+                var dbContext = scope.ServiceProvider.GetRequiredService<NewsHeadlineContext>();
+
+                foreach (var headline in headlines)
                 {
-                    foreach (var headline in headlines)
+                    var comment = headline.topComment != null ? headline.topComment.text : "";
+
+                    // https://docs.microsoft.com/en-us/ef/core/get-started/?tabs=netcore-cli
+                    var entry = dbContext.Headlines.Find(headline.id.ToString());
+
+                    if (entry == null)
                     {
-                        var comment = headline.topComment != null ? headline.topComment.text : "";
-
-                        // https://docs.microsoft.com/en-us/ef/core/get-started/?tabs=netcore-cli
-                        var entry = dbContext.Headlines
-                            .OrderBy(h => h.Id)
-                            .First();
-                        if (entry == null)
-                        {
-                            // Create
-                            dbContext.Headlines.Add(new NewsHeadlineModel {
-                                Id = headline.id.ToString(),
-                                Title = headline.title,
-                                Comment = comment
-                            });
-                        }
-                        else
-                        {
-                            // Update
-                            entry.Comment = comment;
-                        }
+                        // Create
+                        dbContext.Headlines.Add(new NewsHeadlineModel {
+                            Id = headline.id.ToString(),
+                            Title = headline.title,
+                            Comment = comment
+                        });
                     }
-
-                    return dbContext.SaveChangesAsync();
+                    else
+                    {
+                        // Update
+                        entry.Comment = comment;
+                    }
                 }
+
+                return dbContext.SaveChangesAsync();
             }
         }
     }
