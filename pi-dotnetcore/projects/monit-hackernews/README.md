@@ -39,7 +39,6 @@ dotnet watch run
 On the PC, package into a self-contained deployment for Raspberry Pi (https://docs.microsoft.com/en-us/dotnet/core/deploying/deploy-with-cli)
 ```
 dotnet publish --runtime linux-arm --self-contained true --configuration Release
-dotnet publish --runtime linux-arm --self-contained true --configuration Debug
 ```
 
 Check the binaries into the git repository.
@@ -74,11 +73,12 @@ openssl pkcs12 \
 
 2. Update `docker/.env` to set SSL_PASS to the password you used for generating the cert.
 
-3a. Run docker compose, which will launch the server with the SSL cert path and password specified in the .env.
+3. Run docker compose, which will launch the server with the SSL cert path and password specified in the .env.
 ```
 docker-compose up
 ```
-3b. Alternatively, to run as a daemon:
+
+Alternatively, to run as a daemon:
 ```
 docker-compose up -d
 ```
