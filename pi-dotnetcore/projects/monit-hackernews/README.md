@@ -11,9 +11,7 @@ Requirements: dotnet core 3.1 (https://dotnet.microsoft.com/download/dotnet-core
 
 **Development**
 
-Install SQLLite3: https://www.sqlite.org/download.html (Windows: 64-bit DLL (x64) for SQLite version 3.31.1.)
-
-Setup Entity Framework:
+1. Create Database:
 ```
 cd monit-hackernews
 dotnet add package Microsoft.EntityFrameworkCore.Sqlite
@@ -23,14 +21,16 @@ dotnet ef migrations add InitialCreate
 dotnet ef database update
 ```
 
-Build and run server locally from a command prompt:
+You can browse the database: https://sqlitebrowser.org/
+
+2. Build and run server locally from a command prompt:
 ```
 cd monit-hackernews
 dotnet add package Microsoft.AspNetCore.SignalR.Client
 dotnet watch run
 ```
 
-Navigate to https://localhost:5001/fetchdata to test.
+3. Navigate to https://localhost:5001/fetchdata to test.
 
 **Packaging**
 
