@@ -9,6 +9,8 @@ namespace monit_hackernews.Data
         string NewsServiceApiEndpointUri { get; set; }
 
         string NewsServiceUserUri { get; set; }
+
+        string DatabaseName { get; set; }
     }
 
     public class ServiceConfiguration: IServiceConfiguration
@@ -18,5 +20,7 @@ namespace monit_hackernews.Data
         public string NewsServiceApiEndpointUri { get; set; }
 
         public string NewsServiceUserUri { get; set; }
+
+        public string DatabaseName { get; set; }
     }
 }

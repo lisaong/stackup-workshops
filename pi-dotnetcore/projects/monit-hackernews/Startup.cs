@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -42,6 +43,10 @@ namespace monit_hackernews
             services.AddTransient<IServiceConfiguration, ServiceConfiguration>(
                 provider => Configuration.GetSection("MonitorNewsService")
                     .Get<ServiceConfiguration>());
+
+            // Database
+            services.AddDbContext<NewsHeadlineContext>(
+                options => options.UseSqlite(Configuration["MonitorNewsService:DatabaseConnection"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
