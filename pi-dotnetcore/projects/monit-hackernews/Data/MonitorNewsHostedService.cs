@@ -60,7 +60,7 @@ namespace monit_hackernews.Data
                 await PublishUpdatesAsync(headlines);
 
                 // Store
-                var storeResult = await StoreAsync(headlines);
+                var storeResult = Store(headlines);
                 _logger.LogInformation("Store result: {0}", storeResult);
 
                 // Throttle
@@ -78,7 +78,7 @@ namespace monit_hackernews.Data
             _logger.LogInformation("Published {0} headlines", headlines.Count);
         }
 
-        private Task<int> StoreAsync(List<NewsHeadline> headlines)
+        private int Store(List<NewsHeadline> headlines)
         {
             // https://docs.microsoft.com/en-us/ef/core/miscellaneous/configuring-dbcontext#implicitly-sharing-dbcontext-instances-across-multiple-threads-via-dependency-injection
             using (var scope = _scopeFactory.CreateScope())
@@ -108,7 +108,7 @@ namespace monit_hackernews.Data
                     }
                 }
 
-                return dbContext.SaveChangesAsync();
+                return dbContext.SaveChanges();
             }
         }
     }
