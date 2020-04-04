@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
@@ -57,17 +58,18 @@ namespace monit_hackernews.Data
                 _logger.LogInformation("Fetched {0} headlines", headlines.Count);
 
                 // Store
-                Store(headlines);
+                var storeResult = await StoreAsync(headlines);
+                _logger.LogInformation("Store result: {0}", storeResult);
 
                 // Publish
-                await PublishUpdates(headlines);
+                await PublishUpdatesAsync(headlines);
 
                 // Throttle
                 await Task.Delay((int)(interval * 60 * 1000));
             }
         }
 
-        private async Task PublishUpdates(List<NewsHeadline> headlines)
+        private async Task PublishUpdatesAsync(List<NewsHeadline> headlines)
         {
             // TODO: https://markheath.net/post/async-antipatterns
             foreach(var headline in headlines)
@@ -77,11 +79,33 @@ namespace monit_hackernews.Data
             _logger.LogInformation("Published {0} headlines", headlines.Count);
         }
 
-        private void Store(List<NewsHeadline> headlines)
+        private Task<int> StoreAsync(List<NewsHeadline> headlines)
         {
-            
+            // https://docs.microsoft.com/en-us/ef/core/get-started/?tabs=netcore-cli
+            foreach (var headline in headlines)
+            {
+                var comment = headline.topComment != null ? headline.topComment.text : "";
 
-            _logger.LogInformation("Stored {0} headlines", headlines.Count);
+                var entry = _dbContext.Headlines
+                    .OrderBy(h => h.Id)
+                    .First();
+                if (entry == null)
+                {
+                    // Create
+                    _dbContext.Headlines.Add(new NewsHeadlineModel {
+                        Id = headline.id.ToString(),
+                        Title = headline.title,
+                        Comment = comment
+                    });
+                }
+                else
+                {
+                    // Update
+                    entry.Comment = comment;
+                }
+            }
+
+            return _dbContext.SaveChangesAsync();
         }
     }
 }
