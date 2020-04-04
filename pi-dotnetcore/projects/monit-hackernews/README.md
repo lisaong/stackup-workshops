@@ -11,22 +11,34 @@ Requirements: dotnet core 3.1 (https://dotnet.microsoft.com/download/dotnet-core
 
 **Development**
 
-Building and run server locally from a command prompt:
+1. Create Database:
 
+https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli#update-the-database
+```
+cd monit-hackernews
+dotnet add package Microsoft.EntityFrameworkCore.Sqlite
+dotnet tool install --global dotnet-ef
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+```
+
+You can browse the database: https://sqlitebrowser.org/
+
+2. Build and run server locally from a command prompt:
 ```
 cd monit-hackernews
 dotnet add package Microsoft.AspNetCore.SignalR.Client
 dotnet watch run
 ```
 
-Navigate to https://localhost:5001/fetchdata to test.
+3. Navigate to https://localhost:5001/fetchdata to test.
 
 **Packaging**
 
 On the PC, package into a self-contained deployment for Raspberry Pi (https://docs.microsoft.com/en-us/dotnet/core/deploying/deploy-with-cli)
 ```
 dotnet publish --runtime linux-arm --self-contained true --configuration Release
-dotnet publish --runtime linux-arm --self-contained true --configuration Debug
 ```
 
 Check the binaries into the git repository.
@@ -61,11 +73,12 @@ openssl pkcs12 \
 
 2. Update `docker/.env` to set SSL_PASS to the password you used for generating the cert.
 
-3a. Run docker compose, which will launch the server with the SSL cert path and password specified in the .env.
+3. Run docker compose, which will launch the server with the SSL cert path and password specified in the .env.
 ```
 docker-compose up
 ```
-3b. Alternatively, to run as a daemon:
+
+Alternatively, to run as a daemon:
 ```
 docker-compose up -d
 ```
