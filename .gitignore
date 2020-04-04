@@ -1,5 +1,6 @@
 __pycache__/
 .ipynb_checkpoints/
+*.db
 *.ell
 *.pkl
 *.png
@@ -20,4 +21,3 @@ bin/
 obj/
 
 macs.txt
-pi-dotnetcore/projects/QRCoder
