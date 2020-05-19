@@ -29,3 +29,4 @@ From the Jupyter notebook:
 - [.NET Core + Raspberry Pi](pi-dotnetcore/README.md)
 - [Serverless](serverless/README.md)
 - [Reinforcement Learning + Raspberry Pi](pi-rl/sph/README.md)
+- [Learning from History](learn-history/README.md)
