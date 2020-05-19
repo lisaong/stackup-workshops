@@ -1,1 +1,7 @@
-tensorflow==latest
+numpy
+matplotlib
+pandas
+seaborn
+tensorflow
+statsmodels
+scikit-learn

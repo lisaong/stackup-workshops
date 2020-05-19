@@ -12,5 +12,9 @@ WORKDIR /opt/notebooks
 COPY $NOTEBOOK_SRC .
 COPY requirements.txt .
 
+RUN pip install --no-cache-dir -r requirements.txt
+
 # https://nbconvert.readthedocs.io/en/latest/execute_api.html
 RUN /opt/conda/bin/jupyter nbconvert --to notebook --execute $NOTEBOOK_SRC
+
+RUN python -c "import tensorflow as tf; print(tf.__version__);"
