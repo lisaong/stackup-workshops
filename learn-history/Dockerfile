@@ -1,3 +1,4 @@
+# https://help.github.com/en/actions/building-actions/dockerfile-support-for-github-actions
 FROM continuumio/miniconda3:latest
 
 ENV NOTEBOOK_SRC=learning_from_history.ipynb
