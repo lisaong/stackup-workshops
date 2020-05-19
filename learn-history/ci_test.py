@@ -16,11 +16,8 @@ class ModelTestcase(unittest.TestCase):
         pass # nothing to do right now
 
     def testModel(self):
-        assert self.df != None
-        print('Test Passed')
-
-    def testAlwaysFail(self):
-        assert False
+        assert self.df.shape[0] > 0
+        print(f'Test Passed: {df.shape}')
 
 if __name__ == "__main__":
     # run all tests
