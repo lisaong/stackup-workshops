@@ -6,8 +6,8 @@ import pandas as pd
 # so we don't have to download again.
 DATASET_CSV = 'weekly-infectious-disease-bulletin-cases.csv'
 
-# https://wiki.python.org/moin/PyUnit
-class ModelTestcase(unittest.Testcase):
+# https://docs.python.org/3.7/library/unittest.html
+class ModelTestcase(unittest.TestCase):
     def setUp(self):
         """Called before every test case."""
         self.df = pd.read_csv(DATASET_CSV)
