@@ -1,4 +1,4 @@
-FROM continuumio/miniconda3
+FROM continuumio/miniconda3:latest
 
 ENV NOTEBOOK_SRC=learning_from_history.ipynb
 
