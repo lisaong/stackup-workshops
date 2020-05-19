@@ -17,4 +17,4 @@ COPY entrypoint.sh .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Run tests by default on startup
-ENTRYPOINT ["/opt/notebooks/entrypoint.sh", $NOTEBOOK_SRC]
+ENTRYPOINT ["/opt/notebooks/entrypoint.sh"]
