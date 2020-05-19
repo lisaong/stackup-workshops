@@ -8,10 +8,10 @@ RUN /opt/conda/bin/conda install --yes --freeze-installed \
     nbconvert \
   && conda clean -afy
 
-COPY NOTEBOOK_SRC /opt/notebooks
+COPY $NOTEBOOK_SRC /opt/notebooks
 COPY requirements.txt /opt/notebooks
 
 WORKDIR /opt/notebooks
 
 # https://nbconvert.readthedocs.io/en/latest/execute_api.html
-RUN /opt/conda/bin/jupyter nbconvert --to notebook --execute NOTEBOOK_SRC
+RUN /opt/conda/bin/jupyter nbconvert --to notebook --execute $NOTEBOOK_SRC
