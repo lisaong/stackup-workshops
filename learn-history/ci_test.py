@@ -17,7 +17,7 @@ class ModelTestcase(unittest.TestCase):
 
     def testModel(self):
         assert self.df.shape[0] > 0
-        print(f'Test Passed: {df.shape}')
+        print(f'Test Passed: dataset has {self.df.shape[0]} rows')
 
 if __name__ == "__main__":
     # run all tests
