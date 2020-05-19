@@ -1,1 +1,13 @@
-# Dockerfile for basic model CI/CD
+FROM continuumio/miniconda3
+
+ENV NOTEBOOK_SRC=learning_from_history.ipynb
+
+RUN /opt/conda/bin/conda install -y --quiet \
+  && jupyter \
+  && nbconvert
+
+COPY NOTEBOOK_SRC /opt/notebooks
+WORKDIR /opt/notebooks
+
+# https://nbconvert.readthedocs.io/en/latest/execute_api.html
+RUN /opt/conda/bin/jupyter nbconvert --to notebook --execute NOTEBOOK_SRC
