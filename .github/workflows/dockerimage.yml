@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Model CI/CD Docker image
       working-directory: ./learn-history
-      run: docker build . --file Dockerfile --tag learn-history:$(date +%s)
+      run: docker build . --file Dockerfile --tag learn-history:latest
     - name: Run tests
       working-directory: ./learn-history
-      run: docker run learn-history:$(date +%s)
+      run: docker run learn-history:latest
