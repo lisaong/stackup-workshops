@@ -12,7 +12,9 @@ WORKDIR /opt/notebooks
 COPY $NOTEBOOK_SRC .
 COPY requirements.txt .
 COPY ci_test.py .
+
 COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
 
 RUN pip install --no-cache-dir -r requirements.txt
 
