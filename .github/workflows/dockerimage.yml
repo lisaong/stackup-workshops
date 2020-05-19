@@ -17,3 +17,6 @@ jobs:
     - name: Build the Model CI/CD Docker image
       working-directory: ./learn-history
       run: docker build . --file Dockerfile --tag learn-history:$(date +%s)
+    - name: Run tests
+      working-directory: ./learn-history
+      run: docker run learn-history:$(date +%s)

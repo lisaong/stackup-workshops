@@ -12,11 +12,9 @@ WORKDIR /opt/notebooks
 COPY $NOTEBOOK_SRC .
 COPY requirements.txt .
 COPY ci_test.py .
+COPY entrypoint.sh .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-# https://nbconvert.readthedocs.io/en/latest/execute_api.html
-RUN /opt/conda/bin/jupyter nbconvert --to notebook --execute $NOTEBOOK_SRC
-
-# Run CI test
-RUN python ci_test.py
+# Run tests by default on startup
+ENTRYPOINT ["/opt/notebooks/entrypoint.sh", $NOTEBOOK_SRC]
