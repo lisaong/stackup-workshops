@@ -1,3 +1,4 @@
+# https://help.github.com/en/actions/building-actions/dockerfile-support-for-github-actions
 FROM continuumio/miniconda3:latest
 
 ENV NOTEBOOK_SRC=learning_from_history.ipynb
@@ -11,6 +12,12 @@ RUN /opt/conda/bin/conda install --yes --freeze-installed \
 WORKDIR /opt/notebooks
 COPY $NOTEBOOK_SRC .
 COPY requirements.txt .
+COPY ci_test.py .
 
-# https://nbconvert.readthedocs.io/en/latest/execute_api.html
-RUN /opt/conda/bin/jupyter nbconvert --to notebook --execute $NOTEBOOK_SRC
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Run tests by default on startup
+ENTRYPOINT ["/opt/notebooks/entrypoint.sh"]
