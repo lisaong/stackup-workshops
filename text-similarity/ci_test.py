@@ -11,6 +11,7 @@ class ModelTestcase(unittest.TestCase):
             self.text_clean = ci_artifacts['text_clean']
             self.text_vectors_clean = ci_artifacts['text_vectors_clean']
             self.sample_scores = ci_artifacts['sample_scores']
+            self.raw_scores = ci_artifacts['raw_scores']
 
     def tearDown(self):
         """Called after every test case."""
@@ -22,7 +23,9 @@ class ModelTestcase(unittest.TestCase):
         assert self.text_vectors_clean.shape[1] == 300
         assert self.text_vectors_clean.shape[0] == 50 # truncated
         assert len(self.sample_scores) == 3
+        assert len(self.raw_scores) == 1
         print(self.sample_scores)
+        print(self.raw_scores)
         print(f'Test Passed')
 
 if __name__ == "__main__":
