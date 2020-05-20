@@ -5,10 +5,10 @@ import pickle
 class ModelTestcase(unittest.TestCase):
     def setUp(self):
         """Called before every test case."""
-        ci_artifacts = pickle.load(open('ci_artifacts.pkl', 'rb'))
-
-        self.text_clean = ci_artifacts['text_clean']
-        self.text_vectors_clean = ci_artifacts['text_vectors_clean']
+        with open('ci_artifacts.pkl', 'rb') as f:
+            self.ci_artifacts = pickle.load(f)
+            self.text_clean = self.ci_artifacts['text_clean']
+            self.text_vectors_clean = self.ci_artifacts['text_vectors_clean']
 
     def tearDown(self):
         """Called after every test case."""
