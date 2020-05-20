@@ -1,0 +1,24 @@
+name: Text Similarity CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+    paths:
+    - 'text-similarity/**'
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Model CI/CD Docker image
+      working-directory: ./text-similarity
+      run: docker build . --file Dockerfile --tag text-similarity:latest
+    - name: Run tests
+      working-directory: ./text-similarity
+      run: docker run text-similarity:latest

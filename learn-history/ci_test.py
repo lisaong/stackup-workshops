@@ -13,9 +13,11 @@ class ModelTestcase(unittest.TestCase):
         self.df = pd.read_csv(DATASET_CSV)
 
     def tearDown(self):
+        """Called after every test case."""
         pass # nothing to do right now
 
     def testModel(self):
+        """Model test case."""
         assert self.df.shape[0] > 0
         print(f'Test Passed: dataset has {self.df.shape[0]} rows')
 
