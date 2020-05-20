@@ -1,11 +1,18 @@
 # tests for continuous integration of the model
 import unittest
 import spacy
+import pickle
 
 class ModelTestcase(unittest.TestCase):
+    def __init__(self):
+        """Constructor (do expensive initialisation here)."""
+        self.nlp = spacy.load("en_core_web_md")
+        self.ci_artifacts = pickle.load(open('ci_artifacts.pkl', 'rb'))
+
     def setUp(self):
         """Called before every test case."""
-        pass
+        self.text_clean = ci_artifacts['text_clean']
+        self.text_vectors_clean = ci_artifacts['text_vectors_clean']
 
     def tearDown(self):
         """Called after every test case."""
@@ -13,10 +20,9 @@ class ModelTestcase(unittest.TestCase):
 
     def testModel(self):
         """Model test case."""
-        nlp = spacy.load("en_core_web_md")
-        tokens = nlp("hello world this is a test")
-        assert len(tokens) > 0
-        print(f'Test Passed: found {len(tokens)} tokens')
+        print(self.text_clean)
+        assert self.text_vectors_clean.shape[1] == 300
+        print(f'Test Passed: loaded vectors of shape: {self.text_vectors_clean.shape}')
 
 if __name__ == "__main__":
     # run all tests
