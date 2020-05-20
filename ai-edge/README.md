@@ -3,8 +3,6 @@
 ### Slides
 Browse the slides [here](ai-on-the-edge.ipynb)
 
-For a better viewing experience, you can render the Jupyter notebook in slide presentation view, follow the instructions in the [root README.md](../README.md) to install RISE.
-
 ### Demos
 |Demo|Hardware|Software / Docker images|
 |--|--|--|
@@ -43,3 +41,23 @@ cd stackup-workshops/ai-edge/docker/tensorflow
 If all goes well, you should see a Jupyter uri and token. Copy and paste that uri (with token) to your browser on the desktop, and replace `localhost` with the ip address of the Raspberry Pi 3.
 
 Note that each demo is configured to run in its docker container, which has the necessary environment and tools setup. Mixing and matching containers and demos won't work.
+
+### Rendering Presentations
+
+For a better viewing experience, you can render the Jupyter notebook in slide presentation view (reveal.js slideshows):
+
+1. Install [Miniconda](https://conda.io/miniconda.html)
+2. Install [RISE](https://github.com/damianavila/RISE)
+
+```
+conda install -c damianavila82 rise
+```
+
+From the Jupyter notebook:
+
+* Alt-r, "Enter/Exit Live Reveal Slideshow
+* Shift-i, Toggle slide
+* Shift-u, Toggle subslide
+* Shift-f, Toggle fragment
+
+[Usage](https://github.com/damianavila/RISE/blob/master/doc/usage.md)
