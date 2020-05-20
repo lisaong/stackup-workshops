@@ -1,6 +1,6 @@
 # Learning from History
 
-![Docker Image CI](https://github.com/lisaong/stackup-workshops/workflows/Docker%20Image%20CI/badge.svg)
+[![Docker Image CI](https://github.com/lisaong/stackup-workshops/workflows/Docker%20Image%20CI/badge.svg)](https://github.com/lisaong/stackup-workshops/actions?query=workflow%3A%22Docker+Image+CI%22)
 
 ## Introduction
 We’ve all heard the saying: those who cannot learn from history are doomed to repeat it.  But … is it true for a machine?
