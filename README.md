@@ -30,3 +30,4 @@ From the Jupyter notebook:
 - [Serverless](serverless/README.md)
 - [Reinforcement Learning + Raspberry Pi](pi-rl/sph/README.md)
 - [Learning from History](learn-history/README.md)
+- [Text Similarity](text-similarity/README.md)
