@@ -1,8 +1,6 @@
 # tests for continuous integration of the model
 import unittest
 import pickle
-import spacy
-from analysers import  KDramaSynopsisAnalyser
 
 class ModelTestcase(unittest.TestCase):
     def setUp(self):
