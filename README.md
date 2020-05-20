@@ -31,3 +31,4 @@ From the Jupyter notebook:
 - [Reinforcement Learning + Raspberry Pi](pi-rl/sph/README.md)
 - [Learning from History](learn-history/README.md)
 - [Text Similarity](text-similarity/README.md)
+- [Continuous Integration of Jupyter Notebooks](.github/workflows/README.md)
