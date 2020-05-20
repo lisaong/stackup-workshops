@@ -1,6 +1,6 @@
 # Text Processing 101 using the spaCy library
 
-![Text Similarity CI](https://github.com/lisaong/stackup-workshops/workflows/Text%20Similarity%20CI/badge.svg)
+[![Text Similarity CI](https://github.com/lisaong/stackup-workshops/workflows/Text%20Similarity%20CI/badge.svg)](https://github.com/lisaong/stackup-workshops/actions?query=workflow%3A%22Text+Similarity+CI%22)
 
 ## Introduction
 
