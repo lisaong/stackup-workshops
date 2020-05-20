@@ -5,7 +5,9 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
+    paths:
+    - 'learn-history/**'
+  
 jobs:
 
   build:
