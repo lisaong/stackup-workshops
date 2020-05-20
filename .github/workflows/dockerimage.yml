@@ -5,7 +5,7 @@ on:
     branches: [ master ]
     paths:
     - 'learn-history/**'
-    pull_request:
+  pull_request:
     branches: [ master ]
     paths:
     - 'learn-history/**'
