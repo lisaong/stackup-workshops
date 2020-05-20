@@ -1,7 +1,7 @@
 numpy
 matplotlib
 pandas
-seaborn
 scikit-learn
+seaborn
 statsmodels
 tensorflow
