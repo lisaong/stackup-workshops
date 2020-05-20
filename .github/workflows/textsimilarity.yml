@@ -3,6 +3,8 @@ name: Text Similarity CI
 on:
   push:
     branches: [ master ]
+    paths:
+    - 'text-similarity/**'
   pull_request:
     branches: [ master ]
     paths:

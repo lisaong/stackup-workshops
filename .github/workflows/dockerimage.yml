@@ -3,11 +3,13 @@ name: Docker Image CI
 on:
   push:
     branches: [ master ]
-  pull_request:
+    paths:
+    - 'learn-history/**'
+    pull_request:
     branches: [ master ]
     paths:
     - 'learn-history/**'
-  
+
 jobs:
 
   build:
