@@ -1,16 +1,12 @@
 # tests for continuous integration of the model
 import unittest
-import spacy
 import pickle
 
 class ModelTestcase(unittest.TestCase):
-    def __init__(self):
-        """Constructor (do expensive initialisation here)."""
-        self.nlp = spacy.load("en_core_web_md")
-        self.ci_artifacts = pickle.load(open('ci_artifacts.pkl', 'rb'))
-
     def setUp(self):
         """Called before every test case."""
+        ci_artifacts = pickle.load(open('ci_artifacts.pkl', 'rb'))
+
         self.text_clean = ci_artifacts['text_clean']
         self.text_vectors_clean = ci_artifacts['text_vectors_clean']
 
