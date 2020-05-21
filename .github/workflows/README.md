@@ -26,15 +26,19 @@
       run: docker build . --file Dockerfile --tag text-similarity:latest
    ```
    
-   b. Runs the Docker container to execute the Jupyter notebook and generate model artifacts (which can include the model files or anything that the notebook produces)
-   
-   c. Runs a Python unit test to validate the model artifacts. For example, do a prediction and check expected metrics.
+   b. Runs the Docker container to execute the Jupyter notebook and generate artifacts (which can include the model weights or anything that the notebook produces)
+
+   c. Runs a Python unit test to validate the model artifacts. For example, do a prediction and check expected metrics. The artifacts are copied to the mapped docker volume. If the test passes, the upload-artifact action will zip the artifacts from this test run for further analysis.
 
    Workflow step:
    ```
     - name: Run tests
-      working-directory: ./text-similarity
-      run: docker run text-similarity:latest
+      run: docker run -v "$GITHUB_WORKSPACE/artifacts":/artifacts text-similarity:latest
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: artifacts
+        path: artifacts
    ```
       
    Entrypoint for the container:
@@ -46,6 +50,10 @@
 
    # Run CI test
    python ci_test.py
+
+   # Copy artifacts and list them
+   cp *.pkl /artifacts/.
+   ls -alR /artifacts   
    ```
 
   ![example workflow](example.png)
