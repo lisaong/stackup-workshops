@@ -25,11 +25,11 @@ jobs:
     - name: Build the Model CI/CD Docker image
       run: docker build . --file Dockerfile --tag text-similarity:latest
     - name: Create artifacts volume
-      run: mkdir -p $PWD/artifacts
+      run: mkdir -p $GITHUB_WORKSPACE/artifacts
     - name: Run tests
-      run: docker run text-similarity:latest -v $PWD/artifacts:/artifacts
+      run: docker run text-similarity:latest -v $GITHUB_WORKSPACE/artifacts:/artifacts
     - name: Archive artifacts
       uses: actions/upload-artifact@v1
       with:
         name: artifacts
-        path: ./text-similarity/artifacts/*
+        path: $GITHUB_WORKSPACE/artifacts/*
