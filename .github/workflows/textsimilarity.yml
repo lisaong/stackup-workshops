@@ -15,21 +15,21 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./text-similarity
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Build the Model CI/CD Docker image
-      working-directory: ./text-similarity
       run: docker build . --file Dockerfile --tag text-similarity:latest
     - name: Create artifacts volume
-      working-directory: ./text-similarity
       run: mkdir -p artifacts
     - name: Run tests
-      working-directory: ./text-similarity
-      run: docker run text-similarity:latest -v artifacts:/artifacts
+      run: docker run text-similarity:latest -v $PWD/artifacts:/artifacts
     - name: Archive artifacts
       uses: actions/upload-artifact@v1
       with:
         name: test-artifacts
-        path: text-similarity/artifacts/*.pkl
+        path: ./text-similarity/artifacts/*.pkl

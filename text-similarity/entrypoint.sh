@@ -8,4 +8,4 @@ python ci_test.py
 
 # Copy artifacts
 cp *.pkl /artifacts
-echo $PWD
+ls -al /artifacts
