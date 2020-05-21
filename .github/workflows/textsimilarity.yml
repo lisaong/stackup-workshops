@@ -25,7 +25,7 @@ jobs:
     - name: Build the Model CI/CD Docker image
       run: docker build . --file Dockerfile --tag text-similarity:latest
     - name: Create artifacts volume
-      run: mkdir -p artifacts
+      run: mkdir -p $PWD/artifacts
     - name: Run tests
       run: docker run text-similarity:latest -v $PWD/artifacts:/artifacts
     - name: Archive artifacts
