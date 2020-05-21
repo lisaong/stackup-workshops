@@ -15,12 +15,21 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./learn-history
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
     - name: Build the Model CI/CD Docker image
-      working-directory: ./learn-history
       run: docker build . --file Dockerfile --tag learn-history:latest
+    - name: Create artifacts volume
+      run: mkdir -p "$GITHUB_WORKSPACE/artifacts"
     - name: Run tests
-      working-directory: ./learn-history
-      run: docker run learn-history:latest
+      run: docker run -v "$GITHUB_WORKSPACE/artifacts":/artifacts learn-history:latest
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: artifacts
+        path: artifacts
