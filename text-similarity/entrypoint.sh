@@ -5,3 +5,6 @@
 
 # Run CI test
 python ci_test.py
+
+# Copy artifacts
+cp *.pkl /artifacts
