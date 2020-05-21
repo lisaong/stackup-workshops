@@ -7,5 +7,5 @@
 python ci_test.py
 
 # Copy artifacts
-cp *.pkl /artifacts
-ls -al /artifacts
+cp *.pkl /artifacts/.
+ls -alR /artifacts
