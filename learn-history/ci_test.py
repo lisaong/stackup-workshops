@@ -4,13 +4,13 @@ import pandas as pd
 
 # the test assumes Colab notebook downloaded this CSV file
 # so we don't have to download again.
-DATASET_CSV = 'weekly-infectious-disease-bulletin-cases.csv'
+CSV_FILE = 'gross-domestic-product-in-chained-2015-dollars-year-on-year-growth-rate-quarterly.csv'
 
 # https://docs.python.org/3.7/library/unittest.html
 class ModelTestcase(unittest.TestCase):
     def setUp(self):
         """Called before every test case."""
-        self.df = pd.read_csv(DATASET_CSV)
+        self.df = pd.read_csv(CSV_FILE)
 
     def tearDown(self):
         """Called after every test case."""
