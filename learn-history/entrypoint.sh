@@ -8,4 +8,6 @@ cp *.pkl /artifacts/.
 ls -alR /artifacts
 
 # Run CI test
+# (This should be the last line in the script so that test
+# failures are not hidden)
 python ci_test.py
