@@ -48,12 +48,36 @@
    # Execute the Jupyter notebook to train the model
    /opt/conda/bin/jupyter nbconvert --to notebook --execute $NOTEBOOK_SRC
 
-   # Run CI test
-   python ci_test.py
-
    # Copy artifacts and list them
    cp *.pkl /artifacts/.
+   cp *.h5 /artifacts/.
    ls -alR /artifacts   
+
+   # Run CI test
+   python ci_test.py
    ```
 
   ![example workflow](example.png)
+  
+## Running Tensorflow-Keras models
+
+If the Jupyter notebook trains and saves a Tensorflow model, the model can be loaded in ci_test.py and used to get predictions from input data. 
+
+```
+    def testPatternRecognitionModel(self):
+        """Model test case."""
+        y = self.df_pattern['recession']
+        X = self.df_pattern.drop(columns=['recession'])
+
+        model = tf.keras.models.load_model(self.model_pattern_filename)
+        y_pred = model.predict(X) >= 0.5
+        rpt = classification_report(y, y_pred)
+
+        print(f'Test Passed:\n{rpt}')
+```
+
+Example output:
+![example model test output](example_model_test.png)
+
+See the full example [here](https://github.com/lisaong/stackup-workshops/blob/master/learn-history/ci_test.py).
+
