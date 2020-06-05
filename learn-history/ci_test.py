@@ -19,8 +19,8 @@ class ModelTestcase(unittest.TestCase):
 
     def testModel(self):
         """Model test case."""
-        y = self.df_windowed['t-3']
-        X = self.df_windowed.drop(columns=['t-3'])
+        y = self.df_windowed['t+3']
+        X = self.df_windowed.drop(columns=['t+3'])
 
         model = tf.keras.models.load_model(self.model_filename)
         y_pred = model.predict(X)
