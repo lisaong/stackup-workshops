@@ -15,7 +15,7 @@ class ModelTestcase(unittest.TestCase):
             self.model_filename = ci_artifacts['model_filename']
 
             self.df_pattern = ci_artifacts['df_pattern']
-            self.model_pattern_filename = ci_artifacts['model_pattern']
+            self.model_pattern_filename = ci_artifacts['model_pattern_filename']
 
     def tearDown(self):
         """Called after every test case."""
