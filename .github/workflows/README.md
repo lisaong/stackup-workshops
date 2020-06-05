@@ -59,6 +59,10 @@
 
   ![example workflow](example.png)
   
+Coding errors in the Jupyter notebook will be detected and visible:
+  
+  ![example error](example_test_failure.png)
+  
 ## Running Tensorflow-Keras models
 
 If the Jupyter notebook trains and saves a Tensorflow model, the model can be loaded in ci_test.py and used to get predictions from input data. 
