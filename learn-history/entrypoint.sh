@@ -5,6 +5,7 @@
 
 # Copy artifacts and list them
 cp *.pkl /artifacts/.
+cp *.h5 /artifacts/.
 ls -alR /artifacts
 
 # Run CI test
