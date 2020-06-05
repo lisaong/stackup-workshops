@@ -36,7 +36,7 @@ class ModelTestcase(unittest.TestCase):
     def testPatternRecognitionModel(self):
         """Model test case."""
         y = self.df_pattern['recession']
-        X = self.df_windowed.drop(columns=['recession'])
+        X = self.df_pattern.drop(columns=['recession'])
 
         model = tf.keras.models.load_model(self.model_pattern_filename)
         y_pred = model.predict(X) >= 0.5
