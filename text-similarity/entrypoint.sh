@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
-IFS=';' read -ra notebooks <<< "$NOTEBOOK_SRC"
+IFS=';'
+read -ra notebooks <<< "$NOTEBOOK_SRC"
 
 # Execute the Jupyter notebook to train the model
-for notebook in "${notebooks[@]}"
-do
+for notebook in "${notebooks[@]}"; do
     echo $notebook
     /opt/conda/bin/jupyter nbconvert --to notebook --execute $notebook
 done
