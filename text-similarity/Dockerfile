@@ -17,5 +17,8 @@ RUN chmod +x entrypoint.sh
 
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Install additional dependencies
+RUN python -m spacy download en_core_web_md
+
 # Run tests by default on startup
 ENTRYPOINT ["/opt/notebooks/entrypoint.sh"]
