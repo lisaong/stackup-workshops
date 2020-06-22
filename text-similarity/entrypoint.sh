@@ -1,7 +1,13 @@
-#!/bin/sh
+#!/bin/bash
+
+IFS=';'
+read -ra notebooks <<< "$NOTEBOOK_SRC"
 
 # Execute the Jupyter notebook to train the model
-/opt/conda/bin/jupyter nbconvert --to notebook --execute $NOTEBOOK_SRC
+for notebook in "${notebooks[@]}"; do
+    echo $notebook
+    /opt/conda/bin/jupyter nbconvert --to notebook --execute $notebook
+done
 
 # Copy artifacts and list them
 cp *.pkl /artifacts/.
