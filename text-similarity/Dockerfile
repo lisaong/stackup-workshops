@@ -8,7 +8,7 @@ RUN /opt/conda/bin/conda install --yes --freeze-installed \
   && conda clean -afy
 
 WORKDIR /opt/notebooks
-COPY *.ipynb .
+COPY *.ipynb ./
 COPY requirements.txt .
 COPY ci_test.py .
 
