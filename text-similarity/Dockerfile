@@ -1,6 +1,6 @@
 FROM continuumio/miniconda3:latest
 
-ENV NOTEBOOK_SRC=text_similarity.ipynb
+ENV NOTEBOOK_SRC=text_similarity.ipynb;text_processing101.ipynb
 
 RUN /opt/conda/bin/conda install --yes --freeze-installed \
     jupyter \
@@ -8,7 +8,7 @@ RUN /opt/conda/bin/conda install --yes --freeze-installed \
   && conda clean -afy
 
 WORKDIR /opt/notebooks
-COPY $NOTEBOOK_SRC .
+COPY *.ipynb .
 COPY requirements.txt .
 COPY ci_test.py .
 
