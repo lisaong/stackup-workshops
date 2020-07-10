@@ -2,10 +2,11 @@ FROM continuumio/miniconda3:latest
 
 ENV NOTEBOOK_SRC=mask_or_not.ipynb
 
-# Install dependencies for some pip packages
+# Install dependencies for some pip packages and data unzipping
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        build-essential
+        build-essential \
+        unzip
 
 RUN  apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -23,6 +24,7 @@ COPY ci_test.py .
 COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh
 
+# data
 COPY data.zip .
 RUN unzip data.zip
 
