@@ -1,0 +1,35 @@
+name: Mask or Not CI
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+    - 'mask-or-not/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+    - 'mask-or-not/**'
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./mask-or-not
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Build the Model CI/CD Docker image
+      run: docker build . --file Dockerfile --tag mask-or-not:latest
+    - name: Create artifacts volume
+      run: mkdir -p "$GITHUB_WORKSPACE/artifacts"
+    - name: Run tests
+      run: docker run -v "$GITHUB_WORKSPACE/artifacts":/artifacts mask-or-not:latest
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: artifacts
+        path: artifacts
