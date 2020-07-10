@@ -28,12 +28,12 @@ class ModelTestcase(unittest.TestCase):
         y_pred_mlp = mlp.predict(X_scaled) >= 0.5
 
         print(mlp.summary())
-        print(classification_report(y, y_pred_mlp))
+        print(classification_report(self.y, y_pred_mlp))
 
         X_pca = self.X_pca.transform(X_scaled)
         y_pred_lr = self.lr.predict(X_pca)
         print(self.lr)
-        print(classification_report(y, y_pred_lr))
+        print(classification_report(self.y, y_pred_lr))
 
         print(f'Test Passed')
 
