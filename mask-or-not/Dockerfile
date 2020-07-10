@@ -23,6 +23,9 @@ COPY ci_test.py .
 COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh
 
+COPY data.zip .
+RUN unzip data.zip
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Run tests by default on startup
