@@ -18,6 +18,7 @@ class ModelTestcase(unittest.TestCase):
             self.lr = ci_artifacts['lr']
             self.mlp_filename = ci_artifacts['mlp_filename']
             self.tflite_filename = ci_artifacts['tflite_filename']
+            self.cc_filename = ci_artifacts['cc_filename']
 
     def tearDown(self):
         """Called after every test case."""
@@ -57,7 +58,7 @@ class ModelTestcase(unittest.TestCase):
         for i in range(X_scaled.shape[0]):
 
             # add batch dimension
-            input_data = np.expand_dims(X_test[i], axis=0).astype('float32')
+            input_data = np.expand_dims(X_scaled[i], axis=0).astype('float32')
             interpreter.set_tensor(input_details[0]['index'], input_data)
             interpreter.invoke()
 
@@ -67,6 +68,10 @@ class ModelTestcase(unittest.TestCase):
             y_pred.append(output_data[0][0])
 
         print(classification_report(self.y, np.array(y_pred) >= 0.5))
+
+    def testModelCC(self):
+        with open(self.cc_filename, 'r') as f:
+          print(f.read())
 
 if __name__ == "__main__":
     # run all tests
