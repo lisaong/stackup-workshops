@@ -1,5 +1,7 @@
 // https://eloquentarduino.github.io/2020/01/easy-tinyml-on-esp32-and-arduino/
 #include "EloquentTinyML.h"
+
+// Copied to Documents/Arduino/libraries/mask_or_not
 #include "mlp_full.h"
 // #include "sine_model.h"
 
@@ -13,7 +15,7 @@
 #define TENSOR_ARENA_SIZE 2*1024
 
 // https://github.com/eloquentarduino/EloquentTinyML/issues/3
-Eloquent::TinyML::TfLite<NUMBER_OF_INPUTS, NUMBER_OF_OUTPUTS, TENSOR_ARENA_SIZE> ml((unsigned char*)sine_model);
+Eloquent::TinyML::TfLite<NUMBER_OF_INPUTS, NUMBER_OF_OUTPUTS, TENSOR_ARENA_SIZE> ml((unsigned char*)model_data);
 
 void setup() {
   Serial.begin(115200);
