@@ -6,7 +6,7 @@
 
 // in future projects you may need to tweak this value
 // it's a trial and error process
-#define TENSOR_ARENA_SIZE 2*1024
+#define TENSOR_ARENA_SIZE 5*1024
 
 Eloquent::TinyML::TfLite<NUMBER_OF_INPUTS, NUMBER_OF_OUTPUTS, TENSOR_ARENA_SIZE> ml;
 
