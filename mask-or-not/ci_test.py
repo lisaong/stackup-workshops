@@ -1,5 +1,6 @@
 # tests for continuous integration of the model
 import unittest
+import numpy as np
 import pickle
 import tensorflow as tf
 from sklearn.metrics import classification_report
@@ -16,6 +17,7 @@ class ModelTestcase(unittest.TestCase):
             self.y_encoder = ci_artifacts['y_encoder']
             self.lr = ci_artifacts['lr']
             self.mlp_filename = ci_artifacts['mlp_filename']
+            self.tflite_filename = ci_artifacts['tflite_filename']
 
     def tearDown(self):
         """Called after every test case."""
@@ -36,6 +38,35 @@ class ModelTestcase(unittest.TestCase):
         print(classification_report(self.y, y_pred_lr))
 
         print(f'Test Passed')
+
+    def testQuantizedModel(self):
+        X_scaled = self.X_scaler.transform(self.X)
+        y_pred = []
+
+        # Load TFLite model and allocate tensors.
+        interpreter = tf.lite.Interpreter(model_path=self.tflite_filename)
+        interpreter.allocate_tensors()
+
+        # Get input and output tensors.
+        input_details = interpreter.get_input_details()
+        output_details = interpreter.get_output_details()
+        input_shape = input_details[0]['shape']
+
+        # Test model on input data.
+        # Loop through each row of test_data and perform inference
+        for i in range(X_scaled.shape[0]):
+
+            # add batch dimension
+            input_data = np.expand_dims(X_test[i], axis=0).astype('float32')
+            interpreter.set_tensor(input_details[0]['index'], input_data)
+            interpreter.invoke()
+
+            # The function `get_tensor()` returns a copy of the tensor data.
+            # Use `tensor()` in order to get a pointer to the tensor.
+            output_data = interpreter.get_tensor(output_details[0]['index'])
+            y_pred.append(output_data[0][0])
+
+        print(classification_report(self.y, np.array(y_pred) >= 0.5))
 
 if __name__ == "__main__":
     # run all tests
