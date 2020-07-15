@@ -1,4 +1,7 @@
+// https://eloquentarduino.github.io/2020/01/easy-tinyml-on-esp32-and-arduino/
 #include "EloquentTinyML.h"
+
+// Copied to Documents/Arduino/libraries/mask_or_not
 #include "mlp_full.h"
 
 #define NUMBER_OF_INPUTS 900
@@ -17,6 +20,11 @@ void setup() {
 
 void loop() {
   float input[NUMBER_OF_INPUTS];
+  for (int i=0; i<NUMBER_OF_INPUTS; i++) {
+    input[i] = random(-127, 127)/127.0;
+    Serial.print(input[i]);
+    Serial.print(",");
+  }
 
   Serial.println("predicting...");
   float predicted = ml.predict(input);
