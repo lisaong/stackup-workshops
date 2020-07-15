@@ -13,7 +13,7 @@ done
 cp *.pkl /artifacts/.
 cp *.h5 /artifacts/.
 cp *.tflite /artifacts/.
-cp *.cc /artifacts/.
+cp *.h /artifacts/.
 ls -alR /artifacts
 
 # Run CI test

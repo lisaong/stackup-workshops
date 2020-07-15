@@ -18,7 +18,7 @@ class ModelTestcase(unittest.TestCase):
             self.lr = ci_artifacts['lr']
             self.mlp_filename = ci_artifacts['mlp_filename']
             self.tflite_filename = ci_artifacts['tflite_filename']
-            self.cc_filename = ci_artifacts['cc_filename']
+            self.h_filename = ci_artifacts['h_filename']
 
     def tearDown(self):
         """Called after every test case."""
@@ -69,8 +69,8 @@ class ModelTestcase(unittest.TestCase):
 
         print(classification_report(self.y, np.array(y_pred) >= 0.5))
 
-    def testModelCC(self):
-        with open(self.cc_filename, 'r') as f:
+    def testModelCodeFile(self):
+        with open(self.h_filename, 'r') as f:
           print(f.read())
 
 if __name__ == "__main__":
