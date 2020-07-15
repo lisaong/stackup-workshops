@@ -8,10 +8,11 @@
 // it's a trial and error process
 #define TENSOR_ARENA_SIZE 2*1024
 
-Eloquent::TinyML::TfLite<NUMBER_OF_INPUTS, NUMBER_OF_OUTPUTS, TENSOR_ARENA_SIZE> ml(model_data);
+Eloquent::TinyML::TfLite<NUMBER_OF_INPUTS, NUMBER_OF_OUTPUTS, TENSOR_ARENA_SIZE> ml;
 
 void setup() {
   Serial.begin(115200);
+  ml.begin((unsigned char*)model_data);
 }
 
 void loop() {
