@@ -12,6 +12,8 @@ done
 # Copy artifacts and list them
 cp *.pkl /artifacts/.
 cp *.h5 /artifacts/.
+cp *.tflite /artifacts/.
+cp *.cc /artifacts/.
 ls -alR /artifacts
 
 # Run CI test
