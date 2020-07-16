@@ -1,10 +1,10 @@
 #include "EloquentTinyML.h"
 
 // Schema: model_name_input_size.h
-#include "mlp_10.h"
+#include "mlp_5.h"
 
 // Update NUMBER_OF_INPUTS to match the requirements of the model
-#define NUMBER_OF_INPUTS 10
+#define NUMBER_OF_INPUTS 5
 #define NUMBER_OF_OUTPUTS 1
 
 // in future projects you may need to tweak this value
