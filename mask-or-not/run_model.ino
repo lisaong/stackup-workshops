@@ -1,7 +1,11 @@
 #include "EloquentTinyML.h"
-#include "mlp_full.h"
 
-#define NUMBER_OF_INPUTS 400
+// Schema: model_name_input_size.h
+#include "mlp_full_20x20.h"
+
+// Update NUMBER_OF_INPUTS to match the requirements oft the model
+// For example, 10x10 is 100, 20x20 is 400, etc
+#define NUMBER_OF_INPUTS 100
 #define NUMBER_OF_OUTPUTS 1
 
 // in future projects you may need to tweak this value
