@@ -20,28 +20,28 @@ class ModelTestcase(unittest.TestCase):
             self.tflite_filename = ci_artifacts['tflite_filename']
             self.h_filename = ci_artifacts['h_filename']
 
+        X_scaled = self.X_scaler.transform(self.X)
+        self.Z = self.X_pca.transform(X_scaled)
+
     def tearDown(self):
         """Called after every test case."""
         pass
 
     def testModel(self):
         """Model test case."""
-        X_scaled = self.X_scaler.transform(self.X)
         mlp = tf.keras.models.load_model(self.mlp_filename)
-        y_pred_mlp = mlp.predict(X_scaled) >= 0.5
+        y_pred_mlp = mlp.predict(self.Z) >= 0.5
 
         print(mlp.summary())
         print(classification_report(self.y, y_pred_mlp))
 
-        X_pca = self.X_pca.transform(X_scaled)
-        y_pred_lr = self.lr.predict(X_pca)
+        y_pred_lr = self.lr.predict(self.Z)
         print(self.lr)
         print(classification_report(self.y, y_pred_lr))
 
         print(f'Test Passed')
 
     def testQuantizedModel(self):
-        X_scaled = self.X_scaler.transform(self.X)
         y_pred = []
 
         # Load TFLite model and allocate tensors.
@@ -55,10 +55,10 @@ class ModelTestcase(unittest.TestCase):
 
         # Test model on input data.
         # Loop through each row of test_data and perform inference
-        for i in range(X_scaled.shape[0]):
+        for i in range(self.Z.shape[0]):
 
             # add batch dimension
-            input_data = np.expand_dims(X_scaled[i], axis=0).astype('float32')
+            input_data = np.expand_dims(self.Z[i], axis=0).astype('float32')
             interpreter.set_tensor(input_details[0]['index'], input_data)
             interpreter.invoke()
 
