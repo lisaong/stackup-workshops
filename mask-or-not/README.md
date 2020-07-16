@@ -7,7 +7,7 @@ TBA
 
 ## Instructions
 1. Go to `Documents\Arduino\libraries`
-  a. Create the subfolder `mask_or_not`, copy `mlp_*.h` to it
+  a. Create the subfolder `mask_or_not`, copy `*.h` to it
   b. git clone https://github.com/eloquentarduino/EloquentTinyML
 2. Start Arduino IDE
 3. Open the sketch file: `run_model.ino`
