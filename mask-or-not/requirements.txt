@@ -5,4 +5,5 @@ scikit-learn
 seaborn
 tensorflow
 opencv-python-headless
+micromlgen
 tinymlgen
