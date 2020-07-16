@@ -4,6 +4,7 @@ __pycache__/
 *.db-shm
 *.db-wal
 *.ell
+*.lnk
 *.pkl
 *.png
 *.pt
