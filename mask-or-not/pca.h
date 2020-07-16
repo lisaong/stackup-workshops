@@ -38,3 +38,5 @@ namespace Eloquent {
             }
         }
     }
+
+#define PCA_INPUT_SIZE 3600
