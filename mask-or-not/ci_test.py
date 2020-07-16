@@ -27,13 +27,13 @@ class ModelTestcase(unittest.TestCase):
     def testModel(self):
         """Model test case."""
         X_scaled = self.X_scaler.transform(self.X)
+        X_pca = self.X_pca.transform(X_scaled)
         mlp = tf.keras.models.load_model(self.mlp_filename)
-        y_pred_mlp = mlp.predict(X_scaled) >= 0.5
+        y_pred_mlp = mlp.predict(X_pca) >= 0.5
 
         print(mlp.summary())
         print(classification_report(self.y, y_pred_mlp))
 
-        X_pca = self.X_pca.transform(X_scaled)
         y_pred_lr = self.lr.predict(X_pca)
         print(self.lr)
         print(classification_report(self.y, y_pred_lr))
@@ -42,6 +42,7 @@ class ModelTestcase(unittest.TestCase):
 
     def testQuantizedModel(self):
         X_scaled = self.X_scaler.transform(self.X)
+        X_pca = self.X_pca.transform(X_scaled)
         y_pred = []
 
         # Load TFLite model and allocate tensors.
@@ -55,7 +56,7 @@ class ModelTestcase(unittest.TestCase):
 
         # Test model on input data.
         # Loop through each row of test_data and perform inference
-        for i in range(X_scaled.shape[0]):
+        for i in range(X_pca.shape[0]):
 
             # add batch dimension
             input_data = np.expand_dims(X_scaled[i], axis=0).astype('float32')
