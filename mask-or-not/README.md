@@ -8,7 +8,7 @@ TBA
 ## Instructions
 1. Go to `Documents\Arduino\libraries`
 
-   a. Create the subfolder `mask_or_not`, copy `*.h` to it
+   a. Create the subfolder `mask_or_not`, copy the contents of the `model` directory to it. Just copy the *.h, don't copy the models directory.
 
    b. git clone https://github.com/eloquentarduino/EloquentTinyML
   
