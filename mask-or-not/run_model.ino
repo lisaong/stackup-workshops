@@ -1,8 +1,9 @@
 #include "EloquentTinyML.h"
 
-// Schema: model_name_input_size.h
-#include "pca.h"
-#include "mlp_5.h"
+// Schema: pca_{input_size}x{output_size}.h
+#include "pca_400x7.h"
+// Schema: model_name_{input_size}.h
+#include "mlp_7.h"
 
 // in future projects you may need to tweak this value
 // it's a trial and error process
@@ -25,6 +26,7 @@ void loop() {
     Serial.print(input[i]);
     Serial.print(",");
   }
+  Serial.println("");
 
   Serial.println("transforming...");
   pca.transform(input, features);
