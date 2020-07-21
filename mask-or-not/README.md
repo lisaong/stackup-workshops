@@ -89,3 +89,59 @@ predicted: 0.48
 ```
 
 View the [Colab Notebook](mask_or_not.ipynb).
+
+## Continuous Integration
+This project also features continuous integration of the Jupyter notebook:
+1. The Jupyter notebook is setup to serialise the model specs in ci_artifacts.pkl. Model specs include inputs, target, pre-processors, and pointers to the saved weights.
+2. During continuous integration, this [Github workflow](../.github/workflows/maskornot.yml) will execute the Jupyter notebook in a Docker container. This trains the models and saves their weights, preprocessors, and data.
+3. The workflow will run this [integration test](ci_test.py) to load the model weights, preprocessors, and data to get predictions and metrics.
+
+Example the schema used to organise the artifacts:
+```
+ci_artifacts = {
+    'inputs' : {
+        'X' : X,
+        'X_cnn' : X_scaled_reshape
+    },
+
+    'target' : {
+        'y' : y,
+        'encoder' : le
+    },
+
+    'preprocessors' : {
+      'scaler' : scaler,
+      'pca' : pca
+    },
+
+    'baseline' : {
+        'input' : 'X',
+        'model' : lr,
+        'preprocessors' : [
+          'scaler',
+          'pca'
+        ],
+    },
+
+    # model1 spec
+    'mlp' : {
+        'input' : 'X',
+        'scaler' : scaler,
+        'preprocessors' : [
+          'scaler',
+          'pca'                 
+        ],
+        'h5' : 'mlp.h5'
+    },
+
+    # model2 spec
+    'cnn' : {
+        'input' : 'X_cnn',
+        'preprocessors' : [
+        ],
+        'h5' : 'cnn.h5',
+        'tflite' : 'cnn.tflite',
+        'h' : 'cnn.h' 
+    }
+}
+```
