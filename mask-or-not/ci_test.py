@@ -40,15 +40,19 @@ class ModelTestcase(unittest.TestCase):
         print(classification_report(self.target['y'], y_pred))
 
     def testBaseline(self):
+        print('Testing Baseline')
         self._testSkLearnModel(self.baseline)
 
     def testMLP(self):
+        print('Testing MLP')
         self._testTFModel(self.mlp)
 
     def testCNN(self):
+        print('Testing CNN')
         self._testTFModel(self.cnn)
 
     def testCNNTFLite(self):
+        print('Testing TFLite Model')
         self._testTFLiteModel(self.cnn)
 
     def _testTFLiteModel(self, model_spec):
@@ -80,6 +84,6 @@ class ModelTestcase(unittest.TestCase):
 
         print(classification_report(self.target['y'], np.array(y_pred) >= 0.5))        
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     # run all tests
-    unittest.main()
+    unittest.main(argv=['first-arg-is-ignored'], exit=False)
