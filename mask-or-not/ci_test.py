@@ -10,42 +10,56 @@ class ModelTestcase(unittest.TestCase):
         """Called before every test case."""
         with open('ci_artifacts.pkl', 'rb') as f:
             ci_artifacts = pickle.load(f)
-            self.X = ci_artifacts['X']
-            self.X_scaler = ci_artifacts['X_scaler']
-            self.X_pca = ci_artifacts['X_pca']
-            self.y = ci_artifacts['y']
-            self.y_encoder = ci_artifacts['y_encoder']
-            self.lr = ci_artifacts['lr']
-            self.mlp_filename = ci_artifacts['mlp_filename']
-            self.tflite_filename = ci_artifacts['tflite_filename']
-            self.h_filename = ci_artifacts['h_filename']
-
-        X_scaled = self.X_scaler.transform(self.X)
-        self.Z = self.X_pca.transform(X_scaled)
+            self.inputs = ci_artifacts['inputs']
+            self.target = ci_artifacts['target']
+            self.preprocessors = ci_artifacts['preprocessors']
+            self.baseline = ci_artifacts['baseline']
+            self.mlp = ci_artifacts['mlp']
+            self.cnn = ci_artifacts['cnn']
 
     def tearDown(self):
         """Called after every test case."""
         pass
 
-    def testModel(self):
-        """Model test case."""
-        mlp = tf.keras.models.load_model(self.mlp_filename)
-        y_pred_mlp = mlp.predict(self.Z) >= 0.5
+    def _testSkLearnModel(self, model_spec):
+        model = model_spec['model']
+        X = self.inputs[model_spec['input']]
+        for p in model_spec['preprocessors']:
+          X = self.preprocessors[p].transform(X)
+        y_pred = model.predict(X)
+        print(model)
+        print(classification_report(self.target['y'], y_pred))
 
-        print(mlp.summary())
-        print(classification_report(self.y, y_pred_mlp))
+    def _testTFModel(self, model_spec):
+        model = tf.keras.models.load_model(model_spec['h5'])
+        X = self.inputs[model_spec['input']]
+        for p in model_spec['preprocessors']:
+          X = self.preprocessors[p].transform(X)
+        y_pred = model.predict(X) >= 0.5
+        print(model.summary())
+        print(classification_report(self.target['y'], y_pred))
 
-        y_pred_lr = self.lr.predict(self.Z)
-        print(self.lr)
-        print(classification_report(self.y, y_pred_lr))
+    def testBaseline(self):
+        print('Testing Baseline')
+        self._testSkLearnModel(self.baseline)
 
-        print(f'Test Passed')
+    def testMLP(self):
+        print('Testing MLP')
+        self._testTFModel(self.mlp)
 
-    def testQuantizedModel(self):
+    def testCNN(self):
+        print('Testing CNN')
+        self._testTFModel(self.cnn)
+
+    def testCNNTFLite(self):
+        print('Testing TFLite Model')
+        self._testTFLiteModel(self.cnn)
+
+    def _testTFLiteModel(self, model_spec):
         y_pred = []
 
         # Load TFLite model and allocate tensors.
-        interpreter = tf.lite.Interpreter(model_path=self.tflite_filename)
+        interpreter = tf.lite.Interpreter(model_path=model_spec['tflite'])
         interpreter.allocate_tensors()
 
         # Get input and output tensors.
@@ -55,10 +69,11 @@ class ModelTestcase(unittest.TestCase):
 
         # Test model on input data.
         # Loop through each row of test_data and perform inference
-        for i in range(self.Z.shape[0]):
+        model_input = self.inputs[model_spec['input']]
+        for i in range(model_input.shape[0]):
 
             # add batch dimension
-            input_data = np.expand_dims(self.Z[i], axis=0).astype('float32')
+            input_data = np.expand_dims(model_input[i], axis=0).astype('float32')
             interpreter.set_tensor(input_details[0]['index'], input_data)
             interpreter.invoke()
 
@@ -67,12 +82,8 @@ class ModelTestcase(unittest.TestCase):
             output_data = interpreter.get_tensor(output_details[0]['index'])
             y_pred.append(output_data[0][0])
 
-        print(classification_report(self.y, np.array(y_pred) >= 0.5))
+        print(classification_report(self.target['y'], np.array(y_pred) >= 0.5))        
 
-    def testModelCodeFile(self):
-        with open(self.h_filename, 'r') as f:
-          print(f.read())
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     # run all tests
-    unittest.main()
+    unittest.main(argv=['first-arg-is-ignored'], exit=False)
