@@ -7,6 +7,52 @@ This workshop demonstrates how to train an image classifier using Tensorflow-Ker
 
 ESP32 is a popular platform for IoT projects, and comes in many variants. I used DevKitC V4, which includes 4MB flash.
 
+## Model Architecture
+
+This uses a Depthwise Separable Convolutional Neural Network classifier to output a binary "mask" or "no mask" prediction. Images are downsampled to 10x10 pixels.
+
+A Depthwise Separable Convolutional Layer cuts down the amount of Multiply-Add operations, compared to a Convolutional Layer, at the expense of fewer weights.
+
+![arch](separable_cnn.png)
+
+Metrics on Train and Test Data:
+```
+Testing TFLite Model
+              precision    recall  f1-score   support
+
+           0       0.90      0.90      0.90        10
+           1       0.90      0.90      0.90        10
+
+    accuracy                           0.90        20
+   macro avg       0.90      0.90      0.90        20
+weighted avg       0.90      0.90      0.90        20
+```
+
+Metrics on Test Data alone shows that this model will need to be further tuned:
+```
+              precision    recall  f1-score   support
+
+           0       0.67      0.67      0.67         3
+           1       0.50      0.50      0.50         2
+
+    accuracy                           0.60         5
+   macro avg       0.58      0.58      0.58         5
+weighted avg       0.60      0.60      0.60         5
+```
+
+However, it is much better than an MLP, which requires dimensionality reduction to 7 dimensions (using PCA) before it can reliably run on the ESP32:
+```
+              precision    recall  f1-score   support
+
+           0       0.50      0.67      0.57         3
+           1       0.00      0.00      0.00         2
+
+    accuracy                           0.40         5
+   macro avg       0.25      0.33      0.29         5
+weighted avg       0.30      0.40      0.34         5
+```
+These are covered in the Colab notebook linked below.
+
 ## Instructions
 1. Go to `Documents\Arduino\libraries`
 
