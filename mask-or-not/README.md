@@ -59,7 +59,7 @@ The training and conversion process is covered in the Colab notebook linked belo
 1. Install the latest Ardiuno IDE. You will also need an ESP32 board.
 2. Go to `Documents\Arduino\libraries`
 
-   a. Create a subfolder `mask_or_not`, copy [models/10/cnn_10.h](models/10/cnn_10.h) folder to it. Just copy the file, don't copy the models folder or subfolders (else Arduino IDE cannot find the file during compilation).
+   a. Create a subfolder `mask_or_not`, copy [models/10/cnn_10.h](models/10/cnn_10.h) to it. Just copy the file, don't copy the models folder or subfolders (else Arduino IDE cannot find the file during compilation).
 
    b. Git clone https://github.com/eloquentarduino/EloquentTinyML into the `Documents\Arduino\libraries` folder. This should create a subfolder called `Documents\Arduino\libraries\EloquentTinyML`
   
