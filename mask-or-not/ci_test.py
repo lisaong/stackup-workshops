@@ -21,7 +21,7 @@ class ModelTestcase(unittest.TestCase):
             self.h_filename = ci_artifacts['h_filename']
 
         self.X_scaled = self.X_scaler.transform(self.X)
-        self.Z = self.X_pca.transform(X_scaled)
+        self.X_pca = self.X_pca.transform(self.X_scaled)
 
     def tearDown(self):
         """Called after every test case."""
@@ -35,7 +35,7 @@ class ModelTestcase(unittest.TestCase):
         print(model.summary())
         print(classification_report(self.y, y_pred_model))
 
-        y_pred_lr = self.lr.predict(self.Z)
+        y_pred_lr = self.lr.predict(self.X_pca)
         print(self.lr)
         print(classification_report(self.y, y_pred_lr))
 
@@ -58,7 +58,7 @@ class ModelTestcase(unittest.TestCase):
         for i in range(self.X_scaled.shape[0]):
 
             # add batch dimension
-            input_data = np.expand_dims(self.Z[i], axis=0).astype('float32')
+            input_data = np.expand_dims(self.X_scaled[i], axis=0).astype('float32')
             interpreter.set_tensor(input_details[0]['index'], input_data)
             interpreter.invoke()
 
