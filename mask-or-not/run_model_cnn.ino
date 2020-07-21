@@ -1,7 +1,7 @@
 #include "EloquentTinyML.h"
 
 // Schema: model_name_{input_size}.h
-#include "cnn_30.h"
+#include "cnn_10.h"
 
 // in future projects you may need to tweak this value
 // it's a trial and error process
