@@ -16,7 +16,7 @@ class ModelTestcase(unittest.TestCase):
             self.y = ci_artifacts['y']
             self.y_encoder = ci_artifacts['y_encoder']
             self.lr = ci_artifacts['lr']
-            self.mlp_filename = ci_artifacts['mlp_filename']
+            self.mlp_filename = ci_artifacts['tf_filename']
             self.tflite_filename = ci_artifacts['tflite_filename']
             self.h_filename = ci_artifacts['h_filename']
 
@@ -29,7 +29,7 @@ class ModelTestcase(unittest.TestCase):
 
     def testModel(self):
         """Model test case."""
-        mlp = tf.keras.models.load_model(self.mlp_filename)
+        mlp = tf.keras.models.load_model(self.tf_filename)
         y_pred_mlp = mlp.predict(self.Z) >= 0.5
 
         print(mlp.summary())
