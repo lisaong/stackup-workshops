@@ -88,6 +88,7 @@ predicting...
 predicted: 0.48
 ```
 
+## Colab Notebook
 View the [Colab Notebook](mask_or_not.ipynb).
 
 ## Continuous Integration
