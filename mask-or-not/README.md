@@ -11,7 +11,7 @@ ESP32 is a popular platform for IoT projects, and comes in many variants. I used
 
 This uses a Depthwise Separable Convolutional Neural Network classifier to output a binary "mask" or "no mask" prediction. Images are downsampled to 10x10 pixels.
 
-A Depthwise Separable Convolutional Layer cuts down the amount of Multiply-Add operations, compared to a Convolutional Layer, at the expense of fewer weights.
+A Depthwise Separable Convolutional Layer cuts down the amount of Multiply-Add operations, compared to a Convolutional Layer, at the expense of fewer weights (lower model complexity, more tendency to underfit).
 
 ![arch](separable_cnn.png)
 
@@ -40,7 +40,9 @@ Metrics on Test Data alone shows that this model will need to be further tuned:
 weighted avg       0.60      0.60      0.60         5
 ```
 
-However, it is much better than an MLP, which requires dimensionality reduction to 7 dimensions (using PCA) before it can reliably run on the ESP32:
+The code to run this model on the ESP32 is [run_model_cnn.ino](run_model_cnn.ino).
+
+However, it is much better than an MLP, which requires dimensionality reduction to 7 dimensions (using PCA) before it can reliably run on the ESP32 (See [run_model_pca_mlp.ino](run_model_pca_mlp.ino)):
 ```
               precision    recall  f1-score   support
 
@@ -51,20 +53,21 @@ However, it is much better than an MLP, which requires dimensionality reduction 
    macro avg       0.25      0.33      0.29         5
 weighted avg       0.30      0.40      0.34         5
 ```
-These are covered in the Colab notebook linked below.
+The training and conversion process is covered in the Colab notebook linked below.
 
 ## Instructions
-1. Go to `Documents\Arduino\libraries`
+1. Install the latest Ardiuno IDE. You will also need an ESP32 board.
+2. Go to `Documents\Arduino\libraries`
 
-   a. Create the subfolder `mask_or_not`, copy the contents of the `model` directory to it. Just copy the *.h, don't copy the models directory.
+   a. Create a subfolder `mask_or_not`, copy *the contents* of the [model](model) folder to it. Just copy the *.h, don't copy the models folder itself else Arduino IDE cannot find it.
 
    b. git clone https://github.com/eloquentarduino/EloquentTinyML
   
-2. Start Arduino IDE
-3. Open the sketch file: `run_model.ino`
-4. Connect an ESP32 to USB, select the COM port to connect to it
-5. Upload the sketch to the ESP32
-6. Once upload is complete, open Serial Monitor to monitor serial output
+3. Start Arduino IDE
+4. Open the sketch file: [run_model_cnn.ino](run_model_cnn.ino).
+5. Connect an ESP32 to USB, select the COM port to connect to it
+6. Upload the sketch to the ESP32
+7. Once upload is complete, open Serial Monitor to monitor serial output
   
    a. If you observe `nan`, reset the ESP32 to see if `AllocateTensors` has failed. If so, you may need to increase `TENSOR_ARENA_SIZE`.
 
