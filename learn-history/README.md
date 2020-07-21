@@ -13,4 +13,6 @@ This example covers a simple but versatile approach of approaching a univariate 
 
 The goal is to give the basic Lego blocks to perform any time series analysis using Machine Learning.
 
-View the [Colab Notebook](learning_from_history.ipynb) | [Slides](NUS_ISS_Stackup_Webinar_110620_TimeSeries101.pdf) | [Video](https://youtu.be/8sEXsCPJv4E)
+View the [Colab Notebook](learning_from_history.ipynb) | [Slides](NUS_ISS_Stackup_Webinar_110620_TimeSeries101.pdf)
+
+[<img src="https://img.youtube.com/vi/8sEXsCPJv4E/maxresdefault.jpg" width="75%">](https://youtu.be/8sEXsCPJv4E)

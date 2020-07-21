@@ -10,4 +10,6 @@ SpaCy is a popular Python natural language processing library that gets you star
 
 In this example, you see how to take any blob of text data, tokenise it, and extract information such as keywords using spaCy on Google Colaboratory. You also get some time to play around with spaCy and try your own text data.
 
-View the [Colab Notebook](text_processing101.ipynb) | [Slides](NUS_ISS_Stackup_Webinar_260620_Text101.pdf) | [Video](https://youtu.be/kI_gHP6OXhQ)
+View the [Colab Notebook](text_processing101.ipynb) | [Slides](NUS_ISS_Stackup_Webinar_260620_Text101.pdf)
+
+[<img src="https://img.youtube.com/vi/kI_gHP6OXhQ/maxresdefault.jpg" width="75%">](https://youtu.be/kI_gHP6OXhQ)
