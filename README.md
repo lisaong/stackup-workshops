@@ -12,4 +12,4 @@ Repository for workshop content for the StackUp Saturday talks series.
 - [Learning from History](learn-history/README.md)
 - [Text Similarity](text-similarity/README.md)
 - [Continuous Integration of Jupyter Notebooks](.github/workflows/README.md)
-- [Mask or no-mask: Tensorflow Lite Micro on ESP32](mask-or-not/README.md)
+- [Mask or no-mask - Tensorflow Lite Micro + ESP32](mask-or-not/README.md)
