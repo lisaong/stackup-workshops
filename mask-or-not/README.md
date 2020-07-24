@@ -58,12 +58,18 @@ weighted avg       0.30      0.40      0.34         5
 The training and conversion process is covered in the Colab notebook linked below.
 
 ## Instructions
-1. Install the latest Ardiuno IDE. You will also need an ESP32 board.
+1. Install the latest Ardiuno IDE. You will also need an ESP32 board, and [configure Arduino IDE to program an ESP32](https://embedgyan.wordpress.com/2020/06/22/installing-the-esp32-board-in-arduino-ide-windows-mac-os-x-linux/).
 2. Go to `Documents\Arduino\libraries`
 
    a. Create a subfolder `mask_or_not`, copy [models/10/cnn_10.h](models/10/cnn_10.h) to it. Just copy the file, don't copy the models folder or subfolders (else Arduino IDE cannot find the file during compilation).
 
-   b. Git clone https://github.com/eloquentarduino/EloquentTinyML into the `Documents\Arduino\libraries` folder. This should create a subfolder called `Documents\Arduino\libraries\EloquentTinyML`
+   b. Git clone https://github.com/eloquentarduino/EloquentTinyML into the `Documents/Arduino/libraries` folder. This should create a subfolder called `Documents/Arduino/libraries/EloquentTinyML`
+
+   This is what the folder structure should look like:
+   ```
+   > ls -ah ~/Documents/Arduino/libraries
+       .		..		EloquentTinyML	mask_or_not	readme.txt
+   ```
   
 3. Start Arduino IDE
 4. Open the sketch file: [run_model_cnn.ino](run_model_cnn.ino).
