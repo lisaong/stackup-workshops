@@ -6,8 +6,10 @@
 import serial
 
 #%%
-with serial.Serial(port='COM7', baudrate=9600) as ser:
-    ser.open()
+# found by ls /dev/cu*
+PORT = "/dev/cu.ESP32Bluetooth-ESP32SPP"
+
+with serial.Serial(port=PORT, baudrate=9600) as ser:
     ser.write(123)
 
 # %%
