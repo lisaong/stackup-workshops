@@ -4,10 +4,12 @@ __pycache__/
 *.db-shm
 *.db-wal
 *.ell
+*.h5
 *.lnk
 *.pkl
 *.png
 *.pt
+*.tflite
 *.tgz
 *.zip
 *.trace
@@ -25,3 +27,4 @@ obj/
 
 macs.txt
 mask-or-not/data/*/*.jpg
+mask-or-not/mlp.h5
