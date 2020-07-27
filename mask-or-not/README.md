@@ -7,7 +7,10 @@
 ## Introduction
 This workshop demonstrates how to train an image classifier using Tensorflow-Keras, convert it to Tensorflow Lite, and how to port it using EloquentTinyML to run on an ESP32 platform.
 
-ESP32 is a popular platform for IoT projects, and comes in many variants. I used DevKitC V4, which includes 4MB flash.
+ESP32 is a popular platform for IoT projects because it supports Bluetooth Classic, Bluetooth LE, WiFi, and can be programmed using the Arduino IDE. ESP32 comes in many variants. I used DevKitC V4, which includes 4MB flash.
+
+## Colab Notebook
+View the [Colab Notebook](mask_or_not.ipynb).
 
 ## Model Architecture
 
@@ -137,9 +140,6 @@ onDataCallback(0x3ffe3a0c, 100)53,60,168,182,180,161,60,30,197,211,12,119,178,20
 predicting...
 prediction: 0.61
 ```
-
-## Colab Notebook
-View the [Colab Notebook](mask_or_not.ipynb).
 
 ## Continuous Integration
 This project also features continuous integration of the Jupyter notebook:
