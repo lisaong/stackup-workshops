@@ -33,12 +33,23 @@ void callback(esp_spp_cb_event_t event, esp_spp_cb_param_t *param){
   }
 }
 
+void onDataCallback(const uint8_t *buffer, size_t size) {
+  Serial.printf("onDataCallback(%p, %d)", buffer, size);
+  for (size_t i=0; i<size; i++) {
+    Serial.printf("%d,", buffer[i]);
+  }
+}
+
 void setup() {
   logMemory();
 
   Serial.begin(115200);
 
   Bluetooth.register_callback(callback);
+
+  // For this to compile, you need the latest version of esp32-arduino
+  // refer to README.md
+  Bluetooth.onData(onDataCallback);
 
   if (!Bluetooth.begin("ESP32 Bluetooth")) {
     Serial.println("Could not start bluetooth");
@@ -54,18 +65,13 @@ void setup() {
 void loop() {
   float input[NUMBER_OF_INPUTS];
 
-  //for (int i=0; i<NUMBER_OF_INPUTS; i++) {
-  //  input[i] = random(-127, 127)/127.0;
-  //  Serial.print(input[i]);
-  //  Serial.print(",");
-  //}
-  //Serial.println("");
-
   int i=0;
   while (Bluetooth.available() && i<NUMBER_OF_INPUTS) {
     int byte = Bluetooth.read();
-    Serial.printf("Received (Bluetooth): %#x\n", byte);
-    input[i++] = (byte-127)/127.0;
+    input[i] = (byte-127)/127.0;
+    Serial.print(input[i]);
+    Serial.print(",");
+    i++;
   }
 
   if (i==NUMBER_OF_INPUTS) {
