@@ -86,4 +86,4 @@ class ModelTestcase(unittest.TestCase):
 
 if __name__ == '__main__':
     # run all tests
-    unittest.main(argv=['first-arg-is-ignored'], exit=False)
+    unittest.main()
