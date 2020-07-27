@@ -57,7 +57,10 @@ weighted avg       0.30      0.40      0.34         5
 ```
 The training and conversion process is covered in the Colab notebook linked below.
 
-## Instructions
+## Instructions (MacOS or Linux)
+
+Note: At this time, Windows 10 does not support connecting to the Bluetooth Serial Virtual COM port. These instructions have been verified on MacOS, and should also work for Linux.
+
 1. Install the latest Ardiuno IDE. You will also need an ESP32 board, and [configure Arduino IDE to program an ESP32](https://embedgyan.wordpress.com/2020/06/22/installing-the-esp32-board-in-arduino-ide-windows-mac-os-x-linux/).
 2. Go to `Documents\Arduino\libraries`
 
@@ -87,16 +90,23 @@ The training and conversion process is covered in the Colab notebook linked belo
    b. If the ESP32 goes into a reboot loop, the input dimensions are too big. Try a smaller image dimension (`OUTPUT_SIZE` in the Colab Notebook).
   
    c. If you get a linker error (dangerous relocation), the input dimensions are too big. Try a smaller image dimension (`OUTPUT_SIZE` in the Colab Notebook).
+8. Pair with the ESP32 device over Bluetooth
+9. Check the serial port connection using `ls /dev/cu*`. Update `send_image.py` to use the connection string if different from the hardcoded one.
+10. Run `python send_image.py` to send a test image to the device.
 
-Sample output from Serial Monitor (using random data):
+Sample output from Serial Monitor (using a 10x10 test image sent over Bluetooth SPP):
 ```
-predicted: 0.46
--0.39,-0.06,0.61,-0.76,0.13,0.08,0.02,-0.26,-0.09,0.13,-0.74,-0.50,-0.98,0.60,-0.19,0.13,0.94,-0.75,-0.74,-0.22,-0.95,-0.17,0.83,-0.54,-0.44,-0.64,0.54,0.05,0.57,0.47,-0.95,0.48,0.42,0.69,-0.43,0.61,-0.09,0.18,0.54,-0.91,0.14,0.91,-0.89,0.76,-0.49,-0.16,-0.02,-0.65,0.37,-0.86,-0.75,0.80,-0.44,-0.32,-0.04,0.57,-0.91,0.98,0.02,-0.87,-0.39,0.92,-0.71,0.39,0.84,-0.43,-0.43,0.24,0.44,0.06,0.12,0.79,-0.68,-0.61,0.83,0.05,-0.67,0.06,-0.90,-0.35,-0.64,-0.28,-0.72,-0.08,0.82,0.52,0.83,0.28,-0.87,0.65,-0.39,0.11,-0.69,0.08,-0.60,0.80,0.83,0.61,0.22,0.52,
+[V][BluetoothSerial.cpp:275] esp_spp_cb(): ESP_SPP_DATA_IND_EVT len=100 handle=385
+onDataCallback(0x3ffe3900, 100)53,60,168,182,180,161,60,30,197,211,12,119,178,204,192,187,173,131,203,211,74,175,165,200,193,187,172,177,204,211,147,174,111,52,116,180,97,141,213,211,141,178,89,157,175,184,157,175,210,211,139,176,187,173,176,185,160,192,214,211,126,167,170,186,144,167,176,177,195,212,113,162,161,182,169,175,160,165,219,212,154,146,163,159,157,165,149,160,213,213,219,114,150,168,186,180,184,153,219,215,
 predicting...
-predicted: 0.47
-0.72,0.34,0.18,0.00,-0.31,0.84,0.75,0.31,-0.47,-0.82,0.08,0.21,0.94,0.17,-0.36,0.98,-0.08,-0.33,0.19,0.07,0.72,-0.91,-0.06,0.27,-0.61,-0.86,0.72,-0.64,0.41,-0.49,0.07,-0.65,-0.26,-0.91,0.08,0.31,0.10,0.94,0.23,0.46,0.72,0.70,-0.83,0.17,0.65,-0.06,0.66,-0.43,0.45,-0.21,0.39,-0.69,-0.98,0.43,-0.39,0.80,0.31,-0.62,-0.80,-0.69,0.43,0.06,-0.28,0.40,-0.16,0.55,0.71,0.08,-0.82,-0.17,0.39,0.65,0.03,0.24,-0.28,-0.89,-0.83,0.07,-0.81,-0.56,0.45,-0.51,0.28,-0.06,-0.21,0.94,-0.04,0.23,-0.37,0.93,-1.00,-0.20,0.43,-0.65,0.87,0.96,0.81,-0.02,0.79,0.38,
+prediction: 0.61
+[I][BluetoothSerial.cpp:247] esp_spp_cb(): ESP_SPP_CLOSE_EVT
+[I][BluetoothSerial.cpp:235] esp_spp_cb(): ESP_SPP_SRV_OPEN_EVT
+Client Connected
+[V][BluetoothSerial.cpp:275] esp_spp_cb(): ESP_SPP_DATA_IND_EVT len=100 handle=129
+onDataCallback(0x3ffe3a0c, 100)53,60,168,182,180,161,60,30,197,211,12,119,178,204,192,187,173,131,203,211,74,175,165,200,193,187,172,177,204,211,147,174,111,52,116,180,97,141,213,211,141,178,89,157,175,184,157,175,210,211,139,176,187,173,176,185,160,192,214,211,126,167,170,186,144,167,176,177,195,212,113,162,161,182,169,175,160,165,219,212,154,146,163,159,157,165,149,160,213,213,219,114,150,168,186,180,184,153,219,215,
 predicting...
-predicted: 0.48
+prediction: 0.61
 ```
 
 ## Colab Notebook

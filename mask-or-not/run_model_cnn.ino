@@ -15,6 +15,7 @@
 // Globals
 BluetoothSerial Bluetooth;
 Eloquent::TinyML::TfLite<NUMBER_OF_INPUTS, NUMBER_OF_OUTPUTS, TENSOR_ARENA_SIZE> Model;
+float ImageData[NUMBER_OF_INPUTS];
 
 void logMemory() {
   // https://thingpulse.com/esp32-how-to-use-psram/
@@ -35,8 +36,15 @@ void callback(esp_spp_cb_event_t event, esp_spp_cb_param_t *param){
 
 void onDataCallback(const uint8_t *buffer, size_t size) {
   Serial.printf("onDataCallback(%p, %d)", buffer, size);
-  for (size_t i=0; i<size; i++) {
-    Serial.printf("%d,", buffer[i]);
+  if (size == NUMBER_OF_INPUTS) {
+    for (size_t i=0; i<size; i++) {    
+      Serial.printf("%d,", buffer[i]);
+      ImageData[i] = (buffer[i]-127)/127.0;      
+    }
+
+    Serial.println("\npredicting...");
+    float prediction = Model.predict(ImageData);
+    Serial.printf("prediction: %.2f\n", prediction);
   }
 }
 
@@ -63,23 +71,7 @@ void setup() {
 }
 
 void loop() {
-  float input[NUMBER_OF_INPUTS];
-
-  int i=0;
-  while (Bluetooth.available() && i<NUMBER_OF_INPUTS) {
-    int byte = Bluetooth.read();
-    input[i] = (byte-127)/127.0;
-    Serial.print(input[i]);
-    Serial.print(",");
-    i++;
-  }
-
-  if (i==NUMBER_OF_INPUTS) {
-    Serial.println("predicting...");
-    float predicted = Model.predict(input);
-    Serial.print("predicted: ");
-    Serial.println(predicted);
-  }
-
-  delay(250);
+  // Everything is done in the data callback
+  // because the default Bluetooth Serial Port RX buffer is
+  // hardcoded to 512 bytes
 }
