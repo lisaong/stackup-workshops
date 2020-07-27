@@ -115,9 +115,13 @@ Note: At this time, Windows 10 does not support connecting to the Bluetooth Seri
    b. If the ESP32 goes into a reboot loop, the input dimensions are too big. Try a smaller image dimension (`OUTPUT_SIZE` in the Colab Notebook).
   
    c. If you get a linker error (dangerous relocation), the input dimensions are too big. Try a smaller image dimension (`OUTPUT_SIZE` in the Colab Notebook).
-8. Pair with the ESP32 device over Bluetooth
-9. Check the serial port connection using `ls /dev/cu*`. Update `send_image.py` to use the connection string if different from the hardcoded one.
-10. Run `python send_image.py` to send a test image to the device.
+8. Pair with the ESP32 device over Bluetooth.
+9. Check the serial port connection using `ls /dev/cu*`. Update `send_image.py` to use the connection string (set in `PORT`) if different.
+10. Run the python script to send a test image to the device, after installing the pyserial dependency.
+    ```
+    pip install pyserial
+    python send_image.py
+    ```
 
 Sample output from Serial Monitor (using a 10x10 test image sent over Bluetooth SPP):
 ```
