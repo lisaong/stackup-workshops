@@ -21,8 +21,7 @@ data = np.array([ 53,  60, 168, 182, 180, 161,  60,  30, 197, 211,  12, 119, 178
 PORT = "/dev/cu.ESP32Bluetooth-ESP32SPP"
 
 with serial.Serial(port=PORT, baudrate=9600) as ser:
-    for d in data:
-        ser.write(bytes(d))
+    ser.write(bytes(data))
 
 # %%
 
