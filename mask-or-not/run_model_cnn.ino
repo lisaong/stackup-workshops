@@ -54,21 +54,26 @@ void setup() {
 void loop() {
   float input[NUMBER_OF_INPUTS];
 
-  for (int i=0; i<NUMBER_OF_INPUTS; i++) {
-    input[i] = random(-127, 127)/127.0;
-    Serial.print(input[i]);
-    Serial.print(",");
-  }
-  Serial.println("");
+  //for (int i=0; i<NUMBER_OF_INPUTS; i++) {
+  //  input[i] = random(-127, 127)/127.0;
+  //  Serial.print(input[i]);
+  //  Serial.print(",");
+  //}
+  //Serial.println("");
 
-  if (Bluetooth.available()) {
-    int incoming = Bluetooth.read();
-    Serial.printf("Received (Bluetooth): %d\n", incoming);
+  int i=0;
+  while (Bluetooth.available() && i<NUMBER_OF_INPUTS) {
+    int byte = Bluetooth.read();
+    Serial.printf("Received (Bluetooth): %#x\n", byte);
+    input[i++] = (byte-127)/127.0;
   }
 
-  Serial.println("predicting...");
-  float predicted = Model.predict(input);
-  Serial.print("predicted: ");
-  Serial.println(predicted);
-  delay(1000);
+  if (i==NUMBER_OF_INPUTS) {
+    Serial.println("predicting...");
+    float predicted = Model.predict(input);
+    Serial.print("predicted: ");
+    Serial.println(predicted);
+  }
+
+  delay(250);
 }

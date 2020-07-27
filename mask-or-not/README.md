@@ -65,13 +65,18 @@ The training and conversion process is covered in the Colab notebook linked belo
 
    b. Git clone https://github.com/eloquentarduino/EloquentTinyML into the `Documents/Arduino/libraries` folder. This should create a subfolder called `Documents/Arduino/libraries/EloquentTinyML`
 
-   This is what the folder structure should look like:
+   c. Clone the latest Arduino-ESP32 library from Espressif master, to enable the BluetoothSerial data callback. Instructions are [here](https://github.com/espressif/arduino-esp32).
    ```
-   > ls -ah ~/Documents/Arduino/libraries
-       .		..		EloquentTinyML	mask_or_not	readme.txt
+    mkdir -p ~/Documents/Arduino/hardware/espressif && \
+    cd ~/Documents/Arduino/hardware/espressif && \
+    git clone https://github.com/espressif/arduino-esp32.git esp32 && \
+    cd esp32 && \
+    git submodule update --init --recursive && \
+    cd tools && \
+    python get.py 
    ```
   
-3. Start Arduino IDE
+3. Start Arduino IDE. Go to Boards Manager, select `ESP32 Arduino (in sketchbook)`. This will reference the updated libraries.
 4. Open the sketch file: [run_model_cnn.ino](run_model_cnn.ino).
 5. Connect an ESP32 to USB, select the COM port to connect to it
 6. Upload the sketch to the ESP32
