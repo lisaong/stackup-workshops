@@ -1,4 +1,5 @@
 __pycache__/
+.DS_Store
 .ipynb_checkpoints/
 *.db
 *.db-shm
@@ -27,4 +28,3 @@ obj/
 
 macs.txt
 mask-or-not/data/*/*.jpg
-mask-or-not/mlp.h5
