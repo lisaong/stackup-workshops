@@ -11,9 +11,15 @@ ESP32 is a popular platform for IoT projects, and comes in many variants. I used
 
 ## Model Architecture
 
-This uses a Depthwise Separable Convolutional Neural Network classifier to output a binary "mask" or "no mask" prediction. Images are downsampled to 10x10 pixels.
+This uses a [Depthwise Separable Convolutional](https://towardsdatascience.com/a-basic-introduction-to-separable-convolutions-b99ec3102728) Neural Network classifier to output a binary "mask" or "no mask" prediction. Images are downsampled to 10x10 pixels.
 
-A Depthwise Separable Convolutional Layer cuts down the amount of Multiply-Add operations, compared to a Convolutional Layer, at the expense of fewer weights (lower model complexity, more tendency to underfit).
+A Depthwise Separable Convolutional Layer cuts down the amount of Multiply-Add operations, compared to a Convolutional Layer, at the expense of lower complexity.
+
+|Counts|Standard Convolution|Depthwise Separable Convolution|
+|--|--|--|
+|# Multiply-Adds|kernel_size x output_size x depth x channels + depth|(kernel_size x output_size + depth) x channels + depth + channels|
+|# Weights|(kernel_size x depth x channels) + depth|(kernel_size + depth + 1) x channels + depth|
+|Summary|More accurate, higher memory and execution overhead|Less accurate, but lower memory and execution overhead|
 
 ![arch](separable_cnn.png)
 
@@ -44,7 +50,26 @@ weighted avg       0.60      0.60      0.60         5
 
 The code to run this model on the ESP32 is [run_model_cnn.ino](run_model_cnn.ino).
 
-However, it is much better than an MLP, which requires dimensionality reduction to 7 dimensions (using PCA) before it can reliably run on the ESP32 (See [run_model_pca_mlp.ino](run_model_pca_mlp.ino)):
+### Comparison to MLP
+Even though the Depthwise CNN is underfitting, it is better in terms of accuracy and F1-score than an MLP. An MLP requires dimensionality reduction to 7 dimensions (using PCA) before it can reliably run on the ESP32 (See [run_model_pca_mlp.ino](run_model_pca_mlp.ino)).
+
+We are faced with 2 constraints on the ESP32 when applying an MLP:
+- Data size of PCA coefficients: 400 x 7
+- Constructing an MLP of sufficient complexity
+
+Metrics on Train and Test Data (MLP):
+```
+              precision    recall  f1-score   support
+
+           0       0.70      0.70      0.70        10
+           1       0.70      0.70      0.70        10
+
+    accuracy                           0.70        20
+   macro avg       0.70      0.70      0.70        20
+weighted avg       0.70      0.70      0.70        20
+```
+
+Metrics on Test Data (MLP)
 ```
               precision    recall  f1-score   support
 
@@ -55,7 +80,7 @@ However, it is much better than an MLP, which requires dimensionality reduction 
    macro avg       0.25      0.33      0.29         5
 weighted avg       0.30      0.40      0.34         5
 ```
-The training and conversion process is covered in the Colab notebook linked below.
+The training and quantization process is covered in this [Colab notebook](mask_or_not.ipynb).
 
 ## Instructions (MacOS or Linux)
 
@@ -118,7 +143,7 @@ This project also features continuous integration of the Jupyter notebook:
 2. During continuous integration, this [Github workflow](../.github/workflows/maskornot.yml) will execute the Jupyter notebook in a Docker container. This trains the models and saves their weights, preprocessors, and data.
 3. The workflow will run this [integration test](ci_test.py) to load the model weights, preprocessors, and data to get predictions and metrics.
 
-Example the schema used to organise the artifacts:
+Example schema used to organise the model artifacts:
 ```
 ci_artifacts = {
     'inputs' : {
@@ -151,7 +176,7 @@ ci_artifacts = {
         'scaler' : scaler,
         'preprocessors' : [
           'scaler',
-          'pca'                 
+          'pca'
         ],
         'h5' : 'mlp.h5'
     },
