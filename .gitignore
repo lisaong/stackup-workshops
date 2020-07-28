@@ -1,12 +1,17 @@
 __pycache__/
+.DS_Store
 .ipynb_checkpoints/
+*.code-workspace
 *.db
 *.db-shm
 *.db-wal
 *.ell
+*.h5
+*.lnk
 *.pkl
 *.png
 *.pt
+*.tflite
 *.tgz
 *.zip
 *.trace
@@ -23,3 +28,4 @@ bin/
 obj/
 
 macs.txt
+mask-or-not/data/*/*.jpg

@@ -1,0 +1,35 @@
+name: Learn History CI
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+    - 'learn-history/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+    - 'learn-history/**'
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./learn-history
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Build the Model CI/CD Docker image
+      run: docker build . --file Dockerfile --tag learn-history:latest
+    - name: Create artifacts volume
+      run: mkdir -p "$GITHUB_WORKSPACE/artifacts"
+    - name: Run tests
+      run: docker run -v "$GITHUB_WORKSPACE/artifacts":/artifacts learn-history:latest
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: artifacts
+        path: artifacts

@@ -1,0 +1,35 @@
+name: Text Similarity CI
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+    - 'text-similarity/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+    - 'text-similarity/**'
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./text-similarity
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Build the Model CI/CD Docker image
+      run: docker build . --file Dockerfile --tag text-similarity:latest
+    - name: Create artifacts volume
+      run: mkdir -p "$GITHUB_WORKSPACE/artifacts"
+    - name: Run tests
+      run: docker run -v "$GITHUB_WORKSPACE/artifacts":/artifacts text-similarity:latest
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: artifacts
+        path: artifacts

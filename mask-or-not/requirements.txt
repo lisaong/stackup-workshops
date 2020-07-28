@@ -1,0 +1,10 @@
+numpy
+matplotlib
+pandas
+scikit-learn
+seaborn
+tensorflow<2.3
+opencv-python-headless
+micromlgen
+tinymlgen
+pyserial
