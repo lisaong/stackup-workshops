@@ -2,7 +2,7 @@
 
 [![Mask or Not CI](https://github.com/lisaong/stackup-workshops/workflows/Mask%20or%20Not%20CI/badge.svg)](https://github.com/lisaong/stackup-workshops/actions?query=workflow%3A%22Mask+or+Not+CI%22)
 
-![title](mask_no_mask.jpg)
+![title](assets/mask_no_mask.jpg)
 
 ## Introduction
 This workshop demonstrates how to train an image classifier using Tensorflow-Keras, convert it to Tensorflow Lite, and how to port it using EloquentTinyML to run on an ESP32 platform.
@@ -24,7 +24,7 @@ A Depthwise Separable Convolutional Layer cuts down the amount of Multiply-Add o
 |# Weights|(kernel_size x depth x channels) + depth|(kernel_size + depth + 1) x channels + depth|
 |Summary|More accurate, higher memory and execution overhead|Less accurate, but lower memory and execution overhead|
 
-![arch](separable_cnn.png)
+![arch](assets/separable_cnn.png)
 
 Metrics on Train and Test Data:
 ```
@@ -107,7 +107,19 @@ Note: At this time, Windows 10 does not support connecting to the Bluetooth Seri
     python get.py 
    ```
    
-   d. [Optional] Connect a 7 segment display, such as one from [Seed Studio](https://wiki.seeedstudio.com/Grove-4-Digit_Display/) or [Sgbotic](https://www.sgbotic.com/index.php?dispatch=products.view&product_id=2488), and install the corresponding Arduino library.
+   d. [Optional] Connect a TM1637 4-digit display, such as one from [Seed Studio](https://wiki.seeedstudio.com/Grove-4-Digit_Display/) or [Sgbotic](https://www.sgbotic.com/index.php?dispatch=products.view&product_id=2488), and install the corresponding Arduino library.
+
+   Example pinout:
+   |TM1637|ESP32|
+   |--|--|
+   |5V or 3.3V|5V or 3.3V|
+   |GND|GND|
+   |DIO|GPIO 23|
+   |CLK|GPIO 22|
+
+   ![front view](assets/wiring1.png)
+
+   ![back view](assets/wiring2.png)
 
 3. Start Arduino IDE. Go to Boards Manager, select `ESP32 Arduino (in sketchbook)`. This will reference the updated libraries.
 4. Open the sketch file: [run_model_cnn.ino](run_model_cnn.ino).
