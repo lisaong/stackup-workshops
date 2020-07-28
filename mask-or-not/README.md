@@ -106,7 +106,9 @@ Note: At this time, Windows 10 does not support connecting to the Bluetooth Seri
     cd tools && \
     python get.py 
    ```
-  
+   
+   d. [Optional] Connect a 7 segment display, such as one from [Seed Studio](https://wiki.seeedstudio.com/Grove-4-Digit_Display/) or [Sgbotic](https://www.sgbotic.com/index.php?dispatch=products.view&product_id=2488), and install the corresponding Arduino library.
+
 3. Start Arduino IDE. Go to Boards Manager, select `ESP32 Arduino (in sketchbook)`. This will reference the updated libraries.
 4. Open the sketch file: [run_model_cnn.ino](run_model_cnn.ino).
 5. Connect an ESP32 to USB, select the COM port to connect to it.
