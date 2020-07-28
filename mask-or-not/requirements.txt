@@ -3,7 +3,7 @@ matplotlib
 pandas
 scikit-learn
 seaborn
-tensorflow
+tensorflow<2.3
 opencv-python-headless
 micromlgen
 tinymlgen
