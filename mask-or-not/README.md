@@ -117,8 +117,8 @@ Note: At this time, Windows 10 does not support connecting to the Bluetooth Seri
    |DIO|GPIO 23|
    |CLK|GPIO 22|
 
-   <img src='assets/wiring1.png' alt='front view' width='50%'/>
-   <img src='assets/wiring2.png' alt='back view' width='50%'/>
+   ![wiring1](assets/wiring1.png)
+   ![wiring2](assets/wiring2.png)
 
 3. Start Arduino IDE. Go to Boards Manager, select `ESP32 Arduino (in sketchbook)`. This will reference the updated libraries.
 4. Open the sketch file: [run_model_cnn.ino](run_model_cnn.ino).
