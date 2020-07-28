@@ -72,7 +72,7 @@ Metrics on Train and Test Data (MLP):
 weighted avg       0.70      0.70      0.70        20
 ```
 
-Metrics on Test Data (MLP)
+Metrics on Test Data (MLP):
 ```
               precision    recall  f1-score   support
 
@@ -90,11 +90,11 @@ The training and quantization process is covered in this [Colab notebook](mask_o
 Note: At this time, Windows 10 does not support connecting to the Bluetooth Serial Virtual COM port. These instructions have been verified on MacOS, and should also work for Linux.
 
 1. Install the latest Ardiuno IDE. You will also need an ESP32 board, and [configure Arduino IDE to program an ESP32](https://embedgyan.wordpress.com/2020/06/22/installing-the-esp32-board-in-arduino-ide-windows-mac-os-x-linux/).
-2. Go to `Documents\Arduino\libraries`
+2. Go to `Documents\Arduino\libraries`.
 
    a. Create a subfolder `mask_or_not`, copy [models/10/cnn_10.h](models/10/cnn_10.h) to it. Just copy the file, don't copy the models folder or subfolders (else Arduino IDE cannot find the file during compilation).
 
-   b. Git clone https://github.com/eloquentarduino/EloquentTinyML into the `Documents/Arduino/libraries` folder. This should create a subfolder called `Documents/Arduino/libraries/EloquentTinyML`
+   b. Git clone https://github.com/eloquentarduino/EloquentTinyML into the `Documents/Arduino/libraries` folder. This should create a subfolder called `Documents/Arduino/libraries/EloquentTinyML`.
 
    c. Clone the latest Arduino-ESP32 library from Espressif master, to enable the BluetoothSerial data callback. Instructions are [here](https://github.com/espressif/arduino-esp32).
    ```
@@ -109,9 +109,9 @@ Note: At this time, Windows 10 does not support connecting to the Bluetooth Seri
   
 3. Start Arduino IDE. Go to Boards Manager, select `ESP32 Arduino (in sketchbook)`. This will reference the updated libraries.
 4. Open the sketch file: [run_model_cnn.ino](run_model_cnn.ino).
-5. Connect an ESP32 to USB, select the COM port to connect to it
-6. Upload the sketch to the ESP32
-7. Once upload is complete, open Serial Monitor to monitor serial output
+5. Connect an ESP32 to USB, select the COM port to connect to it.
+6. Upload the sketch to the ESP32.
+7. Once upload is complete, open Serial Monitor to monitor serial output.
   
    a. If you observe `nan`, reset the ESP32 to see if `AllocateTensors` has failed. If so, you may need to increase `TENSOR_ARENA_SIZE`.
 
@@ -120,9 +120,9 @@ Note: At this time, Windows 10 does not support connecting to the Bluetooth Seri
    c. If you get a linker error (dangerous relocation), the input dimensions are too big. Try a smaller image dimension (`OUTPUT_SIZE` in the Colab Notebook).
 8. Pair with the ESP32 device over Bluetooth.
 9. Check the serial port connection using `ls /dev/cu*`. Update `send_image.py` to use the connection string (set in `PORT`) if different.
-10. Run the python script to send a test image to the device, after installing the pyserial dependency.
+10. Run the python script to send a test image to the device, after installing dependencies.
     ```
-    pip install pyserial
+    pip install -r requirements.txt
     python send_image.py
     ```
 
