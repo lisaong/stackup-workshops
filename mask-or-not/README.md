@@ -107,7 +107,7 @@ Note: At this time, Windows 10 does not support connecting to the Bluetooth Seri
     python get.py 
    ```
    
-   d. [Optional] Connect a TM1637 4-digit display, such as one from [Seed Studio](https://wiki.seeedstudio.com/Grove-4-Digit_Display/) or [Sgbotic](https://www.sgbotic.com/index.php?dispatch=products.view&product_id=2488), and install the corresponding Arduino library.
+   d. [Optional] Connect a TM1637 4-digit display, such as one from [Seed Studio](https://wiki.seeedstudio.com/Grove-4-Digit_Display/) or [SgBotic](https://www.sgbotic.com/index.php?dispatch=products.view&product_id=2488), and install the corresponding Arduino library.
 
    Example pinout:
    |TM1637|ESP32|
@@ -117,9 +117,8 @@ Note: At this time, Windows 10 does not support connecting to the Bluetooth Seri
    |DIO|GPIO 23|
    |CLK|GPIO 22|
 
-   ![front view](assets/wiring1.png)
-
-   ![back view](assets/wiring2.png)
+   <img src='assets/wiring1.png' alt='front view' width='50%'/>
+   <img src='assets/wiring2.png' alt='back view' width='50%'/>
 
 3. Start Arduino IDE. Go to Boards Manager, select `ESP32 Arduino (in sketchbook)`. This will reference the updated libraries.
 4. Open the sketch file: [run_model_cnn.ino](run_model_cnn.ino).
