@@ -31,24 +31,24 @@ Metrics on Train and Test Data:
 Testing TFLite Model
               precision    recall  f1-score   support
 
-           0       0.90      0.90      0.90        10
-           1       0.90      0.90      0.90        10
+           0       0.73      1.00      0.85        11
+           1       1.00      0.64      0.78        11
 
-    accuracy                           0.90        20
-   macro avg       0.90      0.90      0.90        20
-weighted avg       0.90      0.90      0.90        20
+    accuracy                           0.82        22
+   macro avg       0.87      0.82      0.81        22
+weighted avg       0.87      0.82      0.81        22
 ```
 
 Metrics on Test Data alone shows that this model will need to be further tuned:
 ```
               precision    recall  f1-score   support
 
-           0       0.67      0.67      0.67         3
-           1       0.50      0.50      0.50         2
+           0       0.50      1.00      0.67         3
+           1       0.00      0.00      0.00         3
 
-    accuracy                           0.60         5
-   macro avg       0.58      0.58      0.58         5
-weighted avg       0.60      0.60      0.60         5
+    accuracy                           0.50         6
+   macro avg       0.25      0.50      0.33         6
+weighted avg       0.25      0.50      0.33         6
 ```
 
 The code to run this model on the ESP32 is [run_model_cnn.ino](run_model_cnn.ino).
@@ -64,12 +64,12 @@ Metrics on Train and Test Data (MLP):
 ```
               precision    recall  f1-score   support
 
-           0       0.70      0.70      0.70        10
-           1       0.70      0.70      0.70        10
+           0       0.80      0.73      0.76        11
+           1       0.75      0.82      0.78        11
 
-    accuracy                           0.70        20
-   macro avg       0.70      0.70      0.70        20
-weighted avg       0.70      0.70      0.70        20
+    accuracy                           0.77        22
+   macro avg       0.78      0.77      0.77        22
+weighted avg       0.78      0.77      0.77        22
 ```
 
 Metrics on Test Data (MLP):
