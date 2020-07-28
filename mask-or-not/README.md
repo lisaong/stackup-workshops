@@ -76,12 +76,12 @@ Metrics on Test Data (MLP):
 ```
               precision    recall  f1-score   support
 
-           0       0.50      0.67      0.57         3
-           1       0.00      0.00      0.00         2
+           0       0.67      0.67      0.67         3
+           1       0.67      0.67      0.67         3
 
-    accuracy                           0.40         5
-   macro avg       0.25      0.33      0.29         5
-weighted avg       0.30      0.40      0.34         5
+    accuracy                           0.67         6
+   macro avg       0.67      0.67      0.67         6
+weighted avg       0.67      0.67      0.67         6
 ```
 The training and quantization process is covered in this [Colab notebook](mask_or_not.ipynb).
 
