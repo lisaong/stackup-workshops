@@ -54,6 +54,7 @@ if not video_capture:
 ret, frame = video_capture.read()
 cv2.imshow('Captured face', frame)
 cv2.waitKey(0)
+cv2.imwrite('frame.png', frame)
 
 video_capture.release()
 cv2.destroyAllWindows()
@@ -83,3 +84,4 @@ with serial.Serial(port=PORT, baudrate=9600) as ser:
     ser.write(bytes(data))
 
 # %%
+
