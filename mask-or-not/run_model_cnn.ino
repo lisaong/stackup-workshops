@@ -83,7 +83,7 @@ void setupDisplay() {
 
 void displayPrediction(float prediction) {
 
-  float value = prediction;  
+  float value = prediction;
   Tm1637.display(0, (int8_t)value, POINT_ON);
   
   value = (value-(int8_t)value)*10;
