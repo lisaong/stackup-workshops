@@ -133,26 +133,36 @@ Note: At this time, Windows 10 does not support connecting to the Bluetooth Seri
    c. If you get a linker error (dangerous relocation), the input dimensions are too big. Try a smaller image dimension (`OUTPUT_SIZE` in the Colab Notebook).
 8. Pair with the ESP32 device over Bluetooth.
 9. Check the serial port connection using `ls /dev/cu*`. Update `send_image.py` to use the connection string (set in `PORT`) if different.
-10. Run the python script to send a test image to the device, after installing dependencies.
+10. Run the python script to capture webcam image and send to the device, after installing dependencies.
     ```
     pip install -r requirements.txt
     python send_image.py
     ```
 
-Sample output from Serial Monitor (using a 10x10 test image sent over Bluetooth SPP):
+Example output from Serial Monitor when NOT wearing a mask:
 ```
-[V][BluetoothSerial.cpp:275] esp_spp_cb(): ESP_SPP_DATA_IND_EVT len=100 handle=385
-onDataCallback(0x3ffe3900, 100)53,60,168,182,180,161,60,30,197,211,12,119,178,204,192,187,173,131,203,211,74,175,165,200,193,187,172,177,204,211,147,174,111,52,116,180,97,141,213,211,141,178,89,157,175,184,157,175,210,211,139,176,187,173,176,185,160,192,214,211,126,167,170,186,144,167,176,177,195,212,113,162,161,182,169,175,160,165,219,212,154,146,163,159,157,165,149,160,213,213,219,114,150,168,186,180,184,153,219,215,
-predicting...
-prediction: 0.61
-[I][BluetoothSerial.cpp:247] esp_spp_cb(): ESP_SPP_CLOSE_EVT
 [I][BluetoothSerial.cpp:235] esp_spp_cb(): ESP_SPP_SRV_OPEN_EVT
 Client Connected
 [V][BluetoothSerial.cpp:275] esp_spp_cb(): ESP_SPP_DATA_IND_EVT len=100 handle=129
-onDataCallback(0x3ffe3a0c, 100)53,60,168,182,180,161,60,30,197,211,12,119,178,204,192,187,173,131,203,211,74,175,165,200,193,187,172,177,204,211,147,174,111,52,116,180,97,141,213,211,141,178,89,157,175,184,157,175,210,211,139,176,187,173,176,185,160,192,214,211,126,167,170,186,144,167,176,177,195,212,113,162,161,182,169,175,160,165,219,212,154,146,163,159,157,165,149,160,213,213,219,114,150,168,186,180,184,153,219,215,
+onDataCallback(0x3ffe3a84, 100)157,50,54,111,108,79,42,22,44,74,175,44,162,125,116,113,86,25,27,70,45,159,131,101,112,75,64,71,23,32,33,198,125,48,34,87,31,59,28,30,27,20,108,81,111,40,108,115,75,20,23,133,139,112,135,110,141,142,95,17,24,16,175,124,152,131,130,127,54,23,42,24,194,150,63,70,75,109,10,72,37,153,122,138,120,114,117,117,45,67,40,197,140,117,123,104,108,104,70,79,
 predicting...
-prediction: 0.61
+prediction: 0.76
+[I][BluetoothSerial.cpp:247] esp_spp_cb(): ESP_SPP_CLOSE_EVT
 ```
+
+Example output from Serial Monitor when wearing a mask:
+```
+[I][BluetoothSerial.cpp:235] esp_spp_cb(): ESP_SPP_SRV_OPEN_EVT
+Client Connected
+[V][BluetoothSerial.cpp:275] esp_spp_cb(): ESP_SPP_DATA_IND_EVT len=100 handle=385
+onDataCallback(0x3ffe3454, 100)156,152,27,94,88,63,22,20,53,58,157,31,138,106,99,90,53,21,24,117,153,15,155,73,79,57,39,32,17,69,124,37,77,21,37,51,55,58,11,16,52,9,108,176,233,185,175,181,44,11,37,14,244,212,231,191,188,185,150,11,73,18,243,185,207,184,187,185,201,14,58,77,83,211,212,173,196,195,26,64,52,191,192,203,197,177,179,81,59,53,109,192,159,144,139,125,84,94,52,61,
+predicting...
+prediction: 0.03
+[I][BluetoothSerial.cpp:247] esp_spp_cb(): ESP_SPP_CLOSE_EVT
+```
+![device output](assets/device_output.jpg)
+
+The scores are high for "no mask" and low for "mask" because this was how the labels were encoded (mask=0, no_mask=1). You can always flip this by subtracting the score from 1.0 to get the probability that the person is wearing a mask.
 
 ## Continuous Integration
 This project also features continuous integration of the Jupyter notebook:
