@@ -31,24 +31,24 @@ Metrics on Train and Test Data:
 Testing TFLite Model
               precision    recall  f1-score   support
 
-           0       0.73      1.00      0.85        11
-           1       1.00      0.64      0.78        11
+           0       1.00      0.91      0.95        11
+           1       0.92      1.00      0.96        11
 
-    accuracy                           0.82        22
-   macro avg       0.87      0.82      0.81        22
-weighted avg       0.87      0.82      0.81        22
+    accuracy                           0.95        22
+   macro avg       0.96      0.95      0.95        22
+weighted avg       0.96      0.95      0.95        22
 ```
 
-Metrics on Test Data alone shows that this model will need to be further tuned:
+Metrics on Test Data:
 ```
               precision    recall  f1-score   support
 
-           0       0.50      1.00      0.67         3
-           1       0.00      0.00      0.00         3
+           0       0.75      1.00      0.86         3
+           1       1.00      0.67      0.80         3
 
-    accuracy                           0.50         6
-   macro avg       0.25      0.50      0.33         6
-weighted avg       0.25      0.50      0.33         6
+    accuracy                           0.83         6
+   macro avg       0.88      0.83      0.83         6
+weighted avg       0.88      0.83      0.83         6
 ```
 
 The code to run this model on the ESP32 is [run_model_cnn.ino](run_model_cnn.ino).
@@ -60,19 +60,19 @@ We are faced with 2 constraints on the ESP32 when applying an MLP:
 - Data size of PCA coefficients: 400 x 7
 - Constructing an MLP of sufficient complexity
 
-Metrics on Train and Test Data (MLP):
+Metrics on Train and Test Data (PCA + MLP):
 ```
-              precision    recall  f1-score   support
+               precision    recall  f1-score   support
 
-           0       0.80      0.73      0.76        11
-           1       0.75      0.82      0.78        11
+           0       0.73      0.73      0.73        11
+           1       0.73      0.73      0.73        11
 
-    accuracy                           0.77        22
-   macro avg       0.78      0.77      0.77        22
-weighted avg       0.78      0.77      0.77        22
+    accuracy                           0.73        22
+   macro avg       0.73      0.73      0.73        22
+weighted avg       0.73      0.73      0.73        22
 ```
 
-Metrics on Test Data (MLP):
+Metrics on Test Data (PCA + MLP):
 ```
               precision    recall  f1-score   support
 
