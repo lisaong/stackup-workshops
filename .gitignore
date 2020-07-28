@@ -1,6 +1,7 @@
 __pycache__/
 .DS_Store
 .ipynb_checkpoints/
+*.code-workspace
 *.db
 *.db-shm
 *.db-wal
