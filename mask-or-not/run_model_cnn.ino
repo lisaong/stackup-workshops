@@ -1,4 +1,6 @@
 #include <BluetoothSerial.h>
+
+#include "TM1637.h"
 #include "EloquentTinyML.h"
 
 // Schema: model_name_{input_size}.h
@@ -12,10 +14,16 @@
 #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
 #endif
 
+// pins definitions for TM1637 display
+#define CLK 22
+#define DIO 23
+
 // Globals
 BluetoothSerial Bluetooth;
 Eloquent::TinyML::TfLite<NUMBER_OF_INPUTS, NUMBER_OF_OUTPUTS, TENSOR_ARENA_SIZE> Model;
 float ImageData[NUMBER_OF_INPUTS];
+
+TM1637 Tm1637(CLK, DIO);
 
 void logMemory() {
   // https://thingpulse.com/esp32-how-to-use-psram/
@@ -24,7 +32,7 @@ void logMemory() {
   log_d("Free heap: %d", ESP.getFreeHeap());
 }
 
-void callback(esp_spp_cb_event_t event, esp_spp_cb_param_t *param){
+void bthConnectionCallback(esp_spp_cb_event_t event, esp_spp_cb_param_t *param){
   if (event == ESP_SPP_SRV_OPEN_EVT){
     Serial.println("Client Connected");
   }
@@ -34,7 +42,7 @@ void callback(esp_spp_cb_event_t event, esp_spp_cb_param_t *param){
   }
 }
 
-void onDataCallback(const uint8_t *buffer, size_t size) {
+void bthDataCallback(const uint8_t *buffer, size_t size) {
   Serial.printf("onDataCallback(%p, %d)", buffer, size);
   if (size == NUMBER_OF_INPUTS) {
     for (size_t i=0; i<size; i++) {
@@ -47,7 +55,45 @@ void onDataCallback(const uint8_t *buffer, size_t size) {
     Serial.println("\npredicting...");
     float prediction = Model.predict(ImageData);
     Serial.printf("prediction: %.2f\n", prediction);
+
+    displayPrediction(prediction);
   }
+}
+
+void setupBluetooth() {
+  Bluetooth.register_callback(bthConnectionCallback);
+
+  // For this to compile, you need the latest version of esp32-arduino
+  // refer to README.md
+  Bluetooth.onData(bthDataCallback);
+
+  if (!Bluetooth.begin("ESP32 Bluetooth")) {
+    Serial.println("Could not start bluetooth");
+  } else {
+    Serial.println("Bluetooth started");
+  }
+}
+
+void setupDisplay() {
+  Tm1637.init();
+
+  // BRIGHT_TYPICAL = 2, BRIGHT_DARKEST = 0, BRIGHTEST = 7;
+  Tm1637.set(BRIGHT_TYPICAL);
+}
+
+void displayPrediction(float prediction) {
+
+  float value = prediction;
+  Tm1637.display(0, (int8_t)value, POINT_ON);
+  
+  value = (value-(int8_t)value)*10;
+  Tm1637.display(1, (int8_t)value, POINT_OFF);
+  
+  value = (value-(int8_t)value)*10;
+  Tm1637.display(2, (int8_t)value, POINT_OFF);
+
+  value = (value-(int8_t)value)*10;
+  Tm1637.display(3, (int8_t)value, POINT_OFF);
 }
 
 void setup() {
@@ -55,17 +101,8 @@ void setup() {
 
   Serial.begin(115200);
 
-  Bluetooth.register_callback(callback);
-
-  // For this to compile, you need the latest version of esp32-arduino
-  // refer to README.md
-  Bluetooth.onData(onDataCallback);
-
-  if (!Bluetooth.begin("ESP32 Bluetooth")) {
-    Serial.println("Could not start bluetooth");
-  } else {
-    Serial.println("Bluetooth started");
-  }
+  setupDisplay();
+  setupBluetooth();
 
   Model.begin((unsigned char*)model_data);
 
