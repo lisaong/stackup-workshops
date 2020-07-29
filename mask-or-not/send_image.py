@@ -52,9 +52,18 @@ if not video_capture:
   exit(-1)
 
 ret, frame = video_capture.read()
-cv2.imshow('Captured face', frame)
+h, w, c = frame.shape
+
+# adjust this to your webcam's image dimensions and your face position
+h_margin=h//10
+w_margin=w//6
+
+frame_cropped = frame[h_margin:-h_margin, w_margin:-w_margin]
+cv2.imshow("cropped", frame_cropped)
+
+cv2.imshow('Captured face', frame_cropped)
 cv2.waitKey(0)
-cv2.imwrite('frame.png', frame)
+cv2.imwrite('frame.png', frame_cropped)
 
 video_capture.release()
 cv2.destroyAllWindows()
