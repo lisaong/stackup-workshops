@@ -164,6 +164,8 @@ prediction: 0.03
 
 The scores are high for "no mask" and low for "mask" because this was how the labels were encoded (mask=0, no_mask=1). You can always flip this by subtracting the score from 1.0 to get the probability that the person is wearing a mask.
 
+[<img src="https://img.youtube.com/vi/qbHmqtYEvQY/maxresdefault.jpg" width="75%">](https://youtu.be/qbHmqtYEvQY)
+
 ## Continuous Integration
 This project also features continuous integration of the Jupyter notebook:
 1. The Jupyter notebook is setup to serialise the model specs in ci_artifacts.pkl. Model specs include inputs, target, pre-processors, and pointers to the saved weights.
