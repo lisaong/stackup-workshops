@@ -9,8 +9,8 @@ This workshop demonstrates how to train an image classifier using Tensorflow-Ker
 
 ESP32 is a popular platform for IoT projects because it supports Bluetooth Classic, Bluetooth LE, WiFi, and can be programmed using the Arduino IDE. ESP32 comes in many variants. I used DevKitC V4, which includes 4MB flash.
 
-## Colab Notebook
-View the [Colab Notebook](mask_or_not.ipynb).
+## Colab Notebook and Demo
+View the [Colab Notebook](mask_or_not.ipynb) | [Demo Video](https://youtu.be/qbHmqtYEvQY)
 
 ## Model Architecture
 
@@ -163,8 +163,6 @@ prediction: 0.03
 ![device output](assets/device_output.jpg)
 
 The scores are high for "no mask" and low for "mask" because this was how the labels were encoded (mask=0, no_mask=1). You can always flip this by subtracting the score from 1.0 to get the probability that the person is wearing a mask.
-
-[<img src="https://img.youtube.com/vi/qbHmqtYEvQY/maxresdefault.jpg" width="75%">](https://youtu.be/qbHmqtYEvQY)
 
 ## Continuous Integration
 This project also features continuous integration of the Jupyter notebook:
