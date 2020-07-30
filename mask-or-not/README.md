@@ -121,7 +121,10 @@ Note: At this time, Windows 10 does not support connecting to the Bluetooth Seri
    ![wiring2](assets/wiring2.png)
 
 3. Start Arduino IDE. Go to Boards Manager, select `ESP32 Arduino (in sketchbook)`. This will reference the updated libraries.
-4. Open the sketch file: [run_model_cnn.ino](run_model_cnn.ino).
+4. Open the sketch file: [run_model_cnn.ino](run_model_cnn.ino). 
+    
+   a. If you did not connect the TM1637 4 digit display, you will need to comment out the lines in the sketch file that call `setupDisplay()`, and `displayPrediction(prediction)` to skip using of the display. You can still monitor the prediction result from Serial Monitor.
+   
 5. Connect an ESP32 to USB, select the COM port to connect to it.
 6. Upload the sketch to the ESP32.
 7. Once upload is complete, open Serial Monitor to monitor serial output.
