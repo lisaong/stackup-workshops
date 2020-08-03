@@ -10,7 +10,9 @@ This workshop demonstrates how to train an image classifier using Tensorflow-Ker
 ESP32 is a popular platform for IoT projects because it supports Bluetooth Classic, Bluetooth LE, WiFi, and can be programmed using the Arduino IDE. ESP32 comes in many variants. I used DevKitC V4, which includes 4MB flash.
 
 ## Colab Notebook and Demo
-View the [Colab Notebook](mask_or_not.ipynb) | [Demo Video](https://youtu.be/KLLNR2A1AvY)
+<a href="https://colab.research.google.com/github/lisaong/stackup-workshops/blob/master/mask-or-not/mask_or_not.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
+[Demo Video](https://youtu.be/KLLNR2A1AvY)
 
 ## Model Architecture
 
