@@ -2,13 +2,11 @@
     using Bluetooth Serial Port Profile
 """
 
-#%%
 import serial
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 
-#%%
 face_cascade = cv2.CascadeClassifier(f'{cv2.data.haarcascades}haarcascade_frontalface_default.xml')
 eye_cascade = cv2.CascadeClassifier(f'{cv2.data.haarcascades}haarcascade_eye.xml')
 
@@ -40,7 +38,6 @@ def crop_face(img, output_size=(10, 10)):
   face = cv2.resize(face, output_size)
   return face
 
-#%%
 # capture face using webcam
 input('Press Enter to Capture')
 
@@ -68,15 +65,13 @@ cv2.imwrite('frame.png', frame_cropped)
 video_capture.release()
 cv2.destroyAllWindows()
 
-#%%
 data = crop_face(frame)
 plt.imshow(data, cmap='gray')
 plt.title('Pre-processed face')
 plt.show()
 
-#%%
 # sample data if camera capture is not working
-test_data_no_mask = np.array([176,  37,  61, 112, 111,  92,  33,  29,  26,  76,  48,  24, 115,
+# test_data_no_mask = np.array([176,  37,  61, 112, 111,  92,  33,  29,  26,  76,  48,  24, 115,
        119, 115, 116,  81,  26,  23,  32,  51,  34, 103, 104, 108,  87,
         49,  60,  19,  30,  75,  57, 106,  58,  47,  80,  56,  31,  24,
         26,  27,  49,  90,  66,  91,  54,  82,  95,  62,  16,  15, 187,
@@ -85,7 +80,7 @@ test_data_no_mask = np.array([176,  37,  61, 112, 111,  92,  33,  29,  26,  76, 
         54,  22,  93,  30, 171, 115, 119,  94,  84, 100,  50,  27, 193,
        177, 205, 142, 133, 105, 108,  99,  57,  48], dtype=np.uint8)
 
-test_data_mask = np.array([166,  41,  28, 106,  98,  93,  40,  21,  28,  63, 164,  37, 119,
+# test_data_mask = np.array([166,  41,  28, 106,  98,  93,  40,  21,  28,  63, 164,  37, 119,
        125, 101, 100,  89,  18,  20, 203, 125,  13, 141,  48,  66,  55,
         48,  59,  23,  28,  50,  27,  56,  42,  83,  53,  53,  63,  28,
         18,  64,  21, 164, 169, 241, 189, 181, 185, 189,  16,  19, 107,
@@ -97,12 +92,10 @@ test_data_mask = np.array([166,  41,  28, 106,  98,  93,  40,  21,  28,  63, 164
 # set this for testing to override camera image
 # data = test_data_no_mask
 
-#%%
 # found by ls /dev/cu*
 PORT = "/dev/cu.ESP32Bluetooth-ESP32SPP"
 
 with serial.Serial(port=PORT, baudrate=9600) as ser:
     ser.write(bytes(data))
 
-# %%
 
