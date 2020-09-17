@@ -12,7 +12,7 @@ ESP32 is a popular platform for IoT projects because it supports Bluetooth Class
 ## Colab Notebook, Demo, and Slides
 <a href="https://colab.research.google.com/github/lisaong/stackup-workshops/blob/master/mask-or-not/mask_or_not.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-[Demo Video](https://youtu.be/KLLNR2A1AvY) | [Slides](EmbeddedML_LearningFest2020.pdf)
+[Demo Video](https://youtu.be/KLLNR2A1AvY) | [Slides](EmbeddedML_LearningFest2020.pdf) | [Talk @ NUS ISS Learning Fest 2020](https://youtu.be/VJ_2LVbQu9Q)
 
 ## Model Architecture
 
