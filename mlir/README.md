@@ -18,6 +18,9 @@ cmake --build . --target check-mlir
 
 ```
 
+The docker container will be launched with 6GB of memory. This can be changed to the default 2GB. To check memory usage:
+`docker ps -q | xargs  docker stats --no-stream`
+
 Tutorial: https://mlir.llvm.org/docs/Tutorials/Toy/Ch-1/
 
 Dockerfile: https://github.com/onnx/onnx-mlir
